@@ -1,0 +1,90 @@
+@import "../../../styles/variable.scss";
+@import "../../../styles/mixins.scss";
+
+.serverBlockItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 10px 13px;
+  background: $text-secondary;
+  border: 1px solid rgba($neon-primary, 0.1);
+  border-radius: $border-radius-neon;
+  transition: $transition-fast;
+  cursor: pointer;
+  box-shadow: inset 0 -1px 0 rgba($neon-primary, 0.2);
+  width: 100%;
+
+  &:hover {
+    background: rgba($neon-warning, 0.6);
+    border-color: rgba($neon-warning, 0.3);
+    box-shadow: inset 0 -1px 0 rgba($neon-warning, 0.3),
+      0 0 8px rgba($neon-warning, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  // Блок 1-2: Информация о сервере
+  .serverInfo {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 0.2rem;
+
+    .nameRow {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .statusBadge {
+        background: linear-gradient(135deg, $neon-accent, $neon-warning);
+        color: $glitch-purple;
+        padding: 0.15rem 0.4rem;
+        border-radius: 8%;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .name {
+        @include name;
+      }
+    }
+
+    .addressRow {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      .countryFlag {
+        font-size: 17px;
+        line-height: 1;
+      }
+
+      .points {
+        font-size: 13px;
+        color: $neon-warning;
+      }
+
+      .address {
+        @include ipPort;
+      }
+    }
+  }
+
+  // Блок 6: Информация о карте
+  .mapInfo {
+    font-size: 12px;
+    width: 12%;
+    text-align: center;
+
+    .map {
+      @include map;
+    }
+  }
+}

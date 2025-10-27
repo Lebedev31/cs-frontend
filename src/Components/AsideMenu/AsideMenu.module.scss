@@ -1,0 +1,88 @@
+@import "../../styles/variable.scss";
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  color: $text-primary;
+  text-decoration: none;
+  font-family: $font-mono;
+  font-size: 18px;
+  border-radius: $border-radius-neon;
+  transition: $transition-fast;
+  position: relative;
+  cursor: pointer; // ← Добавлено: кликабельный элемент
+
+  // Лёгкое неоновое подчёркивание при наведении
+  &:hover {
+    color: $neon-primary;
+    background: rgba($neon-primary, 0.05);
+    box-shadow: inset 4px 0 0 $neon-primary;
+  }
+
+  // Активный элемент
+  &.active {
+    color: $neon-warning;
+    background: rgba($neon-warning, 0.08);
+    box-shadow: inset 4px 0 0 $neon-warning;
+    font-weight: 600;
+  }
+
+  // Состояние загрузки (при клике и запросе)
+  &.loading {
+    color: $neon-warning !important;
+    position: relative;
+    pointer-events: none; // Блокируем повторные клики
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: $neon-warning;
+      animation: loadingPulse 1s infinite;
+    }
+  }
+
+  // Эффект "нажатия" — лёгкое сжатие
+  &:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+// Анимация пульсации для индикатора загрузки
+@keyframes loadingPulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+// Опционально: лоадер-иконка внутри текста (уже используется в JSX)
+.loader {
+  animation: bounce 0.8s infinite alternate;
+  font-size: 0.9em;
+  margin-left: 6px;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}

@@ -1,0 +1,226 @@
+@import "../../../styles/variable.scss";
+@import "../../../styles/mixins.scss";
+.page {
+  @include page();
+  font-family: $font-neon, "Arial", sans-serif;
+  color: $text-primary;
+}
+
+.wrapper {
+  width: 92%;
+  max-width: 1200px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(0, 0, 0, 0.12)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $border-radius-neon;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), $glow-primary;
+}
+
+/* Заголовок */
+.title {
+  @include title();
+  margin-top: 0;
+}
+
+/* Обёртка таблицы */
+.tableWrapper {
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(5, 5, 8, 0.6);
+}
+
+/* Таблица — ровная, терминальная */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: $text-primary;
+  min-height: 420px;
+}
+
+/* Заголовок таблицы */
+.table thead {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+}
+
+.table thead th {
+  padding: 18px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: $text-primary;
+  letter-spacing: 0.4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.table thead th:last-child {
+  border-right: none;
+}
+
+/* Колонки: ширины как на макете */
+.colDate {
+  width: 18%;
+}
+.colDesc {
+  width: 52%;
+}
+.colAmount {
+  width: 16%;
+  text-align: right;
+}
+.colStatus {
+  width: 14%;
+  text-align: center;
+}
+
+/* Тело таблицы */
+.table tbody tr {
+  transition: $transition-fast;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.03);
+}
+
+/* Ячейки */
+.table td {
+  padding: 18px 20px;
+  vertical-align: middle;
+  color: $text-primary;
+  border-right: 1px solid rgba(255, 255, 255, 0.01);
+}
+
+.table td:last-child {
+  border-right: none;
+}
+
+/* Сумма: плюс/минус визуал */
+.amount {
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  font-weight: 700;
+  font-family: $font-mono;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.amountPlus {
+  color: $neon-success;
+  text-shadow: $glow-success;
+}
+
+.amountMinus {
+  color: $neon-danger;
+  text-shadow: $glow-danger;
+}
+
+/* Статус */
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: $text-header;
+}
+
+.statusSuccess {
+  background: rgba($neon-success, 0.12);
+  color: $neon-success;
+  box-shadow: $glow-success;
+  border: 1px solid rgba(57, 255, 20, 0.12);
+}
+
+.statusPending {
+  background: rgba($neon-warning, 0.12);
+  color: $neon-warning;
+  box-shadow: $glow-warning;
+  border: 1px solid rgba(255, 234, 0, 0.12);
+}
+
+.statusFailed {
+  background: rgba($neon-danger, 0.08);
+  color: $neon-danger;
+  box-shadow: $glow-danger;
+  border: 1px solid rgba(255, 0, 60, 0.12);
+}
+
+/* Мелкие стили для адаптива */
+@media (max-width: 900px) {
+  .colDesc {
+    width: 46%;
+  }
+  .colDate {
+    width: 22%;
+  }
+  .colAmount {
+    width: 18%;
+  }
+  .table thead th,
+  .table td {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+  .wrapper {
+    padding: 24px;
+  }
+  .title {
+    font-size: 28px;
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .table thead {
+    display: none;
+  }
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+  .table tr {
+    margin-bottom: 12px;
+    border-bottom: none;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px;
+  }
+  .table td {
+    padding: 8px 10px;
+    border-right: none;
+  }
+  .cellDate::before {
+    content: "Дата: ";
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .cellDesc::before {
+    content: "Описание: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+  .cellAmount::before {
+    content: "Сумма: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+  .cellStatus::before {
+    content: "Статус: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+}

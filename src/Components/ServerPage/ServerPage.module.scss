@@ -1,0 +1,332 @@
+@import "../../styles/variable.scss";
+@import "../../styles/mixins.scss";
+
+.server_page {
+  @include page();
+  position: relative;
+}
+
+.server_info {
+  display: flex;
+  gap: 30px;
+  width: 1200px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(0, 0, 0, 0.12)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: $border-radius-neon;
+  padding: 40px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), $glow-primary;
+}
+
+.aside {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map_card {
+  background: $bg-darker;
+  border: 2px solid $neon-accent;
+  border-radius: $border-radius-neon;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba($neon-primary, 0.3);
+}
+
+.map_title {
+  font-size: 16px;
+  color: $neon-primary;
+  text-align: center;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.map_image {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, $text-header, #1a1a3a);
+  border-radius: $border-radius-neon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  border: 1px solid $glitch-purple;
+  box-shadow: 0 0 15px rgba($glitch-purple, 0.2);
+  position: relative;
+}
+
+.players_card {
+  background: $bg-darker;
+  border: 2px solid $neon-accent;
+  border-radius: $border-radius-neon;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba($neon-primary, 0.3);
+  height: 425px;
+  overflow-x: hidden;
+  // Тонкий скроллбар только здесь
+  scrollbar-width: thin;
+  scrollbar-color: $neon-accent $bg-darker;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $neon-accent;
+    border-radius: 10px;
+
+    &:hover {
+      background: $neon-primary;
+    }
+  }
+}
+
+.players_title {
+  font-size: 18px;
+  color: $neon-primary;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-shadow: $glow-primary;
+}
+
+.players_table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    border-bottom: 2px solid $glitch-purple;
+
+    th {
+      color: $neon-warning;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 5px;
+      text-align: center;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid rgba($neon-accent, 0.2);
+      transition: $transition-fast;
+
+      &:hover {
+        background: rgba($neon-primary, 0.05);
+      }
+
+      td {
+        color: $text-primary;
+        font-size: 14px;
+        padding: 12px 5px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.main_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.server_header {
+  background: $bg-darker;
+  border: 2px solid $neon-secondary;
+  border-radius: $border-radius-neon;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba($neon-secondary, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.server_title {
+  font-size: 24px;
+  color: $text-primary;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: $glow-primary;
+  text-align: left;
+  gap: 15px;
+}
+
+.server_address {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: center;
+  height: 30px;
+  gap: 15px;
+}
+
+.address_label {
+  font-size: 16px;
+  color: $neon-accent;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.address_value {
+  font-size: 16px;
+  color: $glitch-purple;
+  font-weight: 600;
+}
+
+.countryFlag {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.server_info_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.info_item {
+  display: flex;
+  gap: 5px;
+  height: 30px;
+  align-items: center;
+}
+
+.info_label {
+  font-size: 16px;
+  color: $neon-accent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info_value {
+  font-size: 16px;
+  color: $text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.online {
+    color: $neon-success;
+  }
+
+  &.offline {
+    color: $neon-danger;
+  }
+}
+
+.player_count {
+  font-size: 18px;
+  color: $neon-success;
+  font-weight: 700;
+}
+
+.owner_section {
+  background: $bg-darker;
+  border: 2px solid $glitch-purple;
+  border-radius: $border-radius-neon;
+  padding: 25px;
+  box-shadow: 0 0 15px rgba($glitch-purple, 0.3);
+}
+
+.owner_title {
+  font-size: 16px;
+  color: $glitch-purple;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.owner_info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.owner_nick {
+  font-size: 18px;
+  color: $text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.owner_link {
+  color: $neon-primary;
+  text-decoration: none;
+  font-size: 14px;
+  transition: $transition-fast;
+  cursor: pointer;
+
+  &:hover {
+    color: $neon-warning;
+    text-shadow: $glow-warning;
+  }
+}
+
+.owner_actions {
+  margin-top: 10px;
+  color: $text-primary;
+  font-size: 14px;
+}
+
+.rating_section {
+  background: $bg-darker;
+  border: 2px solid $neon-warning;
+  border-radius: $border-radius-neon;
+  padding: 25px;
+  box-shadow: 0 0 10px rgba($neon-warning, 0.3);
+  text-align: center;
+  height: 240px;
+}
+
+.rating_title {
+  font-size: 16px;
+  color: $neon-warning;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.rating_value {
+  font-size: 36px;
+  color: $neon-success;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba($neon-success, 0.6);
+}
+
+.rating_img {
+  display: flex;
+  justify-content: center;
+  img {
+    cursor: pointer;
+  }
+}
+
+.statusBadge {
+  background: linear-gradient(135deg, $neon-accent, $neon-warning);
+  color: $glitch-purple;
+  padding: 10px 10px;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  width: 350px;
+  margin: 20px auto;
+}

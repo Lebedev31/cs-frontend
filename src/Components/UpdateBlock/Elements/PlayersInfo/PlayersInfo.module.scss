@@ -1,0 +1,20 @@
+@import "../../../../styles/variable.scss";
+// Блок 5: Информация об игроках
+.playersInfo {
+  display: flex;
+  width: 50px;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  text-align: center;
+
+  .playersIcon {
+    color: $neon-accent;
+  }
+
+  .players {
+    color: $neon-accent;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,309 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/variable.scss";
+
+.container {
+  min-height: 100vh;
+  background: $gradient-cyber-terminal;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  @include title();
+  font-size: 48px;
+  margin-bottom: 80px;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+}
+
+.servicesGrid {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.serviceCard {
+  background: rgba($bg-darker, 0.9);
+  border: 3px solid;
+  border-radius: $border-radius-neon;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: $transition-glow;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+// Цветные обводки для каждой услуги
+.gold {
+  border-color: $cs-yellow;
+  box-shadow: 0 0 15px rgba($cs-yellow, 0.4);
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($cs-yellow, 0.6), 0 0 40px rgba($cs-yellow, 0.4);
+  }
+
+  .serviceTitle {
+    color: $cs-yellow;
+    text-shadow: 0 0 10px rgba($cs-yellow, 0.8);
+  }
+}
+
+.blue {
+  border-color: $cs-blue-team;
+  box-shadow: 0 0 15px rgba($cs-blue-team, 0.4);
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($cs-blue-team, 0.6),
+      0 0 40px rgba($cs-blue-team, 0.4);
+  }
+
+  .serviceTitle {
+    color: $cs-blue-team;
+    text-shadow: 0 0 10px rgba($cs-blue-team, 0.8);
+  }
+}
+
+.red {
+  border-color: $cs-red-team;
+  box-shadow: 0 0 15px rgba($cs-red-team, 0.4);
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($cs-red-team, 0.6),
+      0 0 40px rgba($cs-red-team, 0.4);
+  }
+
+  .serviceTitle {
+    color: $cs-red-team;
+    text-shadow: 0 0 10px rgba($cs-red-team, 0.8);
+  }
+}
+
+.green {
+  border-color: $neon-success;
+  box-shadow: 0 0 15px rgba($neon-success, 0.4);
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($neon-success, 0.6),
+      0 0 40px rgba($neon-success, 0.4);
+  }
+
+  .serviceTitle {
+    color: $neon-success;
+    text-shadow: 0 0 10px rgba($neon-success, 0.8);
+  }
+}
+
+.serviceContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.serviceTitle {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+.serviceDescription {
+  font-size: 18px;
+  color: $text-primary;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.priceSection {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.servicePayment {
+  @include button(60px, 18px, 10px 20px);
+  width: 100%;
+  max-width: 400px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    font-size: 16px;
+    height: 55px;
+  }
+}
+
+// Цветные варианты кнопок "Заказать услугу"
+.btnGold {
+  background: linear-gradient(45deg, darken($cs-yellow, 10%), $cs-yellow);
+
+  &::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($cs-yellow, 0.5),
+      transparent
+    );
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($cs-yellow, 0.8), 0 0 40px rgba($cs-yellow, 0.5);
+  }
+}
+
+.btnBlue {
+  background: linear-gradient(45deg, darken($cs-blue-team, 10%), $cs-blue-team);
+
+  &::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($cs-blue-team, 0.5),
+      transparent
+    );
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($cs-blue-team, 0.8),
+      0 0 40px rgba($cs-blue-team, 0.5);
+  }
+}
+
+.btnRed {
+  background: linear-gradient(45deg, darken($cs-red-team, 10%), $cs-red-team);
+
+  &::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($cs-red-team, 0.5),
+      transparent
+    );
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($cs-red-team, 0.8),
+      0 0 40px rgba($cs-red-team, 0.5);
+  }
+}
+
+.btnGreen {
+  background: linear-gradient(45deg, darken($neon-success, 10%), $neon-success);
+
+  &::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($neon-success, 0.5),
+      transparent
+    );
+  }
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($neon-success, 0.8),
+      0 0 40px rgba($neon-success, 0.5);
+  }
+}
+
+.questionBtn {
+  width: 45px;
+  height: 45px;
+  align-self: flex-end;
+  border: none;
+  border-radius: 50%;
+  color: $text-primary;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: $transition-glow;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    align-self: center;
+    width: 100%;
+    max-width: 200px;
+    border-radius: $border-radius-neon;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+// Цветные варианты кнопок "?"
+.btnQuestionGold {
+  background: $cs-yellow;
+  box-shadow: 0 0 10px rgba($cs-yellow, 0.6);
+
+  &:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 0 20px rgba($cs-yellow, 0.9), 0 0 40px rgba($cs-yellow, 0.6);
+    background: lighten($cs-yellow, 10%);
+  }
+}
+
+.btnQuestionBlue {
+  background: $cs-blue-team;
+  box-shadow: 0 0 10px rgba($cs-blue-team, 0.6);
+
+  &:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 0 20px rgba($cs-blue-team, 0.9),
+      0 0 40px rgba($cs-blue-team, 0.6);
+    background: lighten($cs-blue-team, 10%);
+  }
+}
+
+.btnQuestionRed {
+  background: $cs-red-team;
+  box-shadow: 0 0 10px rgba($cs-red-team, 0.6);
+
+  &:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 0 20px rgba($cs-red-team, 0.9),
+      0 0 40px rgba($cs-red-team, 0.6);
+    background: lighten($cs-red-team, 10%);
+  }
+}
+
+.btnQuestionGreen {
+  background: $neon-success;
+  box-shadow: 0 0 10px rgba($neon-success, 0.6);
+
+  &:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 0 0 20px rgba($neon-success, 0.9),
+      0 0 40px rgba($neon-success, 0.6);
+    background: lighten($neon-success, 10%);
+  }
+}

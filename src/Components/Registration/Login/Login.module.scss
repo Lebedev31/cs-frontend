@@ -1,0 +1,219 @@
+@import "../../../styles/variable.scss";
+@import "../../../styles/mixins.scss";
+
+.pageContainer {
+  @include page;
+}
+
+.loginForm {
+  padding: 30px 80px;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: $gradient-neon-rainbow;
+    border-radius: $border-radius-neon;
+    z-index: -1;
+    opacity: 0.3;
+  }
+}
+
+.title {
+  @include title;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input {
+  @include input;
+}
+
+.forgotPassword {
+  color: $neon-accent;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: right;
+  margin-top: -15px;
+  transition: $transition-fast;
+  font-weight: 500;
+
+  &:hover {
+    color: $neon-primary;
+    text-shadow: $glow-primary;
+    text-decoration: underline;
+  }
+}
+
+.disclaimer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba($neon-primary, 0.3);
+  color: rgba($text-primary, 0.7);
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  font-family: $font-neon;
+  position: relative;
+  cursor: pointer;
+}
+
+.loginButton {
+  @include button;
+}
+
+.createAccount {
+  color: $neon-secondary;
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+  transition: $transition-fast;
+  font-weight: 500;
+  margin-top: 10px;
+  text-transform: uppercase;
+
+  &:hover {
+    color: $neon-primary;
+    text-shadow: $glow-primary;
+    text-decoration: underline;
+  }
+}
+
+.divider {
+  height: 2px;
+  background: $gradient-neon-rainbow;
+  margin: 40px 0;
+  box-shadow: $glow-primary;
+  border-radius: 1px;
+  position: relative;
+  text-align: left;
+
+  &::after {
+    content: "ИЛИ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $bg-darker;
+    color: $neon-primary;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+}
+
+.socialLogin {
+  display: flex;
+  gap: 20px;
+}
+
+.socialButton {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  padding: 18px 24px;
+  border: 2px solid $neon-accent;
+  border-radius: 8px;
+  background: $bg-dark;
+  color: $text-primary;
+  font-size: 18px;
+  cursor: pointer;
+  transition: $transition-glow;
+  font-family: $font-neon;
+  font-weight: 500;
+  height: 65px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($neon-accent, 0.2),
+      transparent
+    );
+    transition: left 0.6s;
+  }
+
+  &:hover {
+    border-color: $neon-primary;
+    box-shadow: $glow-primary;
+    transform: translateY(-2px);
+    background: rgba($neon-primary, 0.05);
+
+    &::before {
+      left: 100%;
+    }
+  }
+}
+
+.buttonNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  color: $bg-dark;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 16px;
+  flex-shrink: 0;
+  box-shadow: $glow-secondary;
+  background-color: white;
+}
+
+.error {
+  @include error;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 10px;
+  }
+
+  .loginForm {
+    padding: 40px 30px;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  .input {
+    padding: 16px 20px;
+    font-size: 16px;
+    height: 50px;
+  }
+
+  .loginButton {
+    padding: 16px;
+    font-size: 18px;
+    height: 60px;
+  }
+
+  .socialButton {
+    padding: 14px 20px;
+    font-size: 16px;
+    height: 55px;
+    text-transform: uppercase;
+  }
+}

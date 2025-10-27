@@ -1,0 +1,111 @@
+@import "../../../styles/mixins.scss";
+@import "../../../styles/variable.scss";
+
+.myServers {
+  background: $gradient-cyber-terminal;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.title {
+  @include title();
+}
+
+.button_block {
+  display: flex;
+  height: 70px;
+  justify-content: end;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.addServer {
+  @include button(60px 18px 15px);
+  width: 350px;
+}
+
+.servers_block {
+  position: relative;
+  background: rgba($bg-darker, 0.6);
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px solid $neon-primary;
+  box-shadow: $glow-primary, inset 0 0 40px rgba($neon-primary, 0.1),
+    0 0 60px rgba($neon-primary, 0.3);
+}
+
+.tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.tab {
+  flex: 1;
+  padding: 16px 24px;
+  background: rgba($bg-dark, 0.8);
+  border: 2px solid rgba($neon-accent, 0.3);
+  border-radius: 8px;
+  color: $text-primary;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: $transition-glow;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: $neon-accent;
+    box-shadow: 0 0 15px rgba($neon-accent, 0.5);
+    transform: translateY(-2px);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &_active {
+    background: linear-gradient(
+      135deg,
+      rgba($neon-primary, 0.2),
+      rgba($neon-accent, 0.2)
+    );
+    border-color: $neon-primary;
+    box-shadow: $glow-primary, inset 0 0 20px rgba($neon-primary, 0.2);
+    color: $neon-primary;
+    text-shadow: 0 0 10px rgba($neon-primary, 0.8);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: $gradient-button-glow;
+      box-shadow: 0 0 10px $neon-primary;
+    }
+
+    &:hover {
+      transform: translateY(0);
+    }
+  }
+}
+
+.servers_content {
+  position: relative;
+  z-index: 1;
+  min-height: 200px;
+}
+
+.not_server {
+  text-align: center;
+  width: 400px;
+  font-size: 22px;
+  color: $neon-primary;
+  margin: 50px auto;
+}

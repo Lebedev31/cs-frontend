@@ -1,0 +1,15 @@
+.updateBlock {
+  width: 100%;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 60px;
+  justify-content: space-between;
+
+  .updateBlock_union {
+    width: 60%;
+  }
+
+  .premium {
+    width: 35%;
+  }
+}

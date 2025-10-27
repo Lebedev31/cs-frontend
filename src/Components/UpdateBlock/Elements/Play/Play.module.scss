@@ -1,0 +1,29 @@
+@import "../../../../styles/variable.scss";
+
+// Блок 4: Кнопка играть
+.playButton {
+  background: linear-gradient(135deg, $neon-accent, $neon-warning);
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  color: $glitch-purple;
+  cursor: pointer;
+  transition: $transition-fast;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      lighten($neon-accent, 10%),
+      lighten($neon-warning, 10%)
+    );
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($neon-accent, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
