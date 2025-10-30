@@ -1,7 +1,8 @@
 "use client";
+import Link from "next/link";
 import styles from "./Premium.module.scss";
 
-type ServiceId = "vip" | "top" | "color" | "points";
+type ServiceId = "vip" | "top" | "color" | "balls";
 
 interface Service {
   id: ServiceId;
@@ -9,6 +10,7 @@ interface Service {
   title: string;
   description: string;
   colorClass: string;
+  link: string;
 }
 
 export default function Premium() {
@@ -19,6 +21,7 @@ export default function Premium() {
       title: "VIP",
       description: "Ваш сервер будет поднят в топ списка серверов",
       colorClass: "gold",
+      link: "/premium/servicePage/",
     },
     {
       id: "top",
@@ -26,6 +29,7 @@ export default function Premium() {
       title: "TOP",
       description: "Ваш сервер будет находится в отдельном списке TOP серверов",
       colorClass: "blue",
+      link: "/premium/servicePage/",
     },
     {
       id: "color",
@@ -33,14 +37,16 @@ export default function Premium() {
       title: "ЦВЕТ",
       description: "Ваш сервер будет окрашен в цвет, который вы выберете",
       colorClass: "red",
+      link: "/premium/servicePage/",
     },
     {
-      id: "points",
+      id: "balls",
       number: 4,
       title: "БАЛЛЫ",
       description:
         "При покупке Баллов, Ваш сервер поднимается выше в общем списке серверов",
       colorClass: "green",
+      link: "/premium/servicePage/",
     },
   ];
 
@@ -69,7 +75,8 @@ export default function Premium() {
                     ]
                   }`}
                 >
-                  Заказать услугу
+                  {" "}
+                  <Link href={service.link + service.id}>Заказать услугу</Link>
                 </button>
               </div>
             </div>

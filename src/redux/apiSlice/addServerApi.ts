@@ -30,6 +30,10 @@ export const addServerApi = createApi({
         body,
       }),
     }),
+
+    getServerIpPort: builder.query<MessageServer<string[]>, void>({
+      query: () => "sever-ip",
+    }),
   }),
 });
 
@@ -37,4 +41,5 @@ export const {
   useAddServerMutation,
   useGetMyServersQuery,
   useConfirmServerMutation,
+  useGetServerIpPortQuery,
 } = addServerApi;

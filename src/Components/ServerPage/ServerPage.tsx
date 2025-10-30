@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import "flag-icons/css/flag-icons.min.css";
 import CoppyButton from "../UpdateBlock/Elements/CopyButton/CoppyButton";
-import Link from "next/link";
 import CommentsBlock from "./CommentsBlock/CommentsBlock";
 import { useState, useEffect } from "react";
 import { useLazyGetServerByIdQuery } from "@/redux/apiSlice/csServerApi";
