@@ -18,6 +18,11 @@
   gap: 20px;
 }
 
+.error {
+  margin-top: 10px;
+  @include error();
+}
+
 .select {
   @include select();
 }

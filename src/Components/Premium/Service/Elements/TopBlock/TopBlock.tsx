@@ -1,5 +1,24 @@
+"use client";
 import styles from "./TopBlock.module.scss";
+import { useGetLimitTopServiceQuery } from "@/redux/apiSlice/paymentApi";
+import { useEffect } from "react";
 
-export default function TopBlock() {
-  return <div className={styles.top_block}></div>;
+export type TopBlockProps = {
+  selectTopLimit: (limit: number) => void;
+  topLimit: number;
+};
+
+export default function TopBlock({ selectTopLimit, topLimit }: TopBlockProps) {
+  const { data } = useGetLimitTopServiceQuery();
+
+  useEffect(() => {
+    if (data && data.data) {
+      selectTopLimit(data.data.limit);
+    }
+  }, [data, selectTopLimit]);
+  return (
+    <div className={styles.top_block}>
+      Осталось мест в топ-рейтинге: {topLimit ? topLimit : "Все места заняты"}
+    </div>
+  );
 }

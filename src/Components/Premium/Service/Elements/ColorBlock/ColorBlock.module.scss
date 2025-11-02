@@ -1,0 +1,69 @@
+/* ColorBlock.module.scss */
+
+// Импортируем переменные, как вы просили
+@import "../../../../../styles/variable.scss";
+
+.colorGrid {
+  // Устанавливаем контейнер как Grid
+  display: grid;
+
+  // Создаем 4 одинаковые колонки
+  grid-template-columns: repeat(4, 1fr);
+
+  // Задаем небольшой отступ между элементами
+  gap: 8px;
+
+  // Увеличиваем ширину контейнера
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ccc; // Опционально: для наглядности контейнера
+}
+
+.colorItem {
+  // Задаем высоту блока. Соотношение сторон теперь 2:1 (прямоугольник)
+  width: 100%;
+  padding-bottom: 50%; /* ИЗМЕНЕНО: 50% от ширины делает его прямоугольником 2:1 */
+  position: relative;
+
+  // Добавляем тень для блока, чтобы белые цвета были видны
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  // Задаем анимацию/переход при наведении (опционально)
+  transition: transform 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.03); // Немного уменьшил масштаб для прямоугольников
+    z-index: 10;
+  }
+}
+
+.hexCode {
+  // Размещаем текст по центру
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  // Стиль текста
+  font-size: 10px;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+}
+
+.hexCode {
+  // Размещаем текст по центру
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  // Стиль текста
+  font-size: 10px;
+  font-weight: bold;
+
+  // Делаем текст контрастным: белым, кроме белого фона, где он должен быть черным
+  color: #333; /* По умолчанию темный */
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.7); // Добавляем легкую тень, чтобы текст был виден на темных цветах
+}

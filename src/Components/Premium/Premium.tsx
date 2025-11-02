@@ -65,19 +65,21 @@ export default function Premium() {
               <p className={styles.serviceDescription}>{service.description}</p>
 
               <div className={styles.priceSection}>
-                <button
-                  className={`${styles.servicePayment} ${
-                    styles[
-                      `btn${
-                        service.colorClass.charAt(0).toUpperCase() +
-                        service.colorClass.slice(1)
-                      }`
-                    ]
-                  }`}
-                >
-                  {" "}
-                  <Link href={service.link + service.id}>Заказать услугу</Link>
-                </button>
+                <Link href={service.link + service.id}>
+                  <button
+                    className={`${styles.servicePayment} ${
+                      styles[
+                        `btn${
+                          service.colorClass.charAt(0).toUpperCase() +
+                          service.colorClass.slice(1)
+                        }`
+                      ]
+                    }`}
+                  >
+                    {" "}
+                    Заказать услугу
+                  </button>
+                </Link>
               </div>
             </div>
             <button

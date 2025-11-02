@@ -36,3 +36,23 @@
   margin-bottom: 10px;
   text-shadow: $neon-warning;
 }
+
+.item {
+  transition: all 0.3s ease;
+
+  &.active {
+    border: 2px solid #4caf50;
+    background-color: rgba(76, 175, 80, 0.1);
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.selectedInfo {
+  color: #4caf50;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}

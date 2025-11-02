@@ -1,0 +1,10 @@
+@import "../../../../../styles/mixins.scss";
+@import "../../../../../styles/variable.scss";
+
+.top_block {
+  width: 100%;
+  color: $neon-danger;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 10px;
+}

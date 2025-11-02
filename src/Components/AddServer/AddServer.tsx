@@ -6,7 +6,6 @@ import { AddServerSchema, AddServerType } from "@/types/addServerType";
 import { useAddServerMutation } from "@/redux/apiSlice/addServerApi";
 import { useState, useRef } from "react";
 import { toast } from "react-toastify";
-import CustomSelect from "../CustomSelect/CustomSelect";
 
 const GAMES = ["CS:GO", "CS2"];
 

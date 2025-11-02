@@ -56,6 +56,7 @@ export async function handleSubmit<T, Arg, ServerData>(
   if (!isValid) return;
 
   try {
+    console.log(arg);
     const result = await triger(arg).unwrap();
     sucssessCallback?.(result as MessageServer<ServerData>);
   } catch (error) {
