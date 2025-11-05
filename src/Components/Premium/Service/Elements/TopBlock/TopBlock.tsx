@@ -9,7 +9,7 @@ export type TopBlockProps = {
 };
 
 export default function TopBlock({ selectTopLimit, topLimit }: TopBlockProps) {
-  const { data } = useGetLimitTopServiceQuery();
+  const { data, isLoading } = useGetLimitTopServiceQuery();
 
   useEffect(() => {
     if (data && data.data) {
@@ -18,7 +18,8 @@ export default function TopBlock({ selectTopLimit, topLimit }: TopBlockProps) {
   }, [data, selectTopLimit]);
   return (
     <div className={styles.top_block}>
-      Осталось мест в топ-рейтинге: {topLimit ? topLimit : "Все места заняты"}
+      Осталось мест в топ-рейтинге:{" "}
+      {isLoading ? "Загрузка..." : topLimit ? topLimit : "Все места заняты"}
     </div>
   );
 }

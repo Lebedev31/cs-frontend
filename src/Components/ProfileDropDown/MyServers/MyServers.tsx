@@ -18,12 +18,15 @@ export default function MyServers() {
     if (!data?.data || !Array.isArray(originalServerList) || isLoading) {
       return [];
     }
+    console.log(originalServerList.map((item) => item?.owner));
     return originalServerList.filter((item) =>
       activeTab === "all"
         ? item.owner === data?.data?.owner
         : item.owner === data?.data?.owner && item.game === activeTab
     );
   }, [data, activeTab, originalServerList, isLoading]);
+
+  console.log(myServerList);
 
   return (
     <div className={styles.myServers}>

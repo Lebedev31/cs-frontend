@@ -16,7 +16,7 @@ export default function Comment({ comment }: CommentWrapperProps) {
       <div className={styles.avatar}>
         <img
           src={
-            infoUser.avatarUrl
+            infoUser?.avatarUrl
               ? `${apiImg}${infoUser.avatarUrl}`
               : "/вопрос.png"
           }

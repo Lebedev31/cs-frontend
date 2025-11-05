@@ -7,7 +7,8 @@ export default function CoppyButton({
   ip: string;
   port: string;
 }) {
-  const copyServerAddress = () => {
+  const copyServerAddress = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     navigator.clipboard.writeText(`${ip}:${port}`);
   };
 

@@ -1,4 +1,5 @@
 @import "./variable.scss";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 /* normalize.scss */
 
@@ -36,6 +37,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   background-color: $text-muted;
+  font-family: "Open Sans", sans-serif;
 }
 
 /* A elements that don't have a class get default styles */

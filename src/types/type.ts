@@ -2,7 +2,7 @@ import z from "zod";
 export interface GameServer {
   id: string; // ip:port
   ip: string;
-  port: number;
+  port: string;
   name: string;
   map: string;
   players: number;
@@ -23,6 +23,30 @@ export interface GameServer {
   createdAt: string;
   rating: number;
   website: string;
+  service: Service;
+}
+
+export interface Service {
+  vip: {
+    status: boolean;
+    term: Date;
+  };
+
+  top: {
+    status: boolean;
+    term: Date;
+  };
+
+  color: {
+    status: boolean;
+    colorName: string;
+    term: Date;
+  };
+
+  balls: {
+    status: boolean;
+    listService: { term: Date; quantity: number }[];
+  };
 }
 
 export interface MessageServer<T, M = unknown> {
@@ -183,4 +207,11 @@ export type Comment = {
   };
 
   _id: string;
+};
+
+export type FinHistory = {
+  date: string;
+  description: string;
+  amount: number;
+  status: "waiting_for_capture" | "succeeded" | "canceled" | "pending";
 };

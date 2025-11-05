@@ -5,14 +5,17 @@ import { mockData } from "@/lib/mock.fin";
 import Pagination from "@/Components/Pagination/Pagination";
 import { useState } from "react";
 import Home from "@/Components/Home/Home";
+import { useGetFinHistoryQuery } from "@/redux/apiSlice/paymentApi";
+import { getFormatData } from "@/lib/common";
 
-function formatAmount(amount: number, currency = "₽") {
+function formatAmount(amount: number) {
   const sign = amount > 0 ? "+" : amount < 0 ? "-" : "";
   const abs = Math.abs(amount).toLocaleString("ru-RU");
-  return `${sign}${abs} ${currency}`;
+  return `${sign}${abs} ₽`;
 }
 
 export default function FinHistory() {
+  const { data } = useGetFinHistoryQuery();
   // 1. Состояние для текущей страницы
   const [currentPage, setCurrentPage] = useState(1);
   // 2. Количество серверов на одной странице
@@ -21,7 +24,10 @@ export default function FinHistory() {
   // 3. Вычисляем индексы для обрезки массива
   const indexOfLastServer = currentPage * serversPerPage;
   const indexOfFirstServer = indexOfLastServer - serversPerPage;
-  const currentServers = mockData.slice(indexOfFirstServer, indexOfLastServer);
+  const currentServers =
+    data && data.data
+      ? data.data.slice(indexOfFirstServer, indexOfLastServer)
+      : [];
   // 4. Функция для смены страницы, которую передадим в Pagination
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -42,10 +48,22 @@ export default function FinHistory() {
             </thead>
 
             <tbody>
-              {currentServers.map((row) => (
-                <tr key={row.id} className={styles.row}>
-                  <td className={styles.cellDate}>{row.date}</td>
-                  <td className={styles.cellDesc}>{row.description}</td>
+              {currentServers.map((row, index) => (
+                <tr key={index} className={styles.row}>
+                  <td className={styles.cellDate}>
+                    {
+                      <span>
+                        {getFormatData(row.date || "").formattedDate +
+                          " " +
+                          getFormatData(row.date || "").formattedTime}
+                      </span>
+                    }
+                  </td>
+                  <td className={styles.cellDesc}>
+                    {row.description !== "Пополнение баланса"
+                      ? `Покупка услуги ${row.description}`
+                      : row.description}
+                  </td>
                   <td className={styles.cellAmount}>
                     <span
                       className={`${styles.amount} ${
@@ -56,20 +74,21 @@ export default function FinHistory() {
                           : ""
                       }`}
                     >
-                      {formatAmount(row.amount, row.currency)}
+                      {formatAmount(row.amount)}
                     </span>
                   </td>
                   <td className={styles.cellStatus}>
                     <span
                       className={`${styles.status} ${
-                        row.status === "completed"
+                        row.status === "succeeded"
                           ? styles.statusSuccess
-                          : row.status === "pending"
+                          : row.status === "pending" ||
+                            row.status === "waiting_for_capture"
                           ? styles.statusPending
                           : styles.statusFailed
                       }`}
                     >
-                      {row.status === "completed"
+                      {row.status === "succeeded"
                         ? "Завершено"
                         : row.status === "pending"
                         ? "В обработке"

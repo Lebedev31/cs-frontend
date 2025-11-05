@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { MessageServer, Payment, RedirectYooCassa } from "@/types/type";
-import { ColorType, VipType } from "@/types/service.type";
+import {
+  FinHistory,
+  MessageServer,
+  Payment,
+  RedirectYooCassa,
+} from "@/types/type";
+import { ColorType, VipType, BallsType } from "@/types/service.type";
 import { apiUrl } from "../api.url";
 export const paymentApi = createApi({
   reducerPath: "paymentApi",
@@ -58,6 +63,19 @@ export const paymentApi = createApi({
       }),
       invalidatesTags: ["balance"],
     }),
+
+    updateServiceBalls: builder.mutation<MessageServer<void>, BallsType>({
+      query: (body) => ({
+        method: "PATCH",
+        url: "/service/balls",
+        body,
+      }),
+      invalidatesTags: ["balance"],
+    }),
+
+    getFinHistory: builder.query<MessageServer<FinHistory[]>, void>({
+      query: () => "/fin-history",
+    }),
   }),
 });
 export const {
@@ -67,4 +85,6 @@ export const {
   useGetLimitTopServiceQuery,
   useUpdateServiceTopMutation,
   useUpdateServiceColorMutation,
+  useUpdateServiceBallsMutation,
+  useGetFinHistoryQuery,
 } = paymentApi;

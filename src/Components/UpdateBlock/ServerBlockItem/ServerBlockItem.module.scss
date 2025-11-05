@@ -8,7 +8,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 10px 13px;
-  background: $text-secondary;
+  // background: $text-secondary;
   border: 1px solid rgba($neon-primary, 0.1);
   border-radius: $border-radius-neon;
   transition: $transition-fast;
@@ -24,7 +24,7 @@
   }
 
   &:active {
-    transform: scale(0.99);
+    transform: scale(0.98);
   }
 
   // Блок 1-2: Информация о сервере
@@ -43,11 +43,13 @@
         background: linear-gradient(135deg, $neon-accent, $neon-warning);
         color: $glitch-purple;
         padding: 0.15rem 0.4rem;
-        border-radius: 8%;
-        font-size: 12px;
+        font-size: 18px;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        width: 100px;
+        border-radius: 3px;
+        text-align: center;
       }
 
       .name {
@@ -56,7 +58,7 @@
     }
 
     .addressRow {
-      width: 300px;
+      width: 450px;
       display: flex;
       align-items: center;
       gap: 7px;
@@ -64,11 +66,13 @@
       .countryFlag {
         font-size: 17px;
         line-height: 1;
+        width: 24px;
       }
 
       .points {
         font-size: 13px;
         color: $neon-warning;
+        width: 160px;
       }
 
       .address {
@@ -86,5 +90,16 @@
     .map {
       @include map;
     }
+  }
+}
+
+.image {
+  width: 70px;
+  height: 60px;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
   }
 }

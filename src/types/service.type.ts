@@ -36,14 +36,14 @@ export type VipType = {
 };
 
 export const standardHexColors = [
-  "#FF0000", // Красный
-  "#00FF00", // Зеленый
-  "#0000FF", // Синий
-  "#FFFF00", // Желтый
-  "#00FFFF", // Циан
-  "#FF00FF", // Маджента
-  "#FFFFFF", // Белый
-  "#f8a50bff", // Оранжевый
+  "#FF000033", // Красный (20% непрозрачности)
+  "#00FF0033", // Зеленый (20% непрозрачности)
+  "#0000FF33", // Синий (20% непрозрачности)
+  "#FFFF0033", // Желтый (20% непрозрачности)
+  "#00FFFF33", // Циан (20% непрозрачности)
+  "#FF00FF33", // Маджента (20% непрозрачности)
+  "#FFFFFF33", // Белый (20% непрозрачности)
+  "#f8a50b33", // Оранжевый (20% непрозрачности)
 ];
 
 export type ColorType = VipType & { color: string };
@@ -54,3 +54,21 @@ export const colorSchema = generalSchema.extend({
 });
 
 export type ColorValidation = VipValidationType & { color: HexColorLiteral };
+
+export const ballsArr = [
+  "50",
+  "100",
+  "200",
+  "500",
+  "1000",
+  "1500",
+  "2000",
+  "2500",
+];
+export type BallsLiteral = (typeof ballsArr)[number];
+
+export type BallsValidation = VipValidationType & { balls: BallsLiteral };
+export type BallsType = VipType & { balls: BallsLiteral };
+export const ballsSchema = generalSchema.extend({
+  balls: z.enum(ballsArr),
+});

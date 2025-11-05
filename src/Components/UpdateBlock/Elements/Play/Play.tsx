@@ -1,14 +1,20 @@
 import styles from "./Play.module.scss";
 
-export default function Play({
-  width,
-  height,
-}: {
+type PlayProps = {
   width: string;
   height: string;
-}) {
+  ip: string;
+  port: string;
+};
+
+export default function Play({ width, height, ip, port }: PlayProps) {
+  const playGame = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const play = `steam://connect/${ip}:${port}`;
+    window.location.href = play;
+  };
   return (
-    <button className={styles.playButton}>
+    <button className={styles.playButton} onClick={playGame}>
       <svg
         width={`${width}`}
         height={`${height}`}
