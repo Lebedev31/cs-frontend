@@ -1,5 +1,5 @@
-import AddServer from "@/Components/AddServer/AddServer";
+import WrapperAddServer from "@/Components/AddServer/WrapperAddServer";
 
 export default function AddServerPage() {
-  return <AddServer />;
+  return <WrapperAddServer />;
 }

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { setServers } from "@/redux/slice/main.slice";
+import { mods, map_names } from "@/lib/mode";
 
 export default function FilterServerBlock() {
   const originalServers = useSelector(
@@ -33,8 +34,10 @@ export default function FilterServerBlock() {
 
     // Фильтр по названию
     if (name.trim()) {
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(name.toLowerCase())
+      filtered = filtered.filter(
+        (item) =>
+          item.name.toLowerCase().includes(name.toLowerCase()) ||
+          item.id.includes(name.toLowerCase())
       );
     }
 
@@ -136,9 +139,13 @@ export default function FilterServerBlock() {
               onChange={changeMapFilter}
             >
               <option value="">Карта</option>
-              <option value="de_dust2">de_dust2</option>
-              <option value="de_inferno">de_inferno</option>
-              <option value="de_mirage">de_mirage</option>
+              {map_names.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
             </select>
 
             <select
@@ -147,17 +154,13 @@ export default function FilterServerBlock() {
               onChange={changeModeFilter}
             >
               <option value="">Режим</option>
-              <option value="Паблик">Паблик</option>
-              <option value="Тюрьма">Тюрьма</option>
-              <option value="AWP">AWP</option>
-              <option value="Deathmatch">Deathmatch</option>
-              <option value="Surf">Surf</option>
-              <option value="Zombie Mod">Zombie Mod</option>
-              <option value="Zombie Escape">Zombie Escape</option>
-              <option value="Murder">Murder</option>
-              <option value="HvH">HvH</option>
-              <option value="MatchMaking">MatchMaking</option>
-              <option value="Retake">Retake</option>
+              {mods.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>

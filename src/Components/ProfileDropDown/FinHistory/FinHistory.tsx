@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import styles from "./FinHistory.module.scss";
-import { mockData } from "@/lib/mock.fin";
 import Pagination from "@/Components/Pagination/Pagination";
 import { useState } from "react";
 import Home from "@/Components/Home/Home";

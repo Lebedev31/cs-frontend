@@ -1,16 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "./AddServer.module.scss";
 import { mods } from "@/lib/mode";
 import { handleSubmit } from "@/lib/common";
-import { AddServerSchema, AddServerType } from "@/types/addServerType";
-import { useAddServerMutation } from "@/redux/apiSlice/addServerApi";
+import { AddServerType, SettingSchemaType } from "@/types/addServerType";
 import { useState, useRef } from "react";
 import { toast } from "react-toastify";
 
 const GAMES = ["CS:GO", "CS2"];
 
-export default function AddServer() {
-  const [addServer] = useAddServerMutation();
+type MutationResult = {
+  unwrap: () => Promise<any>;
+};
+
+type AddServerProps = {
+  title: string;
+  trigger: () => void;
+  successMessage: string;
+  schema: any;
+  mutation: (arg: any) => MutationResult;
+  serverId?: string;
+};
+
+export default function AddServer({
+  title,
+  trigger,
+  successMessage,
+  schema,
+  mutation,
+  serverId,
+}: AddServerProps) {
   const ipRef = useRef<HTMLInputElement>(null);
   const gameRef = useRef<HTMLSelectElement>(null);
   const modRef = useRef<HTMLSelectElement>(null);
@@ -26,7 +45,60 @@ export default function AddServer() {
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    const formData: AddServerType = {
+    // --- Режим обновления (partial) ---
+    if (serverId) {
+      // берем значения из полей и тримим
+      const ipVal = ipRef.current?.value?.trim() ?? "";
+      const gameVal = gameRef.current?.value?.trim() ?? "";
+      const modVal = modRef.current?.value?.trim() ?? "";
+      const descVal = descriptionRef.current?.value?.trim() ?? "";
+      const webVal = websiteRef.current?.value?.trim() ?? "";
+      // Формируем объект только с непустыми полями + обязателен serverId
+      const updateData: SettingSchemaType & { serverId: string } = {
+        ...(ipVal !== "" ? { ipPort: ipVal } : {}),
+        ...(gameVal !== "" ? { game: gameVal } : {}),
+        ...(modVal !== "" ? { mod: modVal } : {}),
+        ...(descVal !== "" ? { description: descVal } : {}),
+        ...(webVal !== "" ? { website: webVal } : {}),
+        serverId,
+      };
+
+      console.log(updateData);
+
+      handleSubmit(
+        e,
+        (errors) => {
+          setValidationError({
+            errorIpPort: errors.ipPort || "",
+            errorGame: errors.game || "",
+            errorMod: errors.mod || "",
+            errorDescription: errors.description || "",
+            errorWebsite: errors.website || "",
+          });
+        },
+        mutation,
+        updateData,
+        schema,
+        updateData,
+        (data) => {
+          toast.success(data.message || successMessage);
+          // при обновлении обычно не очищают поля — но оставлю как было
+          if (ipRef.current) ipRef.current.value = "";
+          if (gameRef.current) gameRef.current.value = "";
+          if (modRef.current) modRef.current.value = "";
+          if (descriptionRef.current) descriptionRef.current.value = "";
+          if (websiteRef.current) websiteRef.current.value = "";
+          trigger();
+        }
+      );
+
+      return;
+    }
+
+    console.log(2);
+
+    // --- Режим добавления (full) ---
+    const addData: AddServerType = {
       ipPort: ipRef.current?.value || "",
       game: gameRef.current?.value || "",
       mod: modRef.current?.value || "",
@@ -45,10 +117,10 @@ export default function AddServer() {
           errorWebsite: errors.website || "",
         });
       },
-      addServer,
-      formData,
-      AddServerSchema,
-      formData,
+      mutation,
+      addData,
+      schema,
+      addData,
       (data) => {
         toast.success(data.message || "Сервер добавлен!");
         if (ipRef.current) ipRef.current.value = "";
@@ -63,7 +135,7 @@ export default function AddServer() {
   return (
     <div className={styles.addServer}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Добавить сервер</h1>
+        <h1 className={styles.title}>{title}</h1>
 
         <form className={styles.form} onSubmit={onSubmit}>
           <div className={styles.inputWrapper}>
@@ -130,7 +202,7 @@ export default function AddServer() {
           </div>
 
           <button type="submit" className={styles.button}>
-            Добавить сервер
+            {title}
           </button>
         </form>
       </div>

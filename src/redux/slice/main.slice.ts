@@ -10,6 +10,8 @@ interface InitialState {
     avatarUrl: string;
     login: string;
   };
+
+  serverId: undefined | string; /// костыль для топа
 }
 
 const initialState: InitialState = {
@@ -21,6 +23,7 @@ const initialState: InitialState = {
     avatarUrl: "",
     login: "",
   },
+  serverId: undefined,
 };
 
 export const mainSlice = createSlice({
@@ -50,6 +53,10 @@ export const mainSlice = createSlice({
       state.info.avatarUrl = action.payload.avatarUrl;
       state.info.login = action.payload.login;
     },
+
+    setServerId: (state, action: PayloadAction<string | undefined>) => {
+      state.serverId = action.payload;
+    },
   },
 });
 
@@ -59,4 +66,5 @@ export const {
   setOriginalServers,
   setGame,
   setInfo,
+  setServerId,
 } = mainSlice.actions;

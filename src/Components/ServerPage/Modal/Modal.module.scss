@@ -2,150 +2,30 @@
 @import "../../../styles/variable.scss";
 
 .modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(5, 5, 8, 0.85);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: $z-modal;
-  animation: fadeIn 0.5s ease-in-out;
+  @include modalOverlay();
 }
 
 .modal {
-  max-width: 700px;
-  width: 90%;
-  background: linear-gradient(135deg, $bg-darker 0%, #0a0a12 100%);
-  border: 2px solid $neon-warning;
-  border-radius: 12px;
-  padding: 40px;
-  position: relative;
-  box-shadow: 0 0 20px rgba($neon-warning, 0.4),
-    0 0 40px rgba($neon-warning, 0.2), 0 0 60px rgba($neon-warning, 0.1);
-  animation: modalAppear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: 12px;
-    padding: 2px;
-    background: linear-gradient(
-      45deg,
-      $neon-warning,
-      $cs-yellow,
-      $neon-warning
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5;
-    animation: borderGlow 3s ease-in-out infinite;
-  }
+  @include modal();
 }
 
 .closeButton {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 35px;
-  height: 35px;
-  background: transparent;
-  border: 2px solid $neon-warning;
-  border-radius: 50%;
-  color: $neon-warning;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: $neon-warning;
-    color: $bg-dark;
-    transform: rotate(90deg);
-    box-shadow: 0 0 15px rgba($neon-warning, 0.6);
-  }
+  @include closeButton();
 }
 
 .title {
-  font-size: 32px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 25px;
-  color: $text-primary;
-  text-shadow: 0 0 10px rgba($neon-warning, 0.6),
-    0 0 20px rgba($neon-warning, 0.4);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  @include titleModal();
 }
 
 .description {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba($text-primary, 0.85);
-  text-align: center;
-  margin-bottom: 35px;
-  padding: 0 10px;
+  @include descriptionModal();
 }
 
 .confirmButton {
-  width: 100%;
-  padding: 18px;
-  background: linear-gradient(45deg, $neon-warning, $cs-yellow) !important;
-  color: $bg-dark;
-  @include button;
-
-  &:hover {
-    box-shadow: 0 0 20px rgba($neon-warning, 0.7),
-      0 0 40px rgba($neon-warning, 0.5);
-    transform: translateY(-2px);
-
-    &::before {
-      left: 100%;
-    }
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  @include confirmModalButton();
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes modalAppear {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes borderGlow {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
+@include animationModal();
 
 // Адаптивность
 @media (max-width: 768px) {

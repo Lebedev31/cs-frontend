@@ -19,7 +19,7 @@ const ipPortSchema = z
     return validIp && validPort;
   }, "Неверный IP или порт");
 
-// Полная схема формы
+// Полная схема формы с опциональным serverId
 export const AddServerSchema = z.object({
   ipPort: ipPortSchema,
   game: z.string().min(1, "Выберите игру"),
@@ -29,6 +29,17 @@ export const AddServerSchema = z.object({
     .max(600, "Максимальный размер описания 600 символов")
     .optional(),
   website: z.string().url("Неверный URL").optional().or(z.literal("")),
+  serverId: z.string().optional(),
 });
 
 export type AddServerType = z.infer<typeof AddServerSchema>;
+
+// Схема для настроек: все поля опциональны, кроме serverId который обязателен
+export const SettingSchema = AddServerSchema.partial().required({
+  serverId: true,
+});
+
+export type SettingSchemaType = z.infer<typeof SettingSchema>;
+
+// Union type для formData
+export type ServerFormData = AddServerType | SettingSchemaType;

@@ -4,11 +4,14 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useGetMyServersQuery } from "@/redux/apiSlice/addServerApi";
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Game } from "@/types/type";
 import ServerBlockItem from "@/Components/UpdateBlock/ServerBlockItem/ServerBlockItem";
+import Modal from "./Modal/Modal";
 
 export default function MyServers() {
+  const [onClose, setOnClose] = useState<boolean>(false);
+  const [serverId, setServerId] = useState<string>("");
   const originalServerList = useSelector(
     (state: RootState) => state.main.originalServers
   );
@@ -18,7 +21,6 @@ export default function MyServers() {
     if (!data?.data || !Array.isArray(originalServerList) || isLoading) {
       return [];
     }
-    console.log(originalServerList.map((item) => item?.owner));
     return originalServerList.filter((item) =>
       activeTab === "all"
         ? item.owner === data?.data?.owner
@@ -26,10 +28,11 @@ export default function MyServers() {
     );
   }, [data, activeTab, originalServerList, isLoading]);
 
-  console.log(myServerList);
-
   return (
     <div className={styles.myServers}>
+      {onClose ? (
+        <Modal onClose={setOnClose} isOpen={onClose} serverId={serverId} />
+      ) : null}
       <h1 className={styles.title}>Ваши сервера</h1>
       <div className={styles.button_block}>
         <Link href="/addServer">
@@ -66,7 +69,11 @@ export default function MyServers() {
         <div className={styles.servers_content}>
           {myServerList.length > 0 ? (
             myServerList.map((item, index) => {
-              return <ServerBlockItem server={item} key={index} />;
+              return (
+                <div key={index} onClick={() => setServerId(item.id)}>
+                  <ServerBlockItem server={item} onClose={setOnClose} />
+                </div>
+              );
             })
           ) : (
             <p className={styles.not_server}>Нет добавленных серверов</p>

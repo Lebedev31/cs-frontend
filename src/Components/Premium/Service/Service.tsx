@@ -2,7 +2,10 @@
 import Link from "next/link";
 import styles from "./Service.module.scss";
 import { useGetServerIpPortQuery } from "@/redux/apiSlice/addServerApi";
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { setServerId } from "@/redux/slice/main.slice";
 
 type ServiceProps = {
   title: string;
@@ -35,10 +38,17 @@ export default function Service({
   const serverRef = useRef<HTMLSelectElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const offerRef = useRef<HTMLInputElement>(null);
+  const dispatch: AppDispatch = useDispatch();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(e, { serverRef, emailRef, offerRef });
+  };
+
+  // для получения serverId и использование для получения оставшихся мест в топе - костыль
+  const handleChange = () => {
+    const val = serverRef.current?.value;
+    if (val) dispatch(setServerId(val));
   };
 
   return (
@@ -47,7 +57,11 @@ export default function Service({
 
       <form className={styles.wrapper} onSubmit={handleFormSubmit}>
         <div className={styles.inputWrapper}>
-          <select ref={serverRef} className={styles.select}>
+          <select
+            ref={serverRef}
+            className={styles.select}
+            onChange={handleChange}
+          >
             <option value="">
               Выберете сервер (раскрыть список серверов пользователя)
             </option>

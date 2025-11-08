@@ -1,10 +1,7 @@
 "use client";
 
 import styles from "./AsideMenu.module.scss";
-import {
-  useLazyGetDataQuery,
-  useGetDataQuery,
-} from "@/redux/apiSlice/csServerApi";
+import { useGetDataQuery } from "@/redux/apiSlice/csServerApi";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import {
@@ -14,7 +11,7 @@ import {
 } from "@/redux/slice/main.slice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { AsideEndpointsUnion } from "@/types/type";
+import { AsideEndpointsUnion, GameServer } from "@/types/type";
 import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -42,35 +39,71 @@ const menuItems: MenuItem[] = [
     type: "link",
     href: "/premium",
   },
-  { key: "faq", label: "❓ Вопросы и ответы", type: "link", href: "/faq" },
+  {
+    key: "questions",
+    label: "❓ Вопросы и ответы",
+    type: "link",
+    href: "/questions",
+  },
 ];
 
 export default function AsideMenu() {
-  const [trigger, { isLoading, data: triggerData }] = useLazyGetDataQuery();
   const dispatch: AppDispatch = useDispatch();
   const endpoint = useSelector((state: RootState) => state.main.selectedServer);
   const pathname = usePathname();
-  const { data } = useGetDataQuery({ endpoint });
+  const { data, isLoading } = useGetDataQuery(
+    { endpoint },
+    {
+      pollingInterval: 50000,
+      skipPollingIfUnfocused: true,
+    }
+  );
 
+  const globalFilter = (servers: GameServer[]) => {
+    const vipFilter = servers
+      .filter((item) => item.service.vip.status)
+      .sort(
+        (a, b) =>
+          b.rating +
+          b.service.balls.listService.reduce(
+            (acc, item) => acc + item.quantity,
+            0
+          ) -
+          (a.rating +
+            a.service.balls.listService.reduce(
+              (acc, item) => acc + item.quantity,
+              0
+            ))
+      );
+
+    const notVipFilter = servers
+      .filter((item) => !item.service.vip.status)
+      .sort(
+        (a, b) =>
+          b.rating +
+          b.service.balls.listService.reduce(
+            (acc, item) => acc + item.quantity,
+            0
+          ) -
+          (a.rating +
+            a.service.balls.listService.reduce(
+              (acc, item) => acc + item.quantity,
+              0
+            ))
+      );
+
+    return vipFilter.concat(notVipFilter);
+  };
   useEffect(() => {
-    if (triggerData && triggerData.data) {
-      dispatch(setServers(triggerData.data));
-      dispatch(setOriginalServers(triggerData.data));
-    }
-
     if (data && data.data) {
-      dispatch(setServers(data.data));
-      dispatch(setOriginalServers(data.data));
+      const rating = globalFilter(data.data);
+      dispatch(setServers(rating));
+      dispatch(setOriginalServers(rating));
     }
-  }, [triggerData, data, dispatch]);
-
-  // Функция-обработчик клика для API запросов
+  }, [data, dispatch]);
   const handleApiClick = async (endpointName: AsideEndpointsUnion) => {
-    if (isLoading) return;
-
     try {
       dispatch(setSelectedServer(endpointName));
-      await trigger({ endpoint: endpointName }).unwrap();
     } catch (error) {
       console.error(
         `[API ERROR] Не удалось загрузить данные для "${endpointName}":`,

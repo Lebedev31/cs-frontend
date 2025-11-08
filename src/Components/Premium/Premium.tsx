@@ -1,19 +1,35 @@
 "use client";
 import Link from "next/link";
 import styles from "./Premium.module.scss";
-
-type ServiceId = "vip" | "top" | "color" | "balls";
+import { ServiceUnionLiteral, BoxShadowUnionType } from "@/types/service.type";
+import { useState } from "react";
+import ViewServices from "./Service/ViewServices/ViewServices";
 
 interface Service {
-  id: ServiceId;
+  id: ServiceUnionLiteral;
   number: number;
   title: string;
   description: string;
   colorClass: string;
   link: string;
+  boxShadowColor: BoxShadowUnionType;
 }
 
 export default function Premium() {
+  const [boxShadowColor, setBoxShadowColor] = useState<BoxShadowUnionType | "">(
+    ""
+  );
+  const [open, setOpen] = useState<boolean>(false);
+  const [type, setType] = useState<ServiceUnionLiteral | "">("");
+
+  const viewServices = (
+    color: BoxShadowUnionType,
+    type: ServiceUnionLiteral
+  ) => {
+    setBoxShadowColor(color);
+    setOpen(true);
+    setType(type);
+  };
   const services: Service[] = [
     {
       id: "vip",
@@ -22,6 +38,7 @@ export default function Premium() {
       description: "Ваш сервер будет поднят в топ списка серверов",
       colorClass: "gold",
       link: "/premium/servicePage/",
+      boxShadowColor: "#ffd700",
     },
     {
       id: "top",
@@ -30,6 +47,7 @@ export default function Premium() {
       description: "Ваш сервер будет находится в отдельном списке TOP серверов",
       colorClass: "blue",
       link: "/premium/servicePage/",
+      boxShadowColor: "#4c8aff",
     },
     {
       id: "color",
@@ -38,6 +56,7 @@ export default function Premium() {
       description: "Ваш сервер будет окрашен в цвет, который вы выберете",
       colorClass: "red",
       link: "/premium/servicePage/",
+      boxShadowColor: "#ff4c4c",
     },
     {
       id: "balls",
@@ -47,11 +66,19 @@ export default function Premium() {
         "При покупке Баллов, Ваш сервер поднимается выше в общем списке серверов",
       colorClass: "green",
       link: "/premium/servicePage/",
+      boxShadowColor: "#39ff14",
     },
   ];
 
   return (
     <div className={styles.container}>
+      {open ? (
+        <ViewServices
+          colorBoxShadow={boxShadowColor}
+          setOpen={setOpen}
+          typeServices={type}
+        />
+      ) : null}
       <h1 className={styles.title}>Платные услуги для продвижения</h1>
 
       <div className={styles.servicesGrid}>
@@ -83,6 +110,9 @@ export default function Premium() {
               </div>
             </div>
             <button
+              onMouseEnter={() =>
+                viewServices(service.boxShadowColor, service.id)
+              }
               className={`${styles.questionBtn} ${
                 styles[
                   `btnQuestion${

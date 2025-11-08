@@ -11,8 +11,7 @@ export const csServerApi = createApi({
       MessageServer<GameServer[]>,
       { endpoint: AsideEndpointsUnion }
     >({
-      query: ({ endpoint }) => `${endpoint}`,
-      keepUnusedDataFor: 0,
+      query: ({ endpoint }) => `${endpoint === "CS:GO" ? "cs-go" : "cs2"}`,
     }),
 
     getServerById: builder.query<MessageServer<GameServer>, { id: string }>({

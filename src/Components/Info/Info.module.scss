@@ -1,0 +1,63 @@
+@import "../../styles/variable.scss";
+@import "../../styles/mixins";
+
+.page {
+  @include page();
+}
+
+.wrapper {
+  @include wrapper();
+}
+
+.title {
+  @include title();
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section {
+  padding: 24px;
+  background: rgba($neon-primary, 0.03);
+  border-left: 3px solid $neon-accent;
+  border-radius: $border-radius-neon;
+  transition: $transition-glow;
+
+  &:hover {
+    background: rgba($neon-primary, 0.06);
+    border-left-color: $neon-primary;
+    box-shadow: 0 0 15px rgba($neon-primary, 0.2);
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: $neon-primary;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba($text-primary, 0.85);
+    margin: 0;
+  }
+}
+
+.updated {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba($neon-accent, 0.3);
+  text-align: center;
+
+  p {
+    font-size: 14px;
+    color: rgba($text-primary, 0.5);
+    font-style: italic;
+  }
+}

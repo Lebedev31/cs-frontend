@@ -19,6 +19,14 @@ export const addServerApi = createApi({
       }),
     }),
 
+    upadateServer: builder.mutation<MessageServer<void>, AddServerType>({
+      query: (body) => ({
+        method: "PATCH",
+        body,
+        url: "",
+      }),
+    }),
+
     getMyServers: builder.query<MessageServer<{ owner: string }>, void>({
       query: () => "",
     }),
@@ -32,7 +40,7 @@ export const addServerApi = createApi({
     }),
 
     getServerIpPort: builder.query<MessageServer<string[]>, void>({
-      query: () => "sever-ip",
+      query: () => "server-ip",
     }),
   }),
 });
@@ -42,4 +50,5 @@ export const {
   useGetMyServersQuery,
   useConfirmServerMutation,
   useGetServerIpPortQuery,
+  useUpadateServerMutation,
 } = addServerApi;

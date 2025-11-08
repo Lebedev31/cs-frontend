@@ -215,3 +215,17 @@ export type FinHistory = {
   amount: number;
   status: "waiting_for_capture" | "succeeded" | "canceled" | "pending";
 };
+
+export const ContactsSchema = z.object({
+  email: z.email({ message: "Введите email" }),
+  name: z
+    .string()
+    .min(1, { message: "Введите имя" })
+    .max(100, { message: "Максимальный размер имени 100 символов" }),
+  description: z
+    .string()
+    .min(1, { message: "Введите текст сообщения" })
+    .max(5000, { message: "Максимальный размер текста 5000 символов" }),
+});
+
+export type Contacts = z.infer<typeof ContactsSchema>;

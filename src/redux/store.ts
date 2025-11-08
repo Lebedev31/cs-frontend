@@ -9,6 +9,8 @@ import { addServerApi } from "./apiSlice/addServerApi";
 import { paymentApi } from "./apiSlice/paymentApi";
 import { commentsApi } from "./apiSlice/commentsApi";
 import { ratingApi } from "./apiSlice/ratingApi";
+import { contactsApi } from "./apiSlice/contactsApi";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 // Читаем токен из localStorage, если код выполняется на клиенте
 const token =
@@ -31,6 +33,7 @@ export const store = configureStore({
     [paymentApi.reducerPath]: paymentApi.reducer,
     [commentsApi.reducerPath]: commentsApi.reducer,
     [ratingApi.reducerPath]: ratingApi.reducer,
+    [contactsApi.reducerPath]: contactsApi.reducer,
     main: mainSlice.reducer,
     auth: authReducer,
   },
@@ -44,9 +47,12 @@ export const store = configureStore({
       addServerApi.middleware,
       paymentApi.middleware,
       commentsApi.middleware,
-      ratingApi.middleware
+      ratingApi.middleware,
+      contactsApi.middleware
     ),
 });
+
+setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

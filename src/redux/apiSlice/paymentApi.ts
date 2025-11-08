@@ -42,8 +42,11 @@ export const paymentApi = createApi({
       invalidatesTags: ["balance"],
     }),
 
-    getLimitTopService: builder.query<MessageServer<{ limit: number }>, void>({
-      query: () => "/limit-top",
+    getLimitTopService: builder.query<
+      MessageServer<{ limit: number }>,
+      { serverId: string }
+    >({
+      query: ({ serverId }) => `/limit-top/${serverId}`,
     }),
 
     updateServiceTop: builder.mutation<MessageServer<void>, VipType>({

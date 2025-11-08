@@ -38,3 +38,42 @@ export const mods = [
   "Классические",
   "Паблик",
 ];
+
+export const map_names = [
+  // Официальные карты
+  "de_dust2",
+  "de_mirage",
+  "de_inferno",
+  "de_nuke",
+  "de_vertigo",
+  "de_cache",
+  "de_dust",
+  "de_shortdust",
+  "de_ancient",
+  "de_anubis",
+  "de_overpass",
+  "de_train",
+
+  // Hostage карты
+  "cs_office",
+  "cs_italy",
+  "cs_2",
+  "cs_agency",
+
+  // Danger Zone
+  "dz_arctic",
+
+  // Кастомные AWP карты
+  "awp_lego_2",
+  "awp_lego_anime_ap3",
+  "awp_india",
+  "awp_japan",
+  "awp_back&yellow",
+
+  // Другие популярные карты
+  "poolday",
+  "de_safehouse",
+  "de_calavera",
+  "de_eldorado",
+  "de_westwood",
+];

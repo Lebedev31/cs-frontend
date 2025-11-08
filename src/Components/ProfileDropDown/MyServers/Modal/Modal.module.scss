@@ -1,0 +1,37 @@
+@import "../../../../styles/mixins.scss";
+@import "../../../../styles/variable.scss";
+
+.modalOverlay {
+  @include modalOverlay();
+}
+
+.modal {
+  @include modal($cs-blue-team);
+}
+
+.closeButton {
+  @include closeButton($cs-blue-team);
+}
+
+.title {
+  @include titleModal($cs-blue-team);
+}
+
+.description {
+  @include descriptionModal();
+}
+
+.confirmButton {
+  @include confirmModalButton(200px, $cs-blue-team);
+  font-size: 12px;
+  height: 60px;
+}
+
+@include animationModal();
+
+.button_block {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  justify-content: center;
+}

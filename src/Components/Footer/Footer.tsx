@@ -24,16 +24,16 @@ export default function Footer() {
           </div>
         </div>
         <nav className={styles.nav}>
-          <Link href="#" className={styles.link}>
+          <Link href="/contacts" className={styles.link}>
             Контакты
           </Link>
-          <Link href="#" className={styles.link}>
+          <Link href="/offer" className={styles.link}>
             Договор оферты
           </Link>
-          <Link href="#" className={styles.link}>
+          <Link href="/policy" className={styles.link}>
             Политика конфиденциальности
           </Link>
-          <Link href="#" className={styles.link}>
+          <Link href="/agreement" className={styles.link}>
             Пользовательское соглашение
           </Link>
         </nav>

@@ -72,3 +72,5 @@ export type BallsType = VipType & { balls: BallsLiteral };
 export const ballsSchema = generalSchema.extend({
   balls: z.enum(ballsArr),
 });
+
+export type BoxShadowUnionType = "#ffd700" | "#ff4c4c" | "#4c8aff" | "#39ff14";

@@ -6,13 +6,24 @@ import "flag-icons/css/flag-icons.min.css";
 import PlayersInfo from "../Elements/PlayersInfo/PlayersInfo";
 import Play from "../Elements/Play/Play";
 import CoppyButton from "../Elements/CopyButton/CoppyButton";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { getMapImagePath } from "@/lib/common";
 
-export default function ServerBlockItem({ server }: { server: GameServer }) {
+export default function ServerBlockItem({
+  server,
+  onClose,
+}: {
+  server: GameServer;
+  onClose?: (isOpen: boolean) => void;
+}) {
   const router = useRouter();
+  const pathName = usePathname();
   const handlerServerPage = (ip: string, port: string) => {
-    router.push(`/serverPage/${ip}:${port}`);
+    if (pathName === "/myServers" && onClose) {
+      onClose(true);
+    } else {
+      router.push(`/serverPage/${ip}:${port}`);
+    }
   };
 
   const safePoints = (server: GameServer) => {
