@@ -42,6 +42,17 @@ export const authApi = createApi({
     logout: build.query<MessageServer<undefined>, void>({
       query: () => "/logout",
     }),
+
+    vkAuth: build.mutation<
+      MessageServer<void>,
+      { code: string; device_id: string; state: string; code_verifier: string }
+    >({
+      query: (body) => ({
+        method: "POST",
+        url: "vk/callback",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +61,5 @@ export const {
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
   useLazyLogoutQuery,
+  useVkAuthMutation,
 } = authApi;

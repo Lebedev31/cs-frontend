@@ -12,27 +12,53 @@ import { RootState, AppDispatch } from "@/redux/store";
 import { useGetAvatarUrlQuery } from "@/redux/apiSlice/settingAccountApi";
 import { apiImg } from "@/redux/api.url";
 import { setInfo } from "@/redux/slice/main.slice";
+import { setLogin } from "@/redux/slice/auth.slice";
 
 export default function Header() {
-  const login = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const isLogin = useSelector((state: RootState) => state.auth.isLoggedIn);
   const [isClient, setIsClient] = useState(false); // <- для безопасного SSR
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileButtonRef = useRef<HTMLButtonElement | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const { data } = useGetAvatarUrlQuery();
-
+  const { data, refetch } = useGetAvatarUrlQuery(
+    undefined,
+    { skip: !isLogin } // <-- не запрашивать пока не залогинен
+  );
   // После монтирования компонента мы уже на клиенте
   useEffect(() => {
     setIsClient(true);
   }, []);
   useEffect(() => {
-    if (login && data && data.data) {
-      console.log(12);
+    console.log(1);
+    const existLogin = localStorage.getItem("login");
+    console.log(isLogin);
+    console.log(data);
+    console.log(data?.data);
+    if (isLogin && data && data.data) {
+      console.log(2);
+      localStorage.setItem("login", data.data.login);
       dispatch(
         setInfo({ avatarUrl: data.data.avatarUrl, login: data.data.login })
       );
+      dispatch(setLogin(true));
     }
-  }, [login, isClient, data]);
+    if (!data && !isLogin) {
+      console.log(3);
+      if (existLogin) {
+        console.log(4);
+        localStorage.removeItem("login");
+        dispatch(setInfo({ avatarUrl: "", login: "" }));
+        dispatch(setLogin(false));
+      }
+    }
+  }, [isLogin, isClient, data, dispatch]);
+
+  useEffect(() => {
+    if (isLogin) {
+      // если запрос ещё не делался — refetch подтянет данные
+      refetch();
+    }
+  }, [isLogin, refetch]);
 
   const toggleProfile = () => {
     setIsProfileOpen((prev) => !prev);
@@ -77,7 +103,7 @@ export default function Header() {
       <AsideMenu />
 
       <div className={styles.auth}>
-        {login ? (
+        {isLogin ? (
           <div className={styles.profileWrapper}>
             <button
               ref={profileButtonRef}
@@ -88,14 +114,18 @@ export default function Header() {
                 <img
                   src={
                     data && data.data?.avatarUrl
-                      ? `${apiImg}${data.data.avatarUrl}`
+                      ? data.data.avatarUrl.startsWith("http")
+                        ? data.data.avatarUrl
+                        : `${apiImg}${data.data.avatarUrl}`
                       : "/вопрос.png"
                   }
                   alt="Avatar"
                 />
               </div>
               <span className={styles.loginText}>
-                {data && data.data?.login ? `${data.data.login}` : "Login"}
+                {data && data.data?.login
+                  ? data.data.login.replace(/^(vk_|steam_)/, "")
+                  : "Login"}
               </span>
               <svg
                 className={`${styles.arrow} ${

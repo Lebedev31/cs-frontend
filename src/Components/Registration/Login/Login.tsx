@@ -1,29 +1,75 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import styles from "./Login.module.scss";
 import Image from "next/image";
 import { RegistrationProps } from "../RegisterBlock";
-import { useAuthMutation } from "@/redux/apiSlice/authApi";
+import { useAuthMutation, useVkAuthMutation } from "@/redux/apiSlice/authApi";
 import { useRef, useState } from "react";
 import { AuthSchema, Auth } from "@/types/type";
-import { validateWithZod, handleToastError } from "@/lib/common";
+import {
+  validateWithZod,
+  handleToastError,
+  generateCodeVerifier,
+  codeChallengeFromVerifier,
+} from "@/lib/common";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Home from "@/Components/Home/Home";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/redux/slice/auth.slice";
+import * as VKID from "@vkid/sdk";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function Login({ setToggle }: RegistrationProps) {
   const [authMutation] = useAuthMutation();
+  const [vkAuthMutation] = useVkAuthMutation();
   const dispatch: AppDispatch = useDispatch();
+  const searchParams = useSearchParams();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
   const [validationError, setValidationError] = useState({
     errorEmail: "",
     errorPassword: "",
     unionErrorForm: "",
   });
+
+  useEffect(() => {
+    const code = searchParams.get("code");
+    const device_id = searchParams.get("device_id");
+    const state = searchParams.get("state");
+    const code_verifier = localStorage.getItem("vk_code_verifier");
+    const processVKCallback = async () => {
+      try {
+        if (code && device_id && state && code_verifier) {
+          const result = await vkAuthMutation({
+            code,
+            device_id,
+            state,
+            code_verifier,
+          }).unwrap();
+
+          if (result.message === "success" && result.statusCode === 200) {
+            localStorage.setItem("login", "login");
+            const loginToken = localStorage.getItem("login");
+            dispatch(setLogin(loginToken ? true : false));
+            router.push("/");
+          }
+        }
+      } catch (error) {
+        console.log("VK Callback Error:", error);
+        handleToastError(error);
+      } finally {
+        localStorage.removeItem("vk_code_verifier");
+      }
+    };
+    if (code && device_id && state && code_verifier) {
+      processVKCallback();
+    }
+  }, [dispatch, router, searchParams, vkAuthMutation]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +101,28 @@ export default function Login({ setToggle }: RegistrationProps) {
         }
       }
     }
+  };
+
+  const authVk = async () => {
+    const code_verifier = await generateCodeVerifier();
+    const code_challenge = await codeChallengeFromVerifier(code_verifier);
+
+    // сохраните verifier, чтобы потом отправить на бэк
+    localStorage.setItem("vk_code_verifier", code_verifier);
+    VKID.Config.init({
+      app: Number(process.env.NEXT_PUBLIC_VK_APP_ID),
+      redirectUrl: process.env.NEXT_PUBLIC_VK_CALLBACK_URL || "",
+      scope: "email",
+      state: "some_state",
+      mode: VKID.ConfigAuthMode.Redirect,
+      codeChallenge: code_challenge,
+    });
+
+    await VKID.Auth.login();
+  };
+
+  const authSteam = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}auth/steam`;
   };
 
   return (
@@ -109,14 +177,14 @@ export default function Login({ setToggle }: RegistrationProps) {
         <div className={styles.divider}></div>
 
         <div className={styles.socialLogin}>
-          <button className={styles.socialButton}>
+          <button className={styles.socialButton} onClick={authSteam}>
             <span className={styles.buttonNumber}>
               <Image width={35} height={35} src="/steam.png" alt="steam" />
             </span>
             Войти с помощью Steam
           </button>
 
-          <button className={styles.socialButton}>
+          <button className={styles.socialButton} onClick={authVk}>
             <span className={styles.buttonNumber}>
               <Image width={35} height={35} src="/vk.png" alt="vk" />
             </span>

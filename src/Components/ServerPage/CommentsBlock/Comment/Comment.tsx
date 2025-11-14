@@ -17,7 +17,9 @@ export default function Comment({ comment }: CommentWrapperProps) {
         <img
           src={
             infoUser?.avatarUrl
-              ? `${apiImg}${infoUser.avatarUrl}`
+              ? infoUser.avatarUrl.startsWith("http")
+                ? infoUser.avatarUrl
+                : `${apiImg}${infoUser.avatarUrl}`
               : "/вопрос.png"
           }
           alt="аватарка"
@@ -26,7 +28,9 @@ export default function Comment({ comment }: CommentWrapperProps) {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <div className={styles.login}>{infoUser.login}</div>
+          <div className={styles.login}>
+            {infoUser.login.replace(/^(vk_|steam_)/, "")}
+          </div>
           <div className={styles.date}>
             {formated.formattedDate}
             {formated.formattedTime && (

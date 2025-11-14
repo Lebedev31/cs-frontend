@@ -59,6 +59,7 @@ export const settingAccountApi = createApi({
     >({
       query: () => "avatar-url",
       providesTags: ["avatarUrl"],
+      keepUnusedDataFor: 0,
     }),
   }),
 });

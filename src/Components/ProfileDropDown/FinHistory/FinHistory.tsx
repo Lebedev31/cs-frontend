@@ -101,7 +101,7 @@ export default function FinHistory() {
         </div>
         <Pagination
           serversPerPage={serversPerPage}
-          totalServers={mockData.length}
+          totalServers={data && data.data ? data?.data.length : 0}
           paginate={paginate}
           currentPage={currentPage}
         />

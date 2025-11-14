@@ -117,14 +117,18 @@ export default function CommentsBlock({ serverId }: CommentBlockProps) {
     <div className={styles.commentsBlock}>
       <h2>Оставить свой отзыв о сервере</h2>
       <div className={styles.comments}>
-        <p className={styles.login}>{infoUser.login ? infoUser.login : ""}</p>
+        <p className={styles.login}>
+          {infoUser.login ? infoUser.login.replace(/^(vk_|steam_)/, "") : ""}
+        </p>
         <form className={styles.sendComment} onSubmit={onSubmit}>
           <div className={styles.avatarAndTextArea}>
             <div className={styles.avatar}>
               <img
                 src={
                   infoUser.avatarUrl
-                    ? `${apiImg}${infoUser.avatarUrl}`
+                    ? infoUser.avatarUrl.startsWith("http")
+                      ? infoUser.avatarUrl
+                      : `${apiImg}${infoUser.avatarUrl}`
                     : "/вопрос.png"
                 }
                 alt="аватарка"

@@ -181,3 +181,29 @@ export function getFormatData(createdAt: string) {
     formattedTime,
   };
 }
+
+export async function generateCodeVerifier(): Promise<string> {
+  const array = new Uint8Array(64);
+  crypto.getRandomValues(array);
+  return btoa(String.fromCharCode(...Array.from(array)))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "")
+    .slice(0, 128); // trim to allowed length
+}
+
+async function sha256(plain: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(plain);
+  const hash = await crypto.subtle.digest("SHA-256", data);
+  return new Uint8Array(hash);
+}
+
+export async function codeChallengeFromVerifier(verifier: string) {
+  const hashed = await sha256(verifier);
+  const base64 = btoa(String.fromCharCode(...hashed))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+  return base64;
+}
