@@ -1,5 +1,4 @@
 "use client";
-
 import styles from "../Login/Login.module.scss";
 import { useCreateNewPasswordMutation } from "@/redux/apiSlice/authApi";
 import { useRef, useState } from "react";
