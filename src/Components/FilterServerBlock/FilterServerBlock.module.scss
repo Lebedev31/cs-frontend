@@ -1,15 +1,15 @@
-@import "../../styles/variable.scss";
+@use "../../styles/variable.scss" as v;
 
 .filterServerBlock {
   width: 100%;
   display: flex;
   height: 160px;
-  background: $bg-darker;
-  border: 1px solid rgba($neon-primary, 0.3);
+  background: v.$bg-darker;
+  border: 1px solid rgba(v.$neon-primary, 0.3);
   padding: 1rem 2rem;
   margin-top: 1rem;
-  color: $text-primary;
-  box-shadow: inset 0 -1px 0 rgba($neon-primary, 0.2);
+  color: v.$text-primary;
+  box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   margin-bottom: 25px;
 
   .filterServerBlock_logo {
@@ -21,7 +21,7 @@
     img {
       max-width: 100%;
       height: auto;
-      filter: drop-shadow(0 0 8px $neon-primary);
+      filter: drop-shadow(0 0 8px v.$neon-primary);
     }
   }
 
@@ -35,8 +35,8 @@
       text-align: center;
       text-transform: uppercase;
       font-size: 1.2rem;
-      font-family: $font-neon;
-      color: $neon-warning;
+      font-family: v.$font-neon;
+      color: v.$neon-warning;
       letter-spacing: 1px;
       margin: 0;
     }
@@ -63,18 +63,18 @@
   .select {
     width: 100%;
     padding: 0.4rem;
-    background: $bg-dark;
-    border: 1px solid rgba($neon-primary, 0.4);
-    border-radius: $border-radius-sharp;
-    color: $text-primary;
-    font-family: $font-mono;
+    background: v.$bg-dark;
+    border: 1px solid rgba(v.$neon-primary, 0.4);
+    border-radius: v.$border-radius-sharp;
+    color: v.$text-primary;
+    font-family: v.$font-mono;
     font-size: 0.9rem;
-    transition: $transition-fast;
+    transition: v.$transition-fast;
 
     &:focus {
       outline: none;
-      border-color: $neon-primary;
-      box-shadow: 0 0 8px rgba($neon-primary, 0.5);
+      border-color: v.$neon-primary;
+      box-shadow: 0 0 8px rgba(v.$neon-primary, 0.5);
     }
   }
 

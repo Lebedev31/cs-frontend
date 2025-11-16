@@ -1,12 +1,11 @@
-@import "../../../../styles/variable.scss";
-@import "../../../../styles/mixins.scss";
+@use "../../../../styles/mixins.scss" as m;
 
 .viewServices {
-  @include modalOverlay();
+  @include m.modalOverlay();
 }
 
 .modal_image {
-  @include modal();
+  @include m.modal();
   position: relative;
   // aspect-ratio: 16 / 9;
   width: min(90vw, 900px);

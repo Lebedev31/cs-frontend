@@ -1,8 +1,8 @@
-@import "../../styles/variable.scss";
-@import "../../styles/mixins.scss";
+@use "../../styles/variable.scss" as v;
+@use "../../styles/mixins.scss" as m;
 
 .server_page {
-  @include page();
+  @include m.page();
   position: relative;
 }
 
@@ -21,9 +21,9 @@
     rgba(0, 0, 0, 0.12)
   );
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: $border-radius-neon;
+  border-radius: v.$border-radius-neon;
   padding: 40px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), $glow-primary;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
 }
 
 .aside {
@@ -34,16 +34,16 @@
 }
 
 .map_card {
-  background: $bg-darker;
-  border: 2px solid $neon-accent;
-  border-radius: $border-radius-neon;
+  background: v.$bg-darker;
+  border: 2px solid v.$neon-accent;
+  border-radius: v.$border-radius-neon;
   padding: 20px;
-  box-shadow: 0 0 10px rgba($neon-primary, 0.3);
+  box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
 }
 
 .map_title {
   font-size: 16px;
-  color: $neon-primary;
+  color: v.$neon-primary;
   text-align: center;
   margin-bottom: 15px;
   text-transform: uppercase;
@@ -54,28 +54,28 @@
 .map_image {
   width: 100%;
   height: 180px;
-  background: linear-gradient(135deg, $text-header, #1a1a3a);
-  border-radius: $border-radius-neon;
+  background: linear-gradient(135deg, v.$text-header, #1a1a3a);
+  border-radius: v.$border-radius-neon;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 48px;
-  border: 1px solid $glitch-purple;
-  box-shadow: 0 0 15px rgba($glitch-purple, 0.2);
+  border: 1px solid v.$glitch-purple;
+  box-shadow: 0 0 15px rgba(v.$glitch-purple, 0.2);
   position: relative;
 }
 
 .players_card {
-  background: $bg-darker;
-  border: 2px solid $neon-accent;
-  border-radius: $border-radius-neon;
+  background: v.$bg-darker;
+  border: 2px solid v.$neon-accent;
+  border-radius: v.$border-radius-neon;
   padding: 20px;
-  box-shadow: 0 0 10px rgba($neon-primary, 0.3);
+  box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
   height: 425px;
   overflow-x: hidden;
   // Тонкий скроллбар только здесь
   scrollbar-width: thin;
-  scrollbar-color: $neon-accent $bg-darker;
+  scrollbar-color: v.$neon-accent v.$bg-darker;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -86,24 +86,24 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: $neon-accent;
+    background: v.$neon-accent;
     border-radius: 10px;
 
     &:hover {
-      background: $neon-primary;
+      background: v.$neon-primary;
     }
   }
 }
 
 .players_title {
   font-size: 18px;
-  color: $neon-primary;
+  color: v.$neon-primary;
   text-align: center;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
-  text-shadow: $glow-primary;
+  text-shadow: v.$glow-primary;
 }
 
 .players_table {
@@ -111,10 +111,10 @@
   border-collapse: collapse;
 
   thead {
-    border-bottom: 2px solid $glitch-purple;
+    border-bottom: 2px solid v.$glitch-purple;
 
     th {
-      color: $neon-warning;
+      color: v.$neon-warning;
       font-size: 14px;
       font-weight: 600;
       padding: 10px 5px;
@@ -124,15 +124,15 @@
 
   tbody {
     tr {
-      border-bottom: 1px solid rgba($neon-accent, 0.2);
-      transition: $transition-fast;
+      border-bottom: 1px solid rgba(v.$neon-accent, 0.2);
+      transition: v.$transition-fast;
 
       &:hover {
-        background: rgba($neon-primary, 0.05);
+        background: rgba(v.$neon-primary, 0.05);
       }
 
       td {
-        color: $text-primary;
+        color: v.$text-primary;
         font-size: 14px;
         padding: 12px 5px;
         text-align: center;
@@ -149,21 +149,21 @@
 }
 
 .server_header {
-  background: $bg-darker;
-  border: 2px solid $neon-secondary;
-  border-radius: $border-radius-neon;
+  background: v.$bg-darker;
+  border: 2px solid v.$neon-secondary;
+  border-radius: v.$border-radius-neon;
   padding: 30px;
-  box-shadow: 0 0 20px rgba($neon-secondary, 0.3);
+  box-shadow: 0 0 20px rgba(v.$neon-secondary, 0.3);
   position: relative;
   overflow: hidden;
 }
 
 .server_title {
   font-size: 24px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-weight: 700;
   margin-bottom: 20px;
-  text-shadow: $glow-primary;
+  text-shadow: v.$glow-primary;
   text-align: left;
   gap: 15px;
 }
@@ -179,14 +179,14 @@
 
 .address_label {
   font-size: 16px;
-  color: $neon-accent;
+  color: v.$neon-accent;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .address_value {
   font-size: 16px;
-  color: $glitch-purple;
+  color: v.$glitch-purple;
   font-weight: 600;
 }
 
@@ -211,43 +211,43 @@
 
 .info_label {
   font-size: 16px;
-  color: $neon-accent;
+  color: v.$neon-accent;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .info_value {
   font-size: 16px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-weight: 600;
   text-transform: uppercase;
 
   &.online {
-    color: $neon-success;
+    color: v.$neon-success;
   }
 
   &.offline {
-    color: $neon-danger;
+    color: v.$neon-danger;
   }
 }
 
 .player_count {
   font-size: 18px;
-  color: $neon-success;
+  color: v.$neon-success;
   font-weight: 700;
 }
 
 .owner_section {
-  background: $bg-darker;
-  border: 2px solid $glitch-purple;
-  border-radius: $border-radius-neon;
+  background: v.$bg-darker;
+  border: 2px solid v.$glitch-purple;
+  border-radius: v.$border-radius-neon;
   padding: 25px;
-  box-shadow: 0 0 15px rgba($glitch-purple, 0.3);
+  box-shadow: 0 0 15px rgba(v.$glitch-purple, 0.3);
 }
 
 .owner_title {
   font-size: 16px;
-  color: $glitch-purple;
+  color: v.$glitch-purple;
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -262,43 +262,43 @@
 
 .owner_nick {
   font-size: 18px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-weight: 600;
   text-transform: uppercase;
 }
 
 .owner_link {
-  color: $neon-primary;
+  color: v.$neon-primary;
   text-decoration: none;
   font-size: 14px;
-  transition: $transition-fast;
+  transition: v.$transition-fast;
   cursor: pointer;
 
   &:hover {
-    color: $neon-warning;
-    text-shadow: $glow-warning;
+    color: v.$neon-warning;
+    text-shadow: v.$glow-warning;
   }
 }
 
 .owner_actions {
   margin-top: 10px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-size: 14px;
 }
 
 .rating_section {
-  background: $bg-darker;
-  border: 2px solid $neon-warning;
-  border-radius: $border-radius-neon;
+  background: v.$bg-darker;
+  border: 2px solid v.$neon-warning;
+  border-radius: v.$border-radius-neon;
   padding: 25px;
-  box-shadow: 0 0 10px rgba($neon-warning, 0.3);
+  box-shadow: 0 0 10px rgba(v.$neon-warning, 0.3);
   text-align: center;
   height: 240px;
 }
 
 .rating_title {
   font-size: 16px;
-  color: $neon-warning;
+  color: v.$neon-warning;
   margin-bottom: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -306,9 +306,9 @@
 
 .rating_value {
   font-size: 36px;
-  color: $neon-success;
+  color: v.$neon-success;
   font-weight: 700;
-  text-shadow: 0 0 15px rgba($neon-success, 0.6);
+  text-shadow: 0 0 15px rgba(v.$neon-success, 0.6);
 }
 
 .rating_img {
@@ -320,8 +320,8 @@
 }
 
 .statusBadge {
-  background: linear-gradient(135deg, $neon-accent, $neon-warning);
-  color: $glitch-purple;
+  background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
+  color: v.$glitch-purple;
   padding: 10px 10px;
   font-size: 28px;
   font-weight: 700;

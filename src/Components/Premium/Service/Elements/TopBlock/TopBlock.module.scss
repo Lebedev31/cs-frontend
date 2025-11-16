@@ -1,9 +1,8 @@
-@import "../../../../../styles/mixins.scss";
-@import "../../../../../styles/variable.scss";
+@use "../../../../../styles/variable.scss" as v;
 
 .top_block {
   width: 100%;
-  color: $neon-danger;
+  color: v.$neon-danger;
   font-size: 18px;
   text-align: center;
   margin-top: 10px;

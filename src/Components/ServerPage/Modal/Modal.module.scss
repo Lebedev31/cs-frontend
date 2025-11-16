@@ -1,31 +1,31 @@
-@import "../../../styles/mixins.scss";
-@import "../../../styles/variable.scss";
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
 
 .modalOverlay {
-  @include modalOverlay();
+  @include m.modalOverlay();
 }
 
 .modal {
-  @include modal();
+  @include m.modal();
 }
 
 .closeButton {
-  @include closeButton();
+  @include m.closeButton();
 }
 
 .title {
-  @include titleModal();
+  @include m.titleModal();
 }
 
 .description {
-  @include descriptionModal();
+  @include m.descriptionModal();
 }
 
 .confirmButton {
-  @include confirmModalButton();
+  @include m.confirmModalButton();
 }
 
-@include animationModal();
+@include m.animationModal();
 
 // Адаптивность
 @media (max-width: 768px) {

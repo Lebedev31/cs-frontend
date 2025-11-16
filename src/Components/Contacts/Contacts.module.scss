@@ -1,17 +1,17 @@
-@import "../../styles/mixins.scss";
-@import "../../styles/variable.scss";
+@use "../../styles/mixins.scss" as m;
+@use "../../styles/variable.scss" as v;
 
 .page {
-  @include page();
+  @include m.page();
 }
 
 .wrapper {
-  @include wrapper();
+  @include m.wrapper();
   max-width: 800px;
 }
 
 .title {
-  @include title();
+  @include m.title();
 }
 
 .form {
@@ -28,11 +28,11 @@
 }
 
 .input {
-  @include input();
+  @include m.input();
 }
 
 .textarea {
-  @include input();
+  @include m.input();
   min-height: 200px;
   resize: vertical;
   font-family: inherit;
@@ -41,21 +41,21 @@
 }
 
 .button {
-  @include button();
+  @include m.button();
   margin-top: 10px;
 }
 
 .error {
-  @include error();
+  @include m.error();
   margin: 0;
   padding: 0 4px;
 }
 
 .contactInfo {
   padding: 32px;
-  background: rgba($neon-accent, 0.05);
-  border: 2px solid rgba($neon-accent, 0.3);
-  border-radius: $border-radius-neon;
+  background: rgba(v.$neon-accent, 0.05);
+  border: 2px solid rgba(v.$neon-accent, 0.3);
+  border-radius: v.$border-radius-neon;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -64,7 +64,7 @@
 .infoTitle {
   font-size: 20px;
   font-weight: 600;
-  color: $neon-primary;
+  color: v.$neon-primary;
   margin: 0 0 8px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -75,7 +75,7 @@
   align-items: center;
   gap: 16px;
   padding: 12px 0;
-  border-bottom: 1px solid rgba($neon-accent, 0.2);
+  border-bottom: 1px solid rgba(v.$neon-accent, 0.2);
 
   &:last-child {
     border-bottom: none;
@@ -85,12 +85,12 @@
 .infoLabel {
   font-size: 16px;
   font-weight: 600;
-  color: $neon-warning;
+  color: v.$neon-warning;
   min-width: 80px;
 }
 
 .infoValue {
   font-size: 16px;
-  color: $text-primary;
+  color: v.$text-primary;
   opacity: 0.9;
 }

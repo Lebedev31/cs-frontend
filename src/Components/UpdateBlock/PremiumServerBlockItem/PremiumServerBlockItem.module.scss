@@ -1,23 +1,23 @@
 // Обязательно импортируем переменные в начале
-@import "../../../styles/variable.scss";
-@import "../../../styles/mixins.scss";
+@use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
 
 .premiumServerBlockItem {
   width: 100%;
-  background: $bg-dark;
+  background: v.$bg-dark;
   padding: 10px;
-  border-radius: 8px $border-radius-neon;
-  border: 1px solid rgba($neon-primary, 0.2);
-  box-shadow: $glow-primary;
+  border-radius: 8px v.$border-radius-neon;
+  border: 1px solid rgba(v.$neon-primary, 0.2);
+  box-shadow: v.$glow-primary;
 
   h2 {
-    color: $neon-secondary;
+    color: v.$neon-secondary;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 25px;
     font-size: 28px;
-    text-shadow: 0 0 5px rgba($neon-secondary, 0.8),
-      0 0 15px rgba($neon-secondary, 0.5);
+    text-shadow: 0 0 5px rgba(v.$neon-secondary, 0.8),
+      0 0 15px rgba(v.$neon-secondary, 0.5);
   }
 }
 
@@ -32,13 +32,13 @@
 
 .serverItem {
   padding: 10px;
-  background-color: $bg-darker;
-  border: $border-glow-primary;
-  border-radius: $border-radius-sharp;
+  background-color: v.$bg-darker;
+  border: v.$border-glow-primary;
+  border-radius: v.$border-radius-sharp;
   cursor: pointer;
 
   &:hover {
-    box-shadow: $glow-secondary;
+    box-shadow: v.$glow-secondary;
   }
 }
 
@@ -55,7 +55,7 @@
 }
 
 .serverName {
-  @include name;
+  @include m.name;
   font-size: 12px;
 }
 
@@ -66,10 +66,10 @@
   .serverMeta {
     display: flex;
     flex-direction: column;
-    color: rgba($text-primary, 0.7); // Полупрозрачный белый для доп. инфо
+    color: rgba(v.$text-primary, 0.7); // Полупрозрачный белый для доп. инфо
     font-size: 12px;
     .map {
-      @include map;
+      @include m.map;
     }
   }
 }
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @include ipPort;
+  @include m.ipPort;
   width: 45%;
 }
 
@@ -96,12 +96,12 @@
   justify-content: center;
   min-width: 45px;
   height: 45px;
-  background: $gradient-button-glow;
-  color: $bg-darker;
+  background: v.$gradient-button-glow;
+  color: v.$bg-darker;
   font-size: 1.5rem;
   font-weight: 700;
   border-radius: 4px;
-  box-shadow: $glow-primary;
+  box-shadow: v.$glow-primary;
 }
 
 .premium_image {

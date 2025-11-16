@@ -1,7 +1,7 @@
 /* ColorBlock.module.scss */
 
 // Импортируем переменные, как вы просили
-@import "../../../../../styles/variable.scss";
+@use "../../../../../styles/variable.scss" as v;
 
 .colorGrid {
   // Устанавливаем контейнер как Grid
@@ -18,8 +18,8 @@
   max-width: 800px; /* Увеличено для прямоугольников */
   margin: 20px auto;
   border: 1px solid #ccc;
-  box-shadow: 0 0 20px rgba($neon-warning, 0.4),
-    0 0 40px rgba($neon-warning, 0.2), 0 0 60px rgba($neon-warning, 0.1);
+  box-shadow: 0 0 20px rgba(v.$neon-warning, 0.4),
+    0 0 40px rgba(v.$neon-warning, 0.2), 0 0 60px rgba(v.$neon-warning, 0.1);
 }
 
 .colorItem {
@@ -88,5 +88,5 @@
     z-index: 10;
   }
 
-  background-color: $cs-blue-team;
+  background-color: v.$cs-blue-team;
 }

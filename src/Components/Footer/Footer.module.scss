@@ -1,15 +1,15 @@
-@import "../../styles/variable.scss";
-@import "../../styles/mixins.scss";
+@use "../../styles/variable.scss" as v;
+@use "../../styles/mixins.scss" as m;
 
 .footer {
-  background: $gradient-cyber-terminal;
+  background: v.$gradient-cyber-terminal;
   padding: 40px 20px;
-  border-top: 2px solid $glitch-purple;
+  border-top: 2px solid v.$glitch-purple;
   margin-top: 10px;
 }
 
 .description {
-  color: $text-primary;
+  color: v.$text-primary;
   font-size: 14px;
   text-align: left;
   margin-top: 5px;
@@ -37,11 +37,11 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  color: $bg-dark;
+  color: v.$bg-dark;
   font-size: 14px;
   font-weight: bold;
   margin-right: 16px;
-  box-shadow: $glow-secondary;
+  box-shadow: v.$glow-secondary;
   background-color: white;
   border-radius: 100%;
 }
@@ -54,21 +54,21 @@
 }
 
 .link {
-  color: $text-primary;
+  color: v.$text-primary;
   text-decoration: none;
   font-size: 18px;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
   white-space: nowrap;
 
   &:hover {
-    color: $neon-primary;
-    text-shadow: $glow-primary;
+    color: v.$neon-primary;
+    text-shadow: v.$glow-primary;
   }
 }
 
 .tagline {
   p {
-    color: $glitch-purple;
+    color: v.$glitch-purple;
     font-size: 16px;
     margin-top: 20px;
     text-align: center;

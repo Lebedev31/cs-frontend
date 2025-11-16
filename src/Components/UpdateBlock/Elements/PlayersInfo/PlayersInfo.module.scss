@@ -1,4 +1,4 @@
-@import "../../../../styles/variable.scss";
+@use "../../../../styles/variable.scss" as v;
 // Блок 5: Информация об игроках
 .playersInfo {
   display: flex;
@@ -9,11 +9,11 @@
   text-align: center;
 
   .playersIcon {
-    color: $neon-accent;
+    color: v.$neon-accent;
   }
 
   .players {
-    color: $neon-accent;
+    color: v.$neon-accent;
     font-weight: 500;
     white-space: nowrap;
   }

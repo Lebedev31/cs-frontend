@@ -1,15 +1,14 @@
-@import "../../styles/variable.scss";
-@import "../../styles/mixins.scss";
-
+@use "../../styles/variable.scss" as v;
+@use "../../styles/mixins.scss" as m;
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 30px;
   width: 100%;
-  background: $text-header;
-  border-bottom: 1px solid rgba($neon-primary, 0.2);
-  box-shadow: inset 0 -1px 0 rgba($neon-accent, 0.3);
+  background: v.$text-header;
+  border-bottom: 1px solid rgba(v.$neon-primary, 0.2);
+  box-shadow: inset 0 -1px 0 rgba(v.$neon-accent, 0.3);
   height: 80px;
 }
 
@@ -22,7 +21,7 @@
   }
 
   &:hover img {
-    filter: drop-shadow(0 0 8px $neon-primary);
+    filter: drop-shadow(0 0 8px v.$neon-primary);
   }
 
   img {
@@ -34,7 +33,7 @@
   position: relative;
 
   .loginBtn {
-    @include button(50px, 16px, 5px);
+    @include m.button(50px, 16px, 5px);
     width: 180px;
   }
 
@@ -46,8 +45,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba($neon-primary, 0.05);
-    border: 1px solid rgba($neon-primary, 0.3);
+    background: rgba(v.$neon-primary, 0.05);
+    border: 1px solid rgba(v.$neon-primary, 0.3);
     border-radius: 8px;
     padding: 8px 16px;
     cursor: pointer;
@@ -55,9 +54,9 @@
     height: 50px;
 
     &:hover {
-      background: rgba($neon-primary, 0.1);
-      border-color: rgba($neon-primary, 0.5);
-      box-shadow: $glow-primary;
+      background: rgba(v.$neon-primary, 0.1);
+      border-color: rgba(v.$neon-primary, 0.5);
+      box-shadow: v.$glow-primary;
     }
 
     .avatar {
@@ -65,8 +64,8 @@
       height: 40px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid $neon-primary;
-      box-shadow: 0 0 8px rgba($neon-primary, 0.5);
+      border: 2px solid v.$neon-primary;
+      box-shadow: 0 0 8px rgba(v.$neon-primary, 0.5);
 
       img {
         width: 100%;
@@ -76,14 +75,14 @@
     }
 
     .loginText {
-      color: $neon-primary;
+      color: v.$neon-primary;
       font-size: 16px;
       font-weight: 600;
       white-space: nowrap;
     }
 
     .arrow {
-      color: $neon-primary;
+      color: v.$neon-primary;
       transition: transform 0.3s ease;
     }
 
@@ -95,11 +94,11 @@
 
 @keyframes neonPulse {
   from {
-    box-shadow: $glow-primary;
+    box-shadow: v.$glow-primary;
   }
   to {
-    box-shadow: 0 0 16px rgba($neon-warning, 0.9),
-      0 0 32px rgba($neon-warning, 0.7);
+    box-shadow: 0 0 16px rgba(v.$neon-warning, 0.9),
+      0 0 32px rgba(v.$neon-warning, 0.7);
   }
 }
 

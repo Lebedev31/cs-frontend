@@ -1,14 +1,14 @@
-@import "../../../styles/mixins.scss";
-@import "../../../styles/variable.scss";
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
 
 .myServers {
-  background: $gradient-cyber-terminal;
+  background: v.$gradient-cyber-terminal;
   padding: 20px;
   min-height: 100vh;
 }
 
 .title {
-  @include title();
+  @include m.title();
 }
 
 .button_block {
@@ -20,18 +20,18 @@
 }
 
 .addServer {
-  @include button(60px 18px 15px);
+  @include m.button(60px 18px 15px);
   width: 350px;
 }
 
 .servers_block {
   position: relative;
-  background: rgba($bg-darker, 0.6);
+  background: rgba(v.$bg-darker, 0.6);
   border-radius: 12px;
   padding: 30px;
-  border: 2px solid $neon-primary;
-  box-shadow: $glow-primary, inset 0 0 40px rgba($neon-primary, 0.1),
-    0 0 60px rgba($neon-primary, 0.3);
+  border: 2px solid v.$neon-primary;
+  box-shadow: v.$glow-primary, inset 0 0 40px rgba(v.$neon-primary, 0.1),
+    0 0 60px rgba(v.$neon-primary, 0.3);
 }
 
 .tabs {
@@ -45,22 +45,22 @@
 .tab {
   flex: 1;
   padding: 16px 24px;
-  background: rgba($bg-dark, 0.8);
-  border: 2px solid rgba($neon-accent, 0.3);
+  background: rgba(v.$bg-dark, 0.8);
+  border: 2px solid rgba(v.$neon-accent, 0.3);
   border-radius: 8px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
   position: relative;
   overflow: hidden;
 
   &:hover {
-    border-color: $neon-accent;
-    box-shadow: 0 0 15px rgba($neon-accent, 0.5);
+    border-color: v.$neon-accent;
+    box-shadow: 0 0 15px rgba(v.$neon-accent, 0.5);
     transform: translateY(-2px);
 
     &::before {
@@ -71,13 +71,13 @@
   &_active {
     background: linear-gradient(
       135deg,
-      rgba($neon-primary, 0.2),
-      rgba($neon-accent, 0.2)
+      rgba(v.$neon-primary, 0.2),
+      rgba(v.$neon-accent, 0.2)
     );
-    border-color: $neon-primary;
-    box-shadow: $glow-primary, inset 0 0 20px rgba($neon-primary, 0.2);
-    color: $neon-primary;
-    text-shadow: 0 0 10px rgba($neon-primary, 0.8);
+    border-color: v.$neon-primary;
+    box-shadow: v.$glow-primary, inset 0 0 20px rgba(v.$neon-primary, 0.2);
+    color: v.$neon-primary;
+    text-shadow: 0 0 10px rgba(v.$neon-primary, 0.8);
 
     &::after {
       content: "";
@@ -86,8 +86,8 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: $gradient-button-glow;
-      box-shadow: 0 0 10px $neon-primary;
+      background: v.$gradient-button-glow;
+      box-shadow: 0 0 10px v.$neon-primary;
     }
 
     &:hover {
@@ -106,6 +106,6 @@
   text-align: center;
   width: 400px;
   font-size: 22px;
-  color: $neon-primary;
+  color: v.$neon-primary;
   margin: 50px auto;
 }

@@ -1,13 +1,15 @@
+@use "./variable.scss" as v;
+
 @mixin ipPort() {
   font-size: 13px;
   width: 140px;
-  color: $glitch-purple;
+  color: v.$glitch-purple;
   text-align: center;
 }
 
 @mixin name() {
   font-size: 16px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;
@@ -16,14 +18,14 @@
 }
 
 @mixin map() {
-  color: $neon-warning;
+  color: v.$neon-warning;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 @mixin error() {
-  color: $neon-danger;
+  color: v.$neon-danger;
   font-size: 12px;
   text-align: center;
   text-transform: uppercase;
@@ -31,14 +33,14 @@
 
 @mixin button($h: 70px, $fs: 20px, $pad: 20px) {
   padding: $pad;
-  background: $gradient-button-glow;
-  color: $bg-dark;
+  background: v.$gradient-button-glow;
+  color: v.$bg-dark;
   border: none;
   border-radius: 8px;
   font-size: $fs;
   font-weight: 700;
   cursor: pointer;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
   text-transform: uppercase;
   letter-spacing: 1px;
   height: $h;
@@ -54,14 +56,14 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba($neon-warning, 0.4),
+      rgba(v.$neon-warning, 0.4),
       transparent
     );
     transition: left 0.5s;
   }
 
   &:hover {
-    box-shadow: $glow-primary, 0 0 30px rgba($neon-primary, 0.5);
+    box-shadow: v.$glow-primary, 0 0 30px rgba(v.$neon-primary, 0.5);
     transform: translateY(-3px);
 
     &::before {
@@ -72,23 +74,23 @@
 
 @mixin input() {
   padding: 20px 24px;
-  background: $bg-dark;
-  border: 2px solid $neon-accent;
+  background: v.$bg-dark;
+  border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
-  color: $text-primary;
+  color: v.$text-primary;
   outline: none;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
   height: 60px;
 
   &:focus {
-    border-color: $neon-primary;
-    box-shadow: $glow-primary;
-    background: rgba($neon-primary, 0.05);
+    border-color: v.$neon-primary;
+    box-shadow: v.$glow-primary;
+    background: rgba(v.$neon-primary, 0.05);
   }
 
   &::placeholder {
-    color: rgba($text-primary, 0.6);
+    color: rgba(v.$text-primary, 0.6);
     font-size: 16px;
   }
 }
@@ -98,14 +100,14 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 50px;
-  color: $text-primary;
-  text-shadow: $glow-primary;
+  color: v.$text-primary;
+  text-shadow: v.$glow-primary;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 @mixin page() {
-  background: $gradient-cyber-terminal;
+  background: v.$gradient-cyber-terminal;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,20 +124,20 @@
     rgba(0, 0, 0, 0.12)
   );
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: $border-radius-neon;
+  border-radius: v.$border-radius-neon;
   padding: 40px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), $glow-primary;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
   margin: 20px auto;
 }
 
 @mixin select() {
-  background: $bg-dark;
-  border: 2px solid $neon-accent;
+  background: v.$bg-dark;
+  border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
-  color: $text-primary;
+  color: v.$text-primary;
   outline: none;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
   width: 100%;
   text-align: center;
   cursor: pointer;
@@ -146,25 +148,25 @@
   height: 70px;
 
   option {
-    background: $bg-dark;
+    background: v.$bg-dark;
   }
 
   &:hover {
-    border-color: $neon-primary;
+    border-color: v.$neon-primary;
   }
 }
 
 /// модальное окно
 @mixin confirmModalButton(
   $w: 100%,
-  $color: $neon-warning,
-  $color2: $cs-yellow
+  $color: v.$neon-warning,
+  $color2: v.$cs-yellow
 ) {
   width: 100%;
   padding: 18px;
   background: linear-gradient(45deg, $color, $color2) !important;
-  color: $bg-dark;
-  @include button;
+  color: v.$bg-dark;
+  @include button();
 
   &:hover {
     box-shadow: 0 0 20px rgba($color, 0.7), 0 0 40px rgba($color, 0.5);
@@ -191,13 +193,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: $z-modal;
+  z-index: v.$z-modal;
   animation: fadeIn 0.5s ease-in-out;
 }
 
-@mixin modal($color: $neon-warning, $color2: $cs-yellow) {
+@mixin modal($color: v.$neon-warning, $color2: v.$cs-yellow) {
   max-width: 700px;
-  background: linear-gradient(135deg, $bg-darker 0%, #0a0a12 100%);
+  background: linear-gradient(135deg, v.$bg-darker 0%, #0a0a12 100%);
   border: 2px solid $color;
   border-radius: 12px;
   padding: 40px;
@@ -207,7 +209,7 @@
   animation: modalAppear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@mixin closeButton($color: $neon-warning) {
+@mixin closeButton($color: v.$neon-warning) {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -226,20 +228,20 @@
 
   &:hover {
     background: $color;
-    color: $bg-dark;
+    color: v.$bg-dark;
     transform: rotate(90deg);
     box-shadow: 0 0 15px rgba($color, 0.6);
   }
 }
 
-@mixin titleModal($text-shadow-color: $neon-warning) {
+@mixin titleModal($text-shadow-color: v.$neon-warning) {
   font-size: 32px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 25px;
-  color: $text-primary;
+  color: v.$text-primary;
   text-shadow: 0 0 10px rgba($text-shadow-color, 0.6),
-    0 0 20px rgba($neon-warning, 0.4);
+    0 0 20px rgba(v.$neon-warning, 0.4);
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -247,7 +249,7 @@
 @mixin descriptionModal($fz: 14px) {
   font-size: $fz;
   line-height: 1.6;
-  color: rgba($text-primary, 0.85);
+  color: rgba(v.$text-primary, 0.85);
   text-align: center;
   margin-bottom: 35px;
   padding: 0 10px;

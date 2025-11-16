@@ -1,22 +1,22 @@
-@import "../../../styles/mixins.scss";
-@import "../../../styles/variable.scss";
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
 
 .payment {
-  @include page();
+  @include m.page();
 }
 
 .container {
   width: 100%;
   max-width: 800px;
   padding: 60px 80px;
-  background: rgba($bg-darker, 0.9);
-  border: 2px solid $neon-accent;
-  border-radius: $border-radius-neon;
-  box-shadow: $glow-primary, 0 10px 50px rgba($neon-primary, 0.2);
+  background: rgba(v.$bg-darker, 0.9);
+  border: 2px solid v.$neon-accent;
+  border-radius: v.$border-radius-neon;
+  box-shadow: v.$glow-primary, 0 10px 50px rgba(v.$neon-primary, 0.2);
 }
 
 .title {
-  @include title();
+  @include m.title();
   margin-bottom: 60px;
 }
 
@@ -26,7 +26,7 @@
 
 .balanceLabel {
   font-size: 24px;
-  color: $text-primary;
+  color: v.$text-primary;
   text-align: center;
   margin-bottom: 20px;
   font-weight: 400;
@@ -35,7 +35,7 @@
 .balanceLine {
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, $neon-accent, transparent);
+  background: linear-gradient(90deg, transparent, v.$neon-accent, transparent);
   opacity: 0.5;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .error {
-  @include error();
+  @include m.error();
 }
 
 .inputGroup {
@@ -58,7 +58,7 @@
 
 .label {
   font-size: 20px;
-  color: $text-primary;
+  color: v.$text-primary;
   text-align: center;
   font-weight: 500;
 }
@@ -71,7 +71,7 @@
 }
 
 .input {
-  @include input();
+  @include m.input();
   width: 200px;
   text-align: center;
 
@@ -89,12 +89,12 @@
 
 .currency {
   font-size: 20px;
-  color: $text-primary;
+  color: v.$text-primary;
   font-weight: 500;
 }
 
 .button {
-  @include button(70px, 24px, 20px);
+  @include m.button(70px, 24px, 20px);
   width: 400px;
   margin: 0 auto;
 }

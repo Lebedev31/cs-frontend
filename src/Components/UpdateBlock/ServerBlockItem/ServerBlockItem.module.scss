@@ -1,5 +1,5 @@
-@import "../../../styles/variable.scss";
-@import "../../../styles/mixins.scss";
+@use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
 
 .serverBlockItem {
   display: flex;
@@ -9,18 +9,18 @@
   gap: 1rem;
   padding: 10px 13px;
   // background: $text-secondary;
-  border: 1px solid rgba($neon-primary, 0.1);
-  border-radius: $border-radius-neon;
-  transition: $transition-fast;
+  border: 1px solid rgba(v.$neon-primary, 0.1);
+  border-radius: v.$border-radius-neon;
+  transition: v.$transition-fast;
   cursor: pointer;
-  box-shadow: inset 0 -1px 0 rgba($neon-primary, 0.2);
+  box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   width: 100%;
 
   &:hover {
-    background: rgba($neon-warning, 0.6);
-    border-color: rgba($neon-warning, 0.3);
-    box-shadow: inset 0 -1px 0 rgba($neon-warning, 0.3),
-      0 0 8px rgba($neon-warning, 0.3);
+    background: rgba(v.$neon-warning, 0.6);
+    border-color: rgba(v.$neon-warning, 0.3);
+    box-shadow: inset 0 -1px 0 rgba(v.$neon-warning, 0.3),
+      0 0 8px rgba(v.$neon-warning, 0.3);
   }
 
   &:active {
@@ -40,8 +40,8 @@
       gap: 0.5rem;
 
       .statusBadge {
-        background: linear-gradient(135deg, $neon-accent, $neon-warning);
-        color: $glitch-purple;
+        background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
+        color: v.$glitch-purple;
         padding: 0.15rem 0.4rem;
         font-size: 18px;
         font-weight: 700;
@@ -53,7 +53,7 @@
       }
 
       .name {
-        @include name;
+        @include m.name;
       }
     }
 
@@ -71,12 +71,12 @@
 
       .points {
         font-size: 13px;
-        color: $neon-warning;
+        color: v.$neon-warning;
         width: 160px;
       }
 
       .address {
-        @include ipPort;
+        @include m.ipPort;
       }
     }
   }
@@ -88,7 +88,7 @@
     text-align: center;
 
     .map {
-      @include map;
+      @include m.map;
     }
   }
 }

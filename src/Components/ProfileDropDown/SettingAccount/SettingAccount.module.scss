@@ -1,15 +1,15 @@
-@import "../../../styles/mixins.scss";
-@import "../../../styles/variable.scss";
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
 
 /* Контейнер страницы */
 .setting_container {
   padding: 40px 60px;
-  color: $text-primary;
+  color: v.$text-primary;
 }
 
 /* Заголовок */
 .title {
-  @include title;
+  @include m.title;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -35,12 +35,12 @@
 
 /* общий стиль для инпутов — используем твой миксин */
 .setting_input {
-  @include input();
+  @include m.input();
 }
 
 /* Кнопка сохранить */
 .setting_button {
-  @include button(60px, 18px, 18px);
+  @include m.button(60px, 18px, 18px);
   width: fit-content;
   padding-left: 18px;
   padding-right: 18px;
@@ -67,13 +67,13 @@
   justify-content: center;
   font-size: 72px;
   font-weight: 700;
-  color: $text-primary;
+  color: v.$text-primary;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.02),
     rgba(0, 0, 0, 0.12)
   );
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), $glow-primary;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), v.$glow-primary;
   border-radius: 8px;
 
   .avatar_img {
@@ -86,7 +86,7 @@
 .avatar_change {
   background: transparent;
   border: none;
-  color: rgba($text-primary, 0.9);
+  color: rgba(v.$text-primary, 0.9);
   font-size: 14px;
   cursor: pointer;
   text-decoration: underline;
@@ -116,7 +116,7 @@
 
 /* Заголовок секции */
 .password_title {
-  @include title();
+  @include m.title();
 }
 
 /* Форма смены пароля */
@@ -130,7 +130,7 @@
 
 /* Кнопка изменить пароль — более тонкая, использует миксин button */
 .change_password_button {
-  @include button(56px, 18px, 18px);
+  @include m.button(56px, 18px, 18px);
   width: fit-content;
   font-size: 16px;
   padding-left: 16px;
@@ -215,5 +215,5 @@
 }
 
 .error {
-  @include error();
+  @include m.error();
 }

@@ -1,9 +1,9 @@
-@import "../../styles/mixins.scss";
-@import "../../styles/variable.scss";
+@use "../../styles/mixins.scss" as m;
+@use "../../styles/variable.scss" as v;
 
 .container {
   min-height: 100vh;
-  background: $gradient-cyber-terminal;
+  background: v.$gradient-cyber-terminal;
   padding: 60px 20px;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
 }
 
 .title {
-  @include title();
+  @include m.title();
   font-size: 48px;
   margin-bottom: 80px;
 
@@ -33,15 +33,15 @@
 }
 
 .serviceCard {
-  background: rgba($bg-darker, 0.9);
+  background: rgba(v.$bg-darker, 0.9);
   border: 3px solid;
-  border-radius: $border-radius-neon;
+  border-radius: v.$border-radius-neon;
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   position: relative;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
 
   &:hover {
     transform: translateY(-5px);
@@ -54,61 +54,62 @@
 
 // Цветные обводки для каждой услуги
 .gold {
-  border-color: $cs-yellow;
-  box-shadow: 0 0 15px rgba($cs-yellow, 0.4);
+  border-color: v.$cs-yellow;
+  box-shadow: 0 0 15px rgba(v.$cs-yellow, 0.4);
 
   &:hover {
-    box-shadow: 0 0 25px rgba($cs-yellow, 0.6), 0 0 40px rgba($cs-yellow, 0.4);
+    box-shadow: 0 0 25px rgba(v.$cs-yellow, 0.6),
+      0 0 40px rgba(v.$cs-yellow, 0.4);
   }
 
   .serviceTitle {
-    color: $cs-yellow;
-    text-shadow: 0 0 10px rgba($cs-yellow, 0.8);
+    color: v.$cs-yellow;
+    text-shadow: 0 0 10px rgba(v.$cs-yellow, 0.8);
   }
 }
 
 .blue {
-  border-color: $cs-blue-team;
-  box-shadow: 0 0 15px rgba($cs-blue-team, 0.4);
+  border-color: v.$cs-blue-team;
+  box-shadow: 0 0 15px rgba(v.$cs-blue-team, 0.4);
 
   &:hover {
-    box-shadow: 0 0 25px rgba($cs-blue-team, 0.6),
-      0 0 40px rgba($cs-blue-team, 0.4);
+    box-shadow: 0 0 25px rgba(v.$cs-blue-team, 0.6),
+      0 0 40px rgba(v.$cs-blue-team, 0.4);
   }
 
   .serviceTitle {
-    color: $cs-blue-team;
-    text-shadow: 0 0 10px rgba($cs-blue-team, 0.8);
+    color: v.$cs-blue-team;
+    text-shadow: 0 0 10px rgba(v.$cs-blue-team, 0.8);
   }
 }
 
 .red {
-  border-color: $cs-red-team;
-  box-shadow: 0 0 15px rgba($cs-red-team, 0.4);
+  border-color: v.$cs-red-team;
+  box-shadow: 0 0 15px rgba(v.$cs-red-team, 0.4);
 
   &:hover {
-    box-shadow: 0 0 25px rgba($cs-red-team, 0.6),
-      0 0 40px rgba($cs-red-team, 0.4);
+    box-shadow: 0 0 25px rgba(v.$cs-red-team, 0.6),
+      0 0 40px rgba(v.$cs-red-team, 0.4);
   }
 
   .serviceTitle {
-    color: $cs-red-team;
-    text-shadow: 0 0 10px rgba($cs-red-team, 0.8);
+    color: v.$cs-red-team;
+    text-shadow: 0 0 10px rgba(v.$cs-red-team, 0.8);
   }
 }
 
 .green {
-  border-color: $neon-success;
-  box-shadow: 0 0 15px rgba($neon-success, 0.4);
+  border-color: v.$neon-success;
+  box-shadow: 0 0 15px rgba(v.$neon-success, 0.4);
 
   &:hover {
-    box-shadow: 0 0 25px rgba($neon-success, 0.6),
-      0 0 40px rgba($neon-success, 0.4);
+    box-shadow: 0 0 25px rgba(v.$neon-success, 0.6),
+      0 0 40px rgba(v.$neon-success, 0.4);
   }
 
   .serviceTitle {
-    color: $neon-success;
-    text-shadow: 0 0 10px rgba($neon-success, 0.8);
+    color: v.$neon-success;
+    text-shadow: 0 0 10px rgba(v.$neon-success, 0.8);
   }
 }
 
@@ -135,7 +136,7 @@
 
 .serviceDescription {
   font-size: 18px;
-  color: $text-primary;
+  color: v.$text-primary;
   text-align: center;
   line-height: 1.6;
   margin: 0;
@@ -154,7 +155,7 @@
 }
 
 .servicePayment {
-  @include button(60px, 18px, 10px 20px);
+  @include m.button(60px, 18px, 10px 20px);
   width: 100%;
   max-width: 400px;
 
@@ -167,73 +168,86 @@
 
 // Цветные варианты кнопок "Заказать услугу"
 .btnGold {
-  background: linear-gradient(45deg, darken($cs-yellow, 10%), $cs-yellow);
+  background: linear-gradient(45deg, darken(v.$cs-yellow, 10%), v.$cs-yellow);
 
   &::before {
     background: linear-gradient(
       90deg,
       transparent,
-      rgba($cs-yellow, 0.5),
+      rgba(v.$cs-yellow, 0.5),
       transparent
     );
   }
 
   &:hover {
-    box-shadow: 0 0 20px rgba($cs-yellow, 0.8), 0 0 40px rgba($cs-yellow, 0.5);
+    box-shadow: 0 0 20px rgba(v.$cs-yellow, 0.8),
+      0 0 40px rgba(v.$cs-yellow, 0.5);
   }
 }
 
 .btnBlue {
-  background: linear-gradient(45deg, darken($cs-blue-team, 10%), $cs-blue-team);
+  background: linear-gradient(
+    45deg,
+    darken(v.$cs-blue-team, 10%),
+    v.$cs-blue-team
+  );
 
   &::before {
     background: linear-gradient(
       90deg,
       transparent,
-      rgba($cs-blue-team, 0.5),
+      rgba(v.$cs-blue-team, 0.5),
       transparent
     );
   }
 
   &:hover {
-    box-shadow: 0 0 20px rgba($cs-blue-team, 0.8),
-      0 0 40px rgba($cs-blue-team, 0.5);
+    box-shadow: 0 0 20px rgba(v.$cs-blue-team, 0.8),
+      0 0 40px rgba(v.$cs-blue-team, 0.5);
   }
 }
 
 .btnRed {
-  background: linear-gradient(45deg, darken($cs-red-team, 10%), $cs-red-team);
+  background: linear-gradient(
+    45deg,
+    darken(v.$cs-red-team, 10%),
+    v.$cs-red-team
+  );
 
   &::before {
     background: linear-gradient(
       90deg,
       transparent,
-      rgba($cs-red-team, 0.5),
+      rgba(v.$cs-red-team, 0.5),
       transparent
     );
   }
 
   &:hover {
-    box-shadow: 0 0 20px rgba($cs-red-team, 0.8),
-      0 0 40px rgba($cs-red-team, 0.5);
+    box-shadow: 0 0 20px rgba(v.$cs-red-team, 0.8),
+      0 0 40px rgba(v.$cs-red-team, 0.5);
   }
 }
 
 .btnGreen {
-  background: linear-gradient(45deg, darken($neon-success, 10%), $neon-success);
+  background: linear-gradient(
+    45deg,
+    darken(v.$neon-success, 10%),
+    v.$neon-success
+  );
 
   &::before {
     background: linear-gradient(
       90deg,
       transparent,
-      rgba($neon-success, 0.5),
+      rgba(v.$neon-success, 0.5),
       transparent
     );
   }
 
   &:hover {
-    box-shadow: 0 0 20px rgba($neon-success, 0.8),
-      0 0 40px rgba($neon-success, 0.5);
+    box-shadow: 0 0 20px rgba(v.$neon-success, 0.8),
+      0 0 40px rgba(v.$neon-success, 0.5);
   }
 }
 
@@ -243,11 +257,11 @@
   align-self: flex-end;
   border: none;
   border-radius: 50%;
-  color: $text-primary;
+  color: v.$text-primary;
   font-size: 22px;
   font-weight: 900;
   cursor: pointer;
-  transition: $transition-glow;
+  transition: v.$transition-glow;
 
   &:active {
     transform: scale(0.95);
@@ -257,7 +271,7 @@
     align-self: center;
     width: 100%;
     max-width: 200px;
-    border-radius: $border-radius-neon;
+    border-radius: v.$border-radius-neon;
     height: 50px;
     font-size: 20px;
   }
@@ -265,48 +279,49 @@
 
 // Цветные варианты кнопок "?"
 .btnQuestionGold {
-  background: $cs-yellow;
-  box-shadow: 0 0 10px rgba($cs-yellow, 0.6);
+  background: v.$cs-yellow;
+  box-shadow: 0 0 10px rgba(v.$cs-yellow, 0.6);
 
   &:hover {
     transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 0 20px rgba($cs-yellow, 0.9), 0 0 40px rgba($cs-yellow, 0.6);
-    background: lighten($cs-yellow, 10%);
+    box-shadow: 0 0 20px rgba(v.$cs-yellow, 0.9),
+      0 0 40px rgba(v.$cs-yellow, 0.6);
+    background: lighten(v.$cs-yellow, 10%);
   }
 }
 
 .btnQuestionBlue {
-  background: $cs-blue-team;
-  box-shadow: 0 0 10px rgba($cs-blue-team, 0.6);
+  background: v.$cs-blue-team;
+  box-shadow: 0 0 10px rgba(v.$cs-blue-team, 0.6);
 
   &:hover {
     transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 0 20px rgba($cs-blue-team, 0.9),
-      0 0 40px rgba($cs-blue-team, 0.6);
-    background: lighten($cs-blue-team, 10%);
+    box-shadow: 0 0 20px rgba(v.$cs-blue-team, 0.9),
+      0 0 40px rgba(v.$cs-blue-team, 0.6);
+    background: lighten(v.$cs-blue-team, 10%);
   }
 }
 
 .btnQuestionRed {
-  background: $cs-red-team;
-  box-shadow: 0 0 10px rgba($cs-red-team, 0.6);
+  background: v.$cs-red-team;
+  box-shadow: 0 0 10px rgba(v.$cs-red-team, 0.6);
 
   &:hover {
     transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 0 20px rgba($cs-red-team, 0.9),
-      0 0 40px rgba($cs-red-team, 0.6);
-    background: lighten($cs-red-team, 10%);
+    box-shadow: 0 0 20px rgba(v.$cs-red-team, 0.9),
+      0 0 40px rgba(v.$cs-red-team, 0.6);
+    background: lighten(v.$cs-red-team, 10%);
   }
 }
 
 .btnQuestionGreen {
-  background: $neon-success;
-  box-shadow: 0 0 10px rgba($neon-success, 0.6);
+  background: v.$neon-success;
+  box-shadow: 0 0 10px rgba(v.$neon-success, 0.6);
 
   &:hover {
     transform: scale(1.15) rotate(15deg);
-    box-shadow: 0 0 20px rgba($neon-success, 0.9),
-      0 0 40px rgba($neon-success, 0.6);
-    background: lighten($neon-success, 10%);
+    box-shadow: 0 0 20px rgba(v.$neon-success, 0.9),
+      0 0 40px rgba(v.$neon-success, 0.6);
+    background: lighten(v.$neon-success, 10%);
   }
 }

@@ -1,5 +1,5 @@
-@import "../../../../../styles/mixins.scss";
-@import "../../../../../styles/variable.scss";
+@use "../../../../../styles/mixins.scss" as m;
+@use "../../../../../styles/variable.scss" as v;
 
 .term {
   display: flex;
@@ -18,23 +18,23 @@
   align-items: center;
   padding: 12px 10px;
   border-radius: 8px;
-  background: $glitch-purple;
+  background: v.$glitch-purple;
   cursor: pointer;
   text-align: center;
   padding-top: 60px;
 }
 
 .term_date {
-  @include title();
+  @include m.title();
   font-size: 22px;
   margin-bottom: 20px;
 }
 
 .price {
-  @include title();
+  @include m.title();
   font-size: 18px;
   margin-bottom: 10px;
-  text-shadow: $neon-warning;
+  text-shadow: v.$neon-warning;
 }
 
 .item {

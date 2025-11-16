@@ -1,6 +1,6 @@
 // CustomSelect.module.scss
-@import "../../styles/variable.scss";
-@import "../../styles/mixins.scss";
+@use "../../styles/variable.scss" as v;
+@use "../../styles/mixins.scss" as m;
 
 .customSelect {
   position: relative;
@@ -8,7 +8,7 @@
 }
 
 .selected {
-  @include input();
+  @include m.input();
   width: 100%;
   text-align: center;
   cursor: pointer;
@@ -26,8 +26,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: $bg-dark;
-  border: 2px solid $neon-accent;
+  background: v.$bg-dark;
+  border: 2px solid v.$neon-accent;
   border-top: none;
   border-radius: 0 0 8px 8px;
   max-height: 250px;
@@ -38,13 +38,13 @@
 
 .option {
   padding: 15px 24px;
-  color: $text-primary;
+  color: v.$text-primary;
   cursor: pointer;
   text-align: center;
-  transition: $transition-fast;
+  transition: v.$transition-fast;
 
   &:hover {
-    background: rgba($neon-primary, 0.1);
-    color: $neon-primary;
+    background: rgba(v.$neon-primary, 0.1);
+    color: v.$neon-primary;
   }
 }

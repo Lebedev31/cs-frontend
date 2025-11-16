@@ -1,5 +1,5 @@
-@import "../../../../styles/mixins.scss";
-@import "../../../../styles/variable.scss";
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
 
 .comment {
   display: flex;
@@ -14,7 +14,7 @@
   height: 60px;
   border-radius: 50%;
   border: 1px solid #3a3a3a;
-  background-color: $bg-darker;
+  background-color: v.$bg-darker;
   overflow: hidden;
   flex-shrink: 0;
 

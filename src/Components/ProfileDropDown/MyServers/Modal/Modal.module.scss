@@ -1,33 +1,33 @@
-@import "../../../../styles/mixins.scss";
-@import "../../../../styles/variable.scss";
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
 
 .modalOverlay {
-  @include modalOverlay();
+  @include m.modalOverlay();
 }
 
 .modal {
-  @include modal($cs-blue-team);
+  @include m.modal(v.$cs-blue-team);
 }
 
 .closeButton {
-  @include closeButton($cs-blue-team);
+  @include m.closeButton(v.$cs-blue-team);
 }
 
 .title {
-  @include titleModal($cs-blue-team);
+  @include m.titleModal(v.$cs-blue-team);
 }
 
 .description {
-  @include descriptionModal();
+  @include m.descriptionModal();
 }
 
 .confirmButton {
-  @include confirmModalButton(200px, $cs-blue-team);
+  @include m.confirmModalButton(200px, v.$cs-blue-team);
   font-size: 12px;
   height: 60px;
 }
 
-@include animationModal();
+@include m.animationModal();
 
 .button_block {
   display: flex;

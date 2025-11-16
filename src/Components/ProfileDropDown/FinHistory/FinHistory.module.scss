@@ -1,9 +1,9 @@
-@import "../../../styles/variable.scss";
-@import "../../../styles/mixins.scss";
+@use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
 .page {
-  @include page();
-  font-family: $font-neon, "Arial", sans-serif;
-  color: $text-primary;
+  @include m.page();
+  font-family: v.$font-neon, "Arial", sans-serif;
+  color: v.$text-primary;
 }
 
 .wrapper {
@@ -15,14 +15,14 @@
     rgba(0, 0, 0, 0.12)
   );
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: $border-radius-neon;
+  border-radius: v.$border-radius-neon;
   padding: 40px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), $glow-primary;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
 }
 
 /* Заголовок */
 .title {
-  @include title();
+  @include m.title();
   margin-top: 0;
 }
 
@@ -39,7 +39,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 16px;
-  color: $text-primary;
+  color: v.$text-primary;
 }
 
 /* Заголовок таблицы */
@@ -52,7 +52,7 @@
   padding: 18px 20px;
   text-align: left;
   font-weight: 600;
-  color: $text-primary;
+  color: v.$text-primary;
   letter-spacing: 0.4px;
   border-right: 1px solid rgba(255, 255, 255, 0.03);
 }
@@ -79,7 +79,7 @@
 
 /* Тело таблицы */
 .table tbody tr {
-  transition: $transition-fast;
+  transition: v.$transition-fast;
   border-bottom: 1px solid rgba(255, 255, 255, 0.02);
   height: 80px;
 }
@@ -93,7 +93,7 @@
 .table td {
   padding: 18px 20px;
   vertical-align: middle;
-  color: $text-primary;
+  color: v.$text-primary;
   border-right: 1px solid rgba(255, 255, 255, 0.01);
 }
 
@@ -107,18 +107,17 @@
   border-radius: 6px;
   display: inline-block;
   font-weight: 700;
-  font-family: $font-mono;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
 }
 
 .amountPlus {
-  color: $neon-success;
-  text-shadow: $glow-success;
+  color: v.$neon-success;
+  text-shadow: v.$glow-success;
 }
 
 .amountMinus {
-  color: $neon-danger;
-  text-shadow: $glow-danger;
+  color: v.$neon-danger;
+  text-shadow: v.$glow-danger;
 }
 
 /* Статус */
@@ -130,27 +129,27 @@
   font-size: 11px;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: $text-header;
+  color: v.$text-header;
 }
 
 .statusSuccess {
-  background: rgba($neon-success, 0.12);
-  color: $neon-success;
-  box-shadow: $glow-success;
+  background: rgba(v.$neon-success, 0.12);
+  color: v.$neon-success;
+  box-shadow: v.$glow-success;
   border: 1px solid rgba(57, 255, 20, 0.12);
 }
 
 .statusPending {
-  background: rgba($neon-warning, 0.12);
-  color: $neon-warning;
-  box-shadow: $glow-warning;
+  background: rgba(v.$neon-warning, 0.12);
+  color: v.$neon-warning;
+  box-shadow: v.$glow-warning;
   border: 1px solid rgba(255, 234, 0, 0.12);
 }
 
 .statusFailed {
-  background: rgba($neon-danger, 0.08);
-  color: $neon-danger;
-  box-shadow: $glow-danger;
+  background: rgba(v.$neon-danger, 0.08);
+  color: v.$neon-danger;
+  box-shadow: v.$glow-danger;
   border: 1px solid rgba(255, 0, 60, 0.12);
 }
 
