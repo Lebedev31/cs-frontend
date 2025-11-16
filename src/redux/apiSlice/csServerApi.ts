@@ -15,7 +15,7 @@ export const csServerApi = createApi({
     }),
 
     getServerById: builder.query<MessageServer<GameServer>, { id: string }>({
-      query: (id) => `server/${id}`,
+      query: ({ id }) => `server/${id}`,
     }),
   }),
 });

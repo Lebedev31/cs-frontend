@@ -4,7 +4,7 @@ import styles from "./Login.module.scss";
 import Image from "next/image";
 import { RegistrationProps } from "../RegisterBlock";
 import { useAuthMutation, useVkAuthMutation } from "@/redux/apiSlice/authApi";
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { AuthSchema, Auth } from "@/types/type";
 import {
   validateWithZod,
@@ -37,6 +37,13 @@ export default function Login({ setToggle }: RegistrationProps) {
     unionErrorForm: "",
   });
 
+  const setloginAndRedirect = useCallback(() => {
+    localStorage.setItem("login", "login");
+    const loginToken = localStorage.getItem("login");
+    dispatch(setLogin(loginToken ? true : false));
+    router.push("/");
+  }, [dispatch, router]);
+
   useEffect(() => {
     const code = searchParams.get("code");
     const device_id = searchParams.get("device_id");
@@ -53,10 +60,7 @@ export default function Login({ setToggle }: RegistrationProps) {
           }).unwrap();
 
           if (result.message === "success" && result.statusCode === 200) {
-            localStorage.setItem("login", "login");
-            const loginToken = localStorage.getItem("login");
-            dispatch(setLogin(loginToken ? true : false));
-            router.push("/");
+            setloginAndRedirect();
           }
         }
       } catch (error) {
@@ -90,10 +94,7 @@ export default function Login({ setToggle }: RegistrationProps) {
         try {
           const result = await authMutation(auth).unwrap();
           if (result.message === "success" && result.statusCode === 200) {
-            localStorage.setItem("login", "login");
-            const loginToken = localStorage.getItem("login");
-            dispatch(setLogin(loginToken ? true : false));
-            router.push("/");
+            setloginAndRedirect();
           }
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
@@ -103,10 +104,16 @@ export default function Login({ setToggle }: RegistrationProps) {
     }
   };
 
+  useEffect(() => {
+    const steamRedirectStatus = searchParams.get("status");
+    if (steamRedirectStatus === "success") {
+      setloginAndRedirect();
+    }
+  }, [searchParams, setloginAndRedirect]);
+
   const authVk = async () => {
     const code_verifier = await generateCodeVerifier();
     const code_challenge = await codeChallengeFromVerifier(code_verifier);
-
     // сохраните verifier, чтобы потом отправить на бэк
     localStorage.setItem("vk_code_verifier", code_verifier);
     VKID.Config.init({

@@ -49,6 +49,7 @@ export default function ServerPage() {
 
   async function getByServer(id: string) {
     try {
+      console.log(id);
       const result = await triger({ id });
       if (result.data?.data) {
         setServer(result.data.data);

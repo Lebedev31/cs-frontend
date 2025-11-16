@@ -31,13 +31,14 @@
 .input {
   @include input();
   width: 100%;
-  text-align: center;
   height: 70px;
   color: $text-primary;
 }
 
 .select {
   @include select();
+  text-align: left;
+  padding-left: 20px;
 }
 
 .textarea {
@@ -45,13 +46,8 @@
   width: 100%;
   min-height: 200px;
   resize: none;
-  text-align: center;
   padding-top: 30px;
   line-height: 1.6;
-
-  &::placeholder {
-    text-align: center;
-  }
 }
 
 .error {
