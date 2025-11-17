@@ -1,25 +1,3 @@
-/*import { useEffect } from "react";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-
-interface RecaptchaV3Props {
-  onVerify: (token: string) => void;
-}
-
-export default function RecaptchaV3({ onVerify }: RecaptchaV3Props) {
-  const { executeRecaptcha } = useGoogleReCaptcha();
-
-  useEffect(() => {
-    if (executeRecaptcha) {
-      executeRecaptcha("submit").then((token) => {
-        onVerify(token);
-      });
-    }
-  }, [executeRecaptcha, onVerify]);
-
-  return null;
-}*/
-
-// V3.tsx
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useEffect, useRef } from "react";
 

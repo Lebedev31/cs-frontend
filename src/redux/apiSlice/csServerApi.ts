@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { MessageServer, AsideEndpointsUnion, GameServer } from "@/types/type";
 import { apiUrl } from "../api.url";
+console.log("env  = " + apiUrl);
 export const csServerApi = createApi({
   reducerPath: "csServerApi",
   baseQuery: fetchBaseQuery({

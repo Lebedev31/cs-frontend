@@ -29,13 +29,8 @@ export default function Header() {
     setIsClient(true);
   }, []);
   useEffect(() => {
-    console.log(1);
     const existLogin = localStorage.getItem("login");
-    console.log(isLogin);
-    console.log(data);
-    console.log(data?.data);
     if (isLogin && data && data.data) {
-      console.log(2);
       localStorage.setItem("login", data.data.login);
       dispatch(
         setInfo({ avatarUrl: data.data.avatarUrl, login: data.data.login })
@@ -43,9 +38,7 @@ export default function Header() {
       dispatch(setLogin(true));
     }
     if (!data && !isLogin) {
-      console.log(3);
       if (existLogin) {
-        console.log(4);
         localStorage.removeItem("login");
         dispatch(setInfo({ avatarUrl: "", login: "" }));
         dispatch(setLogin(false));
