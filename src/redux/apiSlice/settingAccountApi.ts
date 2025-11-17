@@ -12,12 +12,11 @@ export const settingAccountApi = createApi({
     baseUrl: `${apiUrl}setting`,
     credentials: "include",
   }),
-  tagTypes: ["avatarUrl", "infoUser"],
+  tagTypes: ["avatarUrl"],
 
   endpoints: (build) => ({
     getInfoUser: build.query<MessageServer<SettingAccount>, void>({
       query: () => "profile",
-      providesTags: ["infoUser"],
     }),
 
     updateUserInfo: build.mutation<
@@ -30,7 +29,7 @@ export const settingAccountApi = createApi({
         url: "update-email-or-login",
       }),
 
-      invalidatesTags: ["infoUser"],
+      invalidatesTags: ["avatarUrl"],
     }),
     updatePassword: build.mutation<
       MessageServer<void>,
