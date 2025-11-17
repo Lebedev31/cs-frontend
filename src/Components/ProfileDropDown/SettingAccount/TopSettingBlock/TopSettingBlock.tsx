@@ -61,7 +61,6 @@ export default function TopSettingBlock() {
       SettingSchemaWithoutUrl,
       userData,
       (result) => {
-        console.log(result);
         if (result.data && result.statusCode >= 200) {
           toast.success("Данные успешно обновлены");
           setValidationError({ errorEmail: "", errorLogin: "" });
