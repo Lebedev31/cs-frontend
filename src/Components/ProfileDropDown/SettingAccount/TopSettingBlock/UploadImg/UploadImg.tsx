@@ -54,8 +54,8 @@ export default function UploadImg({ avatarUrl }: UploadImgProps) {
           // eslint-disable-next-line @next/next/no-img-element
           <img
             className={styles.avatar_img}
-            src={`${apiImg}${avatar}`}
-            alt="Avatar"
+            src={`${avatar.startsWith("http") ? avatar : apiImg + avatar}`}
+            alt=""
           />
         ) : (
           <span style={{ fontSize: 17 }}>
