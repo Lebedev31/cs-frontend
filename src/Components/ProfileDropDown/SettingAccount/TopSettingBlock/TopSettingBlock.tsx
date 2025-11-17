@@ -62,7 +62,7 @@ export default function TopSettingBlock() {
       userData,
       (result) => {
         console.log(result);
-        if (result.data && result.statusCode > 200) {
+        if (result.data && result.statusCode >= 200) {
           toast.success("Данные успешно обновлены");
           setValidationError({ errorEmail: "", errorLogin: "" });
           setInfo((prev) => {
