@@ -10,6 +10,7 @@
   display: flex;
   gap: 30px;
   width: 1200px;
+  margin-bottom: 25px;
 }
 
 .wrapper {
@@ -294,6 +295,29 @@
   box-shadow: 0 0 10px rgba(v.$neon-warning, 0.3);
   text-align: center;
   height: 240px;
+  width: 50%;
+
+  overflow-x: hidden;
+  // Тонкий скроллбар только здесь
+  scrollbar-width: thin;
+  scrollbar-color: v.$neon-warning v.$bg-darker;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: v.$neon-warning;
+    border-radius: 10px;
+
+    &:hover {
+      background: v.$neon-primary;
+    }
+  }
 }
 
 .rating_title {
@@ -317,6 +341,16 @@
   img {
     cursor: pointer;
   }
+}
+
+.block_flex {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.description_text {
+  color: v.$neon-success;
 }
 
 .statusBadge {

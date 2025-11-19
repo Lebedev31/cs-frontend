@@ -59,10 +59,6 @@ $transition-glow: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 $border-radius-neon: 8px;
 $border-radius-sharp: 2px; // для "терминального" вида
 
-// Шрифты (если используешь кастомные)
-$font-mono: "Courier New", monospace;
-$font-neon: "Orbitron", "Rajdhani", sans-serif; // Кибер-шрифты
-
 // Z-индексы для эффектов поверх всего
 $z-glow: 10;
 $z-modal: 1000;

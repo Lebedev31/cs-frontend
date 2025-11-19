@@ -20,12 +20,18 @@ export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileButtonRef = useRef<HTMLButtonElement | null>(null);
   const dispatch: AppDispatch = useDispatch();
-  const { data, refetch } = useGetAvatarUrlQuery(
+  const { data, refetch, isError } = useGetAvatarUrlQuery(
     undefined,
     { skip: !isLogin } // <-- не запрашивать пока не залогинен
   );
+
   // После монтирования компонента мы уже на клиенте
   useEffect(() => {
+    if (isError) {
+      localStorage.removeItem("login");
+      dispatch(setInfo({ avatarUrl: "", login: "" }));
+      dispatch(setLogin(false));
+    }
     setIsClient(true);
   }, []);
   useEffect(() => {
@@ -38,6 +44,7 @@ export default function Header() {
       dispatch(setLogin(true));
     }
     if (!data && !isLogin) {
+      console.log(existLogin);
       if (existLogin) {
         localStorage.removeItem("login");
         dispatch(setInfo({ avatarUrl: "", login: "" }));

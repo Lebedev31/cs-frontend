@@ -24,6 +24,7 @@ export interface GameServer {
   rating: number;
   website: string;
   service: Service;
+  description: string;
 }
 
 export interface Service {
@@ -58,7 +59,7 @@ export interface MessageServer<T, M = unknown> {
 
 export type AsideEndpointsUnion =
   | "CS:GO"
-  | "CS 2"
+  | "CS2"
   | "popular"
   | "new"
   | "add-server"

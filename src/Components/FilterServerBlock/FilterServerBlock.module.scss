@@ -35,7 +35,6 @@
       text-align: center;
       text-transform: uppercase;
       font-size: 1.2rem;
-      font-family: v.$font-neon;
       color: v.$neon-warning;
       letter-spacing: 1px;
       margin: 0;
@@ -67,7 +66,6 @@
     border: 1px solid rgba(v.$neon-primary, 0.4);
     border-radius: v.$border-radius-sharp;
     color: v.$text-primary;
-    font-family: v.$font-mono;
     font-size: 0.9rem;
     transition: v.$transition-fast;
 

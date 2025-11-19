@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import FilterServerBlock from "@/Components/FilterServerBlock/FilterServerBlock";
-import UpdateBlock from "@/Components/UpdateBlock/UpdateBlock";
+import Main from "@/Components/Main/Main";
 
 // SEO для главной страницы
 export const metadata: Metadata = {
@@ -43,8 +42,7 @@ export default function Home() {
         Мониторинг и рейтинг серверов Counter-Strike 1.6, CS:GO и CS2
       </h1>
 
-      <FilterServerBlock />
-      <UpdateBlock />
+      <Main />
     </>
   );
 }
