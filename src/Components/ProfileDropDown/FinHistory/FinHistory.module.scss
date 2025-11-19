@@ -2,7 +2,6 @@
 @use "../../../styles/mixins.scss" as m;
 .page {
   @include m.page();
-  font-family: v.$font-neon, "Arial", sans-serif;
   color: v.$text-primary;
 }
 
