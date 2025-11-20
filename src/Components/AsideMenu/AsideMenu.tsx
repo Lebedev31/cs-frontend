@@ -49,6 +49,8 @@ export default function AsideMenu() {
   const selectedServer = useSelector(
     (state: RootState) => state.main.selectedServer
   );
+
+  console.log(selectedServer);
   const pathname = usePathname();
 
   // 1. Флаг: "Прочитали ли мы уже настройки?"

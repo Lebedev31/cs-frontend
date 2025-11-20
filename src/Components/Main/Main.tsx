@@ -3,6 +3,9 @@ import Image from "next/image";
 import { Game } from "@/types/type";
 import styles from "./Main.module.scss";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { setSelectedServer } from "@/redux/slice/main.slice";
 const games = [
   {
     id: 1,
@@ -17,8 +20,10 @@ const games = [
 ];
 
 export default function Main() {
+  const dispatch: AppDispatch = useDispatch();
   function setEndpoint(typeGame: Game) {
     localStorage.setItem("typeGame", typeGame);
+    dispatch(setSelectedServer(typeGame));
   }
   return (
     <div className={styles.container}>
