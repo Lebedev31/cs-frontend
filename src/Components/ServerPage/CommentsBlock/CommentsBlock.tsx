@@ -63,6 +63,7 @@ export default function CommentsBlock({ serverId }: CommentBlockProps) {
     const comment: CreateComment = {
       description: text.value,
       serverId,
+      createdAt: Date.now(),
     };
 
     handleSubmit<CommentValidationForm, CreateComment, Comment[]>(

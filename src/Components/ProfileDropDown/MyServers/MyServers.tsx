@@ -1,9 +1,7 @@
 "use client";
 import styles from "./MyServers.module.scss";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { useGetMyServersQuery } from "@/redux/apiSlice/addServerApi";
+import { useGetMyServersQuery } from "@/redux/apiSlice/csServerApi";
 import React, { useState, useMemo } from "react";
 import { Game } from "@/types/type";
 import ServerBlockItem from "@/Components/UpdateBlock/ServerBlockItem/ServerBlockItem";
@@ -12,21 +10,27 @@ import Modal from "./Modal/Modal";
 export default function MyServers() {
   const [onClose, setOnClose] = useState<boolean>(false);
   const [serverId, setServerId] = useState<string>("");
-  const originalServerList = useSelector(
-    (state: RootState) => state.main.originalServers
-  );
   const { data, isLoading } = useGetMyServersQuery();
+  console.log(data);
   const [activeTab, setActiveTab] = useState<"all" | Game>("all");
   const myServerList = useMemo(() => {
-    if (!data?.data || !Array.isArray(originalServerList) || isLoading) {
+    if (!data?.data || isLoading) {
       return [];
     }
-    return originalServerList.filter((item) =>
-      activeTab === "all"
-        ? item.owner === data?.data?.owner
-        : item.owner === data?.data?.owner && item.game === activeTab
-    );
-  }, [data, activeTab, originalServerList, isLoading]);
+    return data.data.filter((item) => {
+      if (activeTab === "all") {
+        return data.data;
+      }
+
+      if (activeTab === "CS:GO") {
+        return item.game === "CS:GO";
+      }
+
+      if (activeTab === "CS2") {
+        return item.game === "CS2";
+      }
+    });
+  }, [data, activeTab, isLoading]);
 
   return (
     <div className={styles.myServers}>

@@ -25,7 +25,6 @@ export default function Header() {
     { skip: !isLogin } // <-- не запрашивать пока не залогинен
   );
 
-  // После монтирования компонента мы уже на клиенте
   useEffect(() => {
     if (isError) {
       localStorage.removeItem("login");
@@ -33,7 +32,7 @@ export default function Header() {
       dispatch(setLogin(false));
     }
     setIsClient(true);
-  }, []);
+  }, [isError]);
   useEffect(() => {
     const existLogin = localStorage.getItem("login");
     if (isLogin && data && data.data) {

@@ -16,7 +16,7 @@ export default function WrapperSettingServer() {
 
   return (
     <AddServer
-      title="Настройки сервера"
+      title="Обновить настройки"
       trigger={handleTrigger}
       successMessage="Сервер обновлен!"
       schema={SettingSchema}

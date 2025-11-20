@@ -18,10 +18,18 @@ export const csServerApi = createApi({
     getServerById: builder.query<MessageServer<GameServer>, { id: string }>({
       query: ({ id }) => `server/${id}`,
     }),
+
+    getMyServers: builder.query<MessageServer<GameServer[]>, void>({
+      query: () => ({
+        url: "my-servers",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 export const {
   useLazyGetDataQuery,
   useGetDataQuery,
   useLazyGetServerByIdQuery,
+  useGetMyServersQuery,
 } = csServerApi;

@@ -26,11 +26,6 @@ export const addServerApi = createApi({
         url: "",
       }),
     }),
-
-    getMyServers: builder.query<MessageServer<{ owner: string }>, void>({
-      query: () => "",
-    }),
-
     confirmServer: builder.mutation<MessageServer<void>, { serverId: string }>({
       query: (body) => ({
         url: "confirm-server",
@@ -47,7 +42,6 @@ export const addServerApi = createApi({
 
 export const {
   useAddServerMutation,
-  useGetMyServersQuery,
   useConfirmServerMutation,
   useGetServerIpPortQuery,
   useUpadateServerMutation,

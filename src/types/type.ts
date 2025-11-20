@@ -198,6 +198,7 @@ export type PaginationComment = {
 
 export type CreateComment = CommentValidationForm & {
   serverId: string;
+  createdAt: number;
 };
 export type Comment = {
   description: string;

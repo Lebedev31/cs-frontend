@@ -153,8 +153,26 @@ export const getMapImagePath = (
   return `/map/${DEFAULT_IMAGES[game]}`;
 };
 
-export function getFormatData(createdAt: string) {
-  const dateObj = new Date(createdAt);
+export function getFormatData(createdAt: string | number | undefined | null) {
+  // Проверка на пустоту
+  if (!createdAt) {
+    return {
+      formattedDate: "—",
+      formattedTime: "",
+    };
+  }
+
+  let dateObj: Date;
+
+  // Проверяем, является ли строка числом (timestamp в виде строки)
+  // Регулярное выражение /^\d+$/ проверяет, состоит ли строка только из цифр
+  if (typeof createdAt === "string" && /^\d+$/.test(createdAt)) {
+    dateObj = new Date(parseInt(createdAt, 10));
+  } else {
+    // Либо это уже число, либо ISO строка ("2023-10-10T...")
+    dateObj = new Date(createdAt);
+  }
+
   const isValidDate = !isNaN(dateObj.getTime());
 
   // Форматируем дату и время

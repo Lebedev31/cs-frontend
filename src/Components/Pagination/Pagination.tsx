@@ -86,7 +86,6 @@ export default function Pagination({
         >
           <a
             onClick={() => currentPage > 1 && paginate(currentPage - 1)}
-            href="#"
             className={styles.pageLink}
           >
             &laquo;
@@ -115,11 +114,7 @@ export default function Pagination({
                 currentPage === page ? styles.active : ""
               }`}
             >
-              <a
-                onClick={() => paginate(page)}
-                href="#"
-                className={styles.pageLink}
-              >
+              <a onClick={() => paginate(page)} className={styles.pageLink}>
                 {page}
               </a>
             </li>

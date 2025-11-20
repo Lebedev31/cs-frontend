@@ -232,6 +232,13 @@
   }
 }
 
+.info_website {
+  font-size: 12px;
+  color: v.$text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
 .player_count {
   font-size: 18px;
   color: v.$neon-success;
