@@ -1,8 +1,6 @@
 export const mods = [
   "Arena",
   "COD",
-  "Combat",
-  "Surf",
   "CSDM",
   "Deathrun",
   "DM Lite",
@@ -17,6 +15,7 @@ export const mods = [
   "Retake",
   "RPG",
   "Stickers",
+  "Surf",
   "WCS",
   "[AIM] АИМ",
   "[AWP] АВП",

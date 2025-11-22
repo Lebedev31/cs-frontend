@@ -3,6 +3,7 @@ import { PlanUnionLiteral } from "@/types/service.type";
 
 type TermProps = {
   price: number[];
+  discount: string[];
   selectedPlan?: PlanUnionLiteral;
   onSelectPlan?: (plan: PlanUnionLiteral, price: number) => void;
 };
@@ -11,6 +12,7 @@ export default function TermBlock({
   price,
   selectedPlan,
   onSelectPlan,
+  discount,
 }: TermProps) {
   const terms: { label: string; value: PlanUnionLiteral }[] = [
     { label: "1 неделя", value: "oneWeek" },
@@ -31,7 +33,9 @@ export default function TermBlock({
           style={{ cursor: onSelectPlan ? "pointer" : "default" }}
         >
           <p className={styles.term_date}>{label}</p>
-          <div className={styles.price}>{price[idx] + " ₽"}</div>
+          <p className={styles.price}>
+            {price[idx] + " ₽" + " " + discount[idx]}
+          </p>
         </div>
       ))}
     </div>

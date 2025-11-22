@@ -21,13 +21,13 @@ export default function PremiumServerBlockItem() {
     router.push(`/serverPage/${ip}:${port}`);
   };
 
-  if (servers.length === 0) {
-    return null;
-  }
-
   return (
     <div className={styles.premiumServerBlockItem}>
-      <h2>Топ сервера</h2>
+      <h2>
+        {servers.length === 0
+          ? "На данный момент ТОП сервера отсутствуют"
+          : "Топ сервера"}
+      </h2>
       <ul className={styles.serverList}>
         {servers.map((server) => (
           <li
@@ -35,17 +35,23 @@ export default function PremiumServerBlockItem() {
             className={styles.serverItem}
             onClick={() => handlerServerPage(server.ip, String(server.port))}
           >
-            {/* Левый блок: Название, Карта, Игроки */}
-            <p className={styles.serverName}>{server.name}</p>
-            <div className={styles.wrapper}>
-              <div className={styles.serverInfo}>
-                <div className={styles.serverMeta}>
-                  <div className={styles.map}>{server.map}</div>
-                  <div className={styles.play}>
-                    <PlayersInfo
-                      players={server.players}
-                      maxPlayers={server.maxPlayers}
-                    />
+            {/* ЛЕВАЯ ЧАСТЬ: Контент */}
+            <div className={styles.contentWrapper}>
+              {/* 1. Имя сервера */}
+              <div className={styles.serverName}>{server.name}</div>
+
+              {/* 2. Карта */}
+              <div className={styles.mapName}>{server.map}</div>
+
+              {/* 3. Нижняя строка: Игроки, Play, Флаг, IP, Копировать */}
+              <div className={styles.bottomRow}>
+                {/* Группа: Игроки и Кнопка Play */}
+                <div className={styles.statsGroup}>
+                  <PlayersInfo
+                    players={server.players}
+                    maxPlayers={server.maxPlayers}
+                  />
+                  <div className={styles.playBtnWrapper}>
                     <Play
                       width="10"
                       height="10"
@@ -54,25 +60,38 @@ export default function PremiumServerBlockItem() {
                     />
                   </div>
                 </div>
-              </div>
-              {/* Центральный блок: Адрес сервера */}
-              <div className={styles.serverAddress}>
-                <div className={styles.countryFlag}>
+
+                {/* Группа: Флаг, IP и Копирование */}
+                <div className={styles.ipGroup}>
                   <span
-                    className={`fi fi-${server.country.toLowerCase()}`}
+                    className={`fi fi-${server.country.toLowerCase()} ${
+                      styles.flag
+                    }`}
                   ></span>
+
+                  <span className={styles.ipText}>
+                    {`${server.ip}:${server.port}`}
+                  </span>
+
+                  <div
+                    className={styles.copyWrapper}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <CoppyButton ip={server.ip} port={String(server.port)} />
+                  </div>
                 </div>
-                <p>{`${server.ip}:${server.port}`}</p>
-                <CoppyButton ip={server.ip} port={String(server.port)} />
               </div>
-              <div className={styles.premium_image}>
-                <Image
-                  fill
-                  style={{ objectFit: "cover" }}
-                  src={`${getMapImagePath(server.map || "", server.game)}`}
-                  alt="картинка"
-                />
-              </div>
+            </div>
+
+            {/* ПРАВАЯ ЧАСТЬ: Картинка во всю высоту */}
+            <div className={styles.imageContainer}>
+              <Image
+                fill
+                style={{ objectFit: "contain" }}
+                src={`${getMapImagePath(server.map || "", server.game)}`}
+                alt={server.map || "map image"}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
           </li>
         ))}

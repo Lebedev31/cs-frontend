@@ -2,18 +2,18 @@
 
 import styles from "./FilterServerBlock.module.scss";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "@/redux/store";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
 import { setServers } from "@/redux/slice/main.slice";
-import { mods, map_names } from "@/lib/mode";
+import { mods } from "@/lib/mode"; // map_names убрали, он больше не нужен
 
 export default function FilterServerBlock() {
   const originalServers = useSelector(
     (state: RootState) => state.main.originalServers
   );
+
+  const selected = useSelector((state: RootState) => state.main.selectedServer);
 
   const dispatch: AppDispatch = useDispatch();
   const [serverNameValue, setServerNameValue] = useState<string>("");
@@ -43,17 +43,19 @@ export default function FilterServerBlock() {
 
     // Фильтр по минимальному количеству игроков
     if (min && !isNaN(Number(min))) {
-      filtered = filtered.filter((item) => item.maxPlayers >= Number(min));
+      filtered = filtered.filter((item) => item.players >= Number(min));
     }
 
     // Фильтр по максимальному количеству игроков
     if (max && !isNaN(Number(max))) {
-      filtered = filtered.filter((item) => item.maxPlayers <= Number(max));
+      filtered = filtered.filter((item) => item.players <= Number(max));
     }
 
-    // Фильтр по карте
-    if (map) {
-      filtered = filtered.filter((item) => item.map === map);
+    // --- ИЗМЕНЕНИЕ: Фильтр по карте (теперь текстовый поиск) ---
+    if (map.trim()) {
+      filtered = filtered.filter((item) =>
+        item.map.toLowerCase().includes(map.toLowerCase())
+      );
     }
 
     if (mode) {
@@ -81,7 +83,8 @@ export default function FilterServerBlock() {
     applyFilters(serverNameValue, minPlayers, value);
   };
 
-  const changeMapFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  // --- ИЗМЕНЕНИЕ: Тип события теперь HTMLInputElement ---
+  const changeMapFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMapValue(value);
     applyFilters(serverNameValue, minPlayers, maxPlayers, value);
@@ -97,12 +100,17 @@ export default function FilterServerBlock() {
     <div className={styles.filterServerBlock}>
       {/* Логотип слева */}
       <div className={styles.filterServerBlock_logo}>
-        <Image width={120} height={100} src="/logo.jpg" alt="Логотип CS 1.6" />
+        <Image
+          width={120}
+          height={100}
+          src={selected === "CS2" ? "/cs2_logo (1).jpeg" : "/csgo_logo.jpg"}
+          alt="Логотип игры"
+        />
       </div>
 
       {/* Фильтры справа */}
       <div className={styles.filterServerBlock_filtration}>
-        <h2>Сервера</h2>
+        <h2>Сервера {selected === "CS:GO" ? "CS GO" : selected}</h2>
         <div className={styles.filterServerBlock_flex}>
           {/* Блок: Поиск + Мин/Макс игроков */}
           <div className={styles.filterServerBlock_block}>
@@ -133,20 +141,14 @@ export default function FilterServerBlock() {
 
           {/* Блок: Карта + Режим */}
           <div className={styles.filterServerBlock_block}>
-            <select
-              className={styles.select}
+            {/* --- ИЗМЕНЕНИЕ: Теперь это Input вместо Select --- */}
+            <input
+              type="text"
+              placeholder="Поиск по карте"
+              className={styles.input}
               value={mapValue}
               onChange={changeMapFilter}
-            >
-              <option value="">Карта</option>
-              {map_names.map((item) => {
-                return (
-                  <option key={item} value={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
+            />
 
             <select
               className={styles.select}

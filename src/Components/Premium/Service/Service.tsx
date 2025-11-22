@@ -2,7 +2,7 @@
 import Link from "next/link";
 import styles from "./Service.module.scss";
 import { useGetServerIpPortQuery } from "@/redux/apiSlice/addServerApi";
-import { useRef, ReactNode, useEffect } from "react";
+import { useRef, ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { setServerId } from "@/redux/slice/main.slice";
@@ -83,7 +83,7 @@ export default function Service({
         <input
           ref={emailRef}
           className={styles.input}
-          placeholder="Электронная почта для чека"
+          placeholder="Электронная почта"
           type="email"
         />
         {validationErrors.errorEmail && (
@@ -94,9 +94,13 @@ export default function Service({
 
         <div className={styles.offer_block}>
           <input ref={offerRef} className={styles.offer} type="checkbox" />
-          <Link href={"#"}>
-            <span>Я принимаю условия офферты</span>
-          </Link>
+          <span>
+            Я принимаю{" "}
+            <Link href="/offer">
+              {" "}
+              <span className={styles.color_offer}>условия оферты </span>
+            </Link>{" "}
+          </span>
         </div>
         {validationErrors.errorOffer && (
           <p className={styles.error}>{validationErrors.errorOffer}</p>

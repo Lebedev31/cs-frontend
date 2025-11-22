@@ -13,26 +13,42 @@ import { AsideEndpointsUnion, GameServer } from "@/types/type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image"; // <--- 1. Импортируем Image
 
 type MenuItem = {
   key: string;
   label: string;
+  icon?: string; // <--- 2. Добавляем опциональное поле для пути к картинке
   type: "api" | "link";
   href: string;
 };
 
+// 3. Указываем пути к картинкам.
+// Убедись, что файлы лежат в папке public (например public/csgo-icon.png)
 const menuItems: MenuItem[] = [
-  { key: "CS:GO", label: "🎮 CS GO", type: "api", href: "/server-list" },
-  { key: "CS2", label: "🎮 CS2", type: "api", href: "/server-list" },
+  {
+    key: "CS:GO",
+    label: "CS GO",
+    icon: "/csgo_icon (2).png", // <-- Твоя картинка для CS:GO
+    type: "api",
+    href: "/server-list/csgo",
+  },
+  {
+    key: "CS2",
+    label: "CS2",
+    icon: "/cs2_ico (1).jpg", // <-- Твоя картинка для CS2
+    type: "api",
+    href: "/server-list/cs2",
+  },
   {
     key: "addServer",
-    label: "➕ Добавить сервер",
+    label: "➕ Добавить сервер", // Убрал эмодзи из текста, так как теперь есть иконки
     type: "link",
     href: "/addServer",
   },
   {
     key: "premium",
-    label: "💎 Раскрутка сервера",
+    label: "🛒 Раскрутка сервера", // Тут оставил как было
     type: "link",
     href: "/premium",
   },
@@ -49,14 +65,9 @@ export default function AsideMenu() {
   const selectedServer = useSelector(
     (state: RootState) => state.main.selectedServer
   );
-
-  console.log(selectedServer);
   const pathname = usePathname();
-
-  // 1. Флаг: "Прочитали ли мы уже настройки?"
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // 2. При маунте читаем localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedType = localStorage.getItem(
@@ -64,15 +75,13 @@ export default function AsideMenu() {
       ) as AsideEndpointsUnion | null;
 
       if (savedType && (savedType === "CS:GO" || savedType === "CS2")) {
-        // Если в памяти другое значение, чем в сторе - обновляем
         if (savedType !== selectedServer) {
           dispatch(setSelectedServer(savedType));
         }
       }
     }
-    // 3. Сообщаем, что инициализация завершена
     setIsInitialized(true);
-  }, [dispatch]); // selectedServer специально убран из зависимостей, чтобы не вызывать лишних циклов
+  }, [dispatch]);
 
   const { data, isLoading } = useGetDataQuery(
     { endpoint: selectedServer as AsideEndpointsUnion },
@@ -112,13 +121,32 @@ export default function AsideMenu() {
     localStorage.setItem("typeGame", gameKey);
   };
 
+  // Хелпер для рендера содержимого (иконка + текст)
+  const renderContent = (item: MenuItem, isActive: boolean) => (
+    <>
+      <div className={styles.contentWrapper}>
+        {item.icon && (
+          <Image
+            src={item.icon}
+            alt={item.label}
+            width={20}
+            height={20}
+            className={styles.menuIcon}
+          />
+        )}
+        <span>{item.label}</span>
+      </div>
+
+      {item.type === "api" && isLoading && isActive && (
+        <span className={styles.loader}> ⚡</span>
+      )}
+    </>
+  );
+
   return (
     <nav className={styles.nav}>
       {menuItems.map((item) => {
         if (item.type === "api") {
-          // 4. Ключевое изменение:
-          // Мы считаем кнопку активной ТОЛЬКО если прошла инициализация (isInitialized).
-          // До этого момента isActive будет false, и "скачка" анимации не будет.
           const isActive =
             isInitialized &&
             pathname === item.href &&
@@ -128,21 +156,16 @@ export default function AsideMenu() {
             <Link key={item.key} href={item.href}>
               <div
                 className={`${styles.link} ${isActive ? styles.active : ""} ${
-                  // Лоадер показываем, только если это активная вкладка
                   isLoading && isActive ? styles.loading : ""
                 }`}
                 onClick={() => handleGameClick(item.key)}
               >
-                {item.label}
-                {isLoading && isActive && (
-                  <span className={styles.loader}> ⚡</span>
-                )}
+                {renderContent(item, isActive)}
               </div>
             </Link>
           );
         }
 
-        // Для обычных ссылок задержка не нужна
         const isLinkActive = pathname === item.href;
 
         return (
@@ -151,7 +174,8 @@ export default function AsideMenu() {
             href={item.href}
             className={`${styles.link} ${isLinkActive ? styles.active : ""}`}
           >
-            {item.label}
+            {/* Для простых ссылок тоже используем обертку, чтобы выровнять, если там будет иконка */}
+            {renderContent(item, isLinkActive)}
           </Link>
         );
       })}

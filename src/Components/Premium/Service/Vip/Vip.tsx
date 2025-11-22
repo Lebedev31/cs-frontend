@@ -110,7 +110,8 @@ export default function Vip() {
       <>
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
-          price={[150, 300, 550, 5000]}
+          price={[85, 320, 1835, 3470]}
+          discount={["", "(скидка 5%)", "(скидка 10%)", "(скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />

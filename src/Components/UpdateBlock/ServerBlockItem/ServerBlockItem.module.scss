@@ -3,103 +3,146 @@
 
 .serverBlockItem {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 10px 13px;
-  // background: $text-secondary;
+  align-items: stretch;
   border: 1px solid rgba(v.$neon-primary, 0.1);
   border-radius: v.$border-radius-neon;
   transition: v.$transition-fast;
   cursor: pointer;
   box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   width: 100%;
+  overflow: hidden;
+  height: 80px; // Фиксируем высоту карточки для аккуратности
 
-  &:hover {
-    background: rgba(v.$neon-warning, 0.6);
-    border-color: rgba(v.$neon-warning, 0.3);
-    box-shadow: inset 0 -1px 0 rgba(v.$neon-warning, 0.3),
-      0 0 8px rgba(v.$neon-warning, 0.3);
+  // --- НОВАЯ ЛОГИКА ВЫРАВНИВАНИЯ ---
+  .contentWrapper {
+    flex: 1; // Занимает всё пространство до картинки
+    display: flex;
+    align-items: center;
+    padding: 10px 15px 10px 15px; // Отступы слева/справа внутри контента
+    gap: 15px;
+    min-width: 0; // КРИТИЧНО для работы text-overflow внутри flex
   }
 
-  &:active {
-    transform: scale(0.98);
-  }
-
-  // Блок 1-2: Информация о сервере
+  // ЛЕВАЯ КОЛОНКА (Имя + IP)
   .serverInfo {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    gap: 0.2rem;
+    justify-content: center;
+    gap: 4px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    flex: 1; // Растет, занимая всё свободное место
+    min-width: 0; // Позволяет сжимать текст, если места мало
 
     .nameRow {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 8px;
+      width: 100%;
+
+      .vip_image_container {
+        width: 17px;
+        height: 17px;
+        position: relative;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
 
       .statusBadge {
         background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
         color: v.$glitch-purple;
-        padding: 0.15rem 0.4rem;
-        font-size: 18px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        width: 100px;
+        padding: 2px 6px;
+        font-size: 11px;
+        font-weight: 800;
         border-radius: 3px;
-        text-align: center;
+        text-transform: uppercase;
+        flex-shrink: 0; // Чтобы бейдж не сплющило
       }
 
       .name {
         @include m.name;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; // Троеточие для имени
+        display: block;
       }
     }
 
     .addressRow {
-      width: 450px;
       display: flex;
       align-items: center;
-      gap: 7px;
-
-      .countryFlag {
-        font-size: 17px;
-        line-height: 1;
-        width: 24px;
-      }
+      gap: 10px;
+      font-size: 12px;
 
       .points {
-        font-size: 13px;
         color: v.$neon-warning;
-        width: 160px;
+        white-space: nowrap;
+      }
+
+      .countryFlag {
+        font-size: 16px;
+        line-height: 1;
+        flex-shrink: 0;
       }
 
       .address {
         @include m.ipPort;
+        font-size: 13px;
+        white-space: nowrap;
       }
     }
   }
 
-  // Блок 6: Информация о карте
+  // ПРАВАЯ КОЛОНКА (Мета-данные: Play, Игроки, Карта)
+  .rightMetaGroup {
+    display: grid; // Используем Grid для идеальных колонок
+    // 1. Кнопка (auto) | 2. Игроки (60px) | 3. Карта (остаток)
+    grid-template-columns: 40px 60px 1fr;
+    align-items: center;
+    gap: 15px;
+
+    // ФИКСИРОВАННАЯ ШИРИНА - залог ровных столбцов во всех строках
+    width: 300px;
+    flex-shrink: 0; // Запрещаем сжиматься
+  }
+
+  // Блок Игроки
+  .playersWrapper {
+    display: flex;
+    justify-content: flex-start; // Выравнивание по левому краю колонки
+  }
+
+  // Блок Карта
   .mapInfo {
     font-size: 12px;
-    width: 12%;
-    text-align: center;
+    color: v.$neon-warning; // Желтый цвет, как на скрине
 
-    .map {
-      @include m.map;
-    }
+    // Логика троеточия
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left; // Карта прижата к правому краю перед картинкой
+    padding-right: 5px;
   }
 }
 
-.image {
-  width: 70px;
-  height: 60px;
+// КАРТИНКА (самая правая часть)
+.imageContainer {
   position: relative;
+  width: 130px; // Фиксированная ширина
+  min-width: 130px;
+  border-left: 1px solid rgba(v.$neon-primary, 0.1);
+  background: black;
+
   img {
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
   }
 }

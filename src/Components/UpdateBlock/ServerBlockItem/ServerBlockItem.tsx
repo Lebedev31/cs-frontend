@@ -18,6 +18,7 @@ export default function ServerBlockItem({
 }) {
   const router = useRouter();
   const pathName = usePathname();
+
   const handlerServerPage = (ip: string, port: string) => {
     if (pathName === "/myServers" && onClose) {
       onClose(true);
@@ -27,69 +28,96 @@ export default function ServerBlockItem({
   };
 
   const safePoints = (server: GameServer) => {
-    if (
-      server.service.balls &&
-      server.service.balls.listService &&
-      server.service.balls.listService.length > 0
-    ) {
-      return server.service.balls.listService.reduce(
-        (current, item) => current + item.quantity,
+    const points =
+      server.service.balls?.listService?.reduce(
+        (acc, item) => acc + item.quantity,
         0
-      );
-    } else {
-      return 0;
-    }
+      ) || 0;
+    return server.rating + points;
   };
 
   return (
     <div
       className={styles.serverBlockItem}
       style={{
-        backgroundColor: `${
-          server.service.color.colorName === "none"
-            ? "#24222a"
-            : server.service.color.colorName
-        }`,
+        // Если нужен цветной бордер от привилегии, можно добавить сюда
+        backgroundColor:
+          server.service.color.colorName !== "none"
+            ? "transparent" // Или цвет фона, если нужен
+            : undefined,
+        border:
+          server.service.color.colorName !== "none"
+            ? "transparent" // Или цвет фона, если нужен
+            : undefined,
       }}
       onClick={() => handlerServerPage(server.ip, String(server.port))}
     >
-      {/* Блок 1-2: Название сервера и адрес с флагом и статусом */}
-      <div className={styles.serverInfo}>
-        <div className={styles.nameRow}>
-          {server.service.vip.status ? (
-            <span className={styles.statusBadge}>VIP</span>
-          ) : null}
-          <span className={styles.name}>{server.name}</span>
-        </div>
-        <div className={styles.addressRow}>
-          <p className={styles.points}>
-            Баллы сервера: {server.rating + safePoints(server)}
-          </p>
-          <div className={styles.countryFlag}>
-            <span className={`fi fi-${server.country.toLowerCase()}`}></span>
+      {/* ОБЩАЯ ОБЕРТКА КОНТЕНТА (Слева от картинки) */}
+      <div className={styles.contentWrapper}>
+        {/* ЛЕВАЯ ЧАСТЬ: ИНФО (Растягивается) */}
+        <div className={styles.serverInfo}>
+          <div className={styles.nameRow}>
+            {server.service.vip.status && (
+              <div className={styles.vip_image_container}>
+                <Image
+                  fill
+                  src={"/vip.png"}
+                  alt={server.map || "map"}
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+            )}
+            <span className={styles.name} title={server.name}>
+              {server.name}
+            </span>
           </div>
-          <p className={styles.address}>
-            {server.ip}:{server.port}
-          </p>
-          {/* Блок 3: Кнопка скопировать адрес */}
-          <CoppyButton ip={server.ip} port={String(server.port)} />
+
+          <div className={styles.addressRow}>
+            <span className={styles.points}>
+              Баллы сервера: {safePoints(server)}
+            </span>
+            <span
+              className={`fi fi-${server.country.toLowerCase()} ${
+                styles.countryFlag
+              }`}
+            ></span>
+            <span className={styles.address}>
+              {server.ip}:{server.port}
+            </span>
+            <div onClick={(e) => e.stopPropagation()}>
+              <CoppyButton ip={server.ip} port={String(server.port)} />
+            </div>
+          </div>
+        </div>
+
+        {/* ПРАВАЯ ЧАСТЬ: МЕТА (Фиксированная ширина 300px) */}
+        <div className={styles.rightMetaGroup}>
+          {/* 1. Кнопка Play */}
+          <div className={styles.playBtn}>
+            <Play width="16" height="16" ip={server.ip} port={server.port} />
+          </div>
+
+          {/* 2. Игроки */}
+          <div className={styles.playersWrapper}>
+            <PlayersInfo
+              players={server.players}
+              maxPlayers={server.maxPlayers}
+            />
+          </div>
+
+          {/* 3. Карта (с троеточием) */}
+          <div className={styles.mapInfo} title={server.map}>
+            {server.map}
+          </div>
         </div>
       </div>
 
-      {/* Блок 4: Кнопка играть */}
-      <Play width="16" height="16" ip={server.ip} port={server.port} />
-      {/* Блок 5: Игроки с иконкой */}
-      <PlayersInfo players={server.players} maxPlayers={server.maxPlayers} />
-      {/* Блок 6: Карта */}
-      <div className={styles.mapInfo}>
-        <p className={styles.map}>{server.map}</p>
-      </div>
-
-      <div className={styles.image}>
+      {/* КАРТИНКА (Справа) */}
+      <div className={styles.imageContainer}>
         <Image
           fill
           src={`${getMapImagePath(server.map || "", server.game)}`}
-          alt="CS 1.6 Server Parser"
+          alt={server.map || "map"}
           style={{ objectFit: "cover" }}
         />
       </div>

@@ -35,7 +35,7 @@ export default function Premium() {
       id: "vip",
       number: 1,
       title: "VIP",
-      description: "Ваш сервер будет поднят в топ списка серверов",
+      description: "Ваш сервер будет поднят на первые места списка серверов",
       colorClass: "gold",
       link: "/premium/servicePage/",
       boxShadowColor: "#ffd700",
@@ -44,7 +44,7 @@ export default function Premium() {
       id: "top",
       number: 2,
       title: "TOP",
-      description: "Ваш сервер будет находится в отдельном списке TOP серверов",
+      description: "Ваш сервер будет находится в отдельном списке ТОП серверов",
       colorClass: "blue",
       link: "/premium/servicePage/",
       boxShadowColor: "#4c8aff",
@@ -80,52 +80,53 @@ export default function Premium() {
         />
       ) : null}
       <h1 className={styles.title}>Платные услуги для продвижения</h1>
-
-      <div className={styles.servicesGrid}>
-        {services.map((service) => (
-          <div
-            key={service.id}
-            className={`${styles.serviceCard} ${styles[service.colorClass]}`}
-          >
-            <div className={styles.serviceContent}>
-              <h2 className={styles.serviceTitle}>{service.title}</h2>
-              <p className={styles.serviceDescription}>{service.description}</p>
-
-              <div className={styles.priceSection}>
-                <Link href={service.link + service.id}>
-                  <button
-                    className={`${styles.servicePayment} ${
-                      styles[
-                        `btn${
-                          service.colorClass.charAt(0).toUpperCase() +
-                          service.colorClass.slice(1)
-                        }`
-                      ]
-                    }`}
-                  >
-                    {" "}
-                    Заказать услугу
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <button
-              onMouseEnter={() =>
-                viewServices(service.boxShadowColor, service.id)
-              }
-              className={`${styles.questionBtn} ${
-                styles[
-                  `btnQuestion${
-                    service.colorClass.charAt(0).toUpperCase() +
-                    service.colorClass.slice(1)
-                  }`
-                ]
-              }`}
+      <div className={styles.page}>
+        <div className={styles.servicesGrid}>
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className={`${styles.serviceCard} ${styles[service.colorClass]}`}
             >
-              ?
-            </button>
-          </div>
-        ))}
+              <div className={styles.serviceContent}>
+                <h2 className={styles.serviceTitle}>{service.title}</h2>
+                <p className={styles.serviceDescription}>
+                  {service.description}
+                </p>
+
+                <div className={styles.priceSection}>
+                  <Link href={service.link + service.id}>
+                    <button
+                      className={`${styles.servicePayment} ${
+                        styles[
+                          `btn${
+                            service.colorClass.charAt(0).toUpperCase() +
+                            service.colorClass.slice(1)
+                          }`
+                        ]
+                      }`}
+                    >
+                      {" "}
+                      Заказать услугу
+                    </button>
+                  </Link>
+                </div>
+              </div>
+              <button
+                onClick={() => viewServices(service.boxShadowColor, service.id)}
+                className={`${styles.questionBtn} ${
+                  styles[
+                    `btnQuestion${
+                      service.colorClass.charAt(0).toUpperCase() +
+                      service.colorClass.slice(1)
+                    }`
+                  ]
+                }`}
+              >
+                ?
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

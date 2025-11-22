@@ -9,27 +9,37 @@ import { setSelectedServer } from "@/redux/slice/main.slice";
 const games = [
   {
     id: 1,
-    name: "CS:GO" as Game,
-    image: "/csgo.png",
+    name: "CS GO",
+    image: "/csgo_logo.jpg",
   },
   {
     id: 2,
-    name: "CS2" as Game,
-    image: "/cs2.png",
+    name: "CS2",
+    image: "/cs2_logo (1).jpeg",
   },
 ];
 
 export default function Main() {
   const dispatch: AppDispatch = useDispatch();
-  function setEndpoint(typeGame: Game) {
-    localStorage.setItem("typeGame", typeGame);
-    dispatch(setSelectedServer(typeGame));
+  function setEndpoint(typeGame: string) {
+    localStorage.setItem(
+      "typeGame",
+      typeGame === "CS GO" ? "CS:GO" : (typeGame as Game)
+    );
+    dispatch(
+      setSelectedServer(typeGame === "CS GO" ? "CS:GO" : (typeGame as Game))
+    );
   }
   return (
     <div className={styles.container}>
       <div className={styles.grid}>
         {games.map((game) => (
-          <Link href={"/server-list"} key={game.id}>
+          <Link
+            href={`/server-list/${
+              game.name === "CS GO" ? "csgo" : game.name.toLowerCase()
+            }`}
+            key={game.id}
+          >
             <div className={styles.card} onClick={() => setEndpoint(game.name)}>
               <div className={styles.imageContainer}>
                 {/* Компонент Image с prop "fill".

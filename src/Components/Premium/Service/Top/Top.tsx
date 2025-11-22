@@ -119,7 +119,8 @@ export default function Top() {
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TopBlock selectTopLimit={setTopLimit} topLimit={topLimit} />
         <TermBlock
-          price={[200, 400, 750, 7000]}
+          price={[130, 495, 2810, 5305]}
+          discount={["", "(скидка 5%)", "(скидка 10%)", "(скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />

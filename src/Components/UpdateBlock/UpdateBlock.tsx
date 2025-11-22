@@ -6,6 +6,7 @@ import AllServers from "./AllServers/AllServers";
 import PremiumServerBlockItem from "./PremiumServerBlockItem/PremiumServerBlockItem";
 // 1. Импортируем скелетон
 import MainPageSkeleton from "./MainServerSkeleton/MainServerSceleton";
+import AddBanner from "../AddBanner/AddBanner";
 
 export default function UpdateBlock() {
   const serversArr = useSelector((state: RootState) => state.main.servers);
@@ -20,6 +21,9 @@ export default function UpdateBlock() {
       </div>
       <div className={styles.premium}>
         <PremiumServerBlockItem />
+        <div className={styles.advertising}>
+          <AddBanner format="rectangle" customHtml="<div>Моя реклама</div>" />
+        </div>
       </div>
     </div>
   );

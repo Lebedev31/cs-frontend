@@ -4,10 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px; // Небольшой отступ между кнопками, если нужно
 }
 
 .link {
-  display: block;
+  display: flex; // <-- Меняем block на flex для выравнивания лоадера и контента
+  align-items: center;
+  justify-content: space-between; // Текст слева, лоадер справа
   padding: 0.8rem 1.2rem;
   color: v.$text-primary;
   text-decoration: none;
@@ -15,16 +18,14 @@
   border-radius: v.$border-radius-neon;
   transition: v.$transition-fast;
   position: relative;
-  cursor: pointer; // ← Добавлено: кликабельный элемент
+  cursor: pointer;
 
-  // Лёгкое неоновое подчёркивание при наведении
   &:hover {
     color: v.$neon-primary;
     background: rgba(v.$neon-primary, 0.05);
     box-shadow: inset 4px 0 0 v.$neon-primary;
   }
 
-  // Активный элемент
   &.active {
     color: v.$neon-warning;
     background: rgba(v.$neon-warning, 0.08);
@@ -32,11 +33,10 @@
     font-weight: 600;
   }
 
-  // Состояние загрузки (при клике и запросе)
   &.loading {
     color: v.$neon-warning !important;
     position: relative;
-    pointer-events: none; // Блокируем повторные клики
+    pointer-events: none;
 
     &::after {
       content: "";
@@ -50,14 +50,27 @@
     }
   }
 
-  // Эффект "нажатия" — лёгкое сжатие
   &:active {
     transform: scale(0.98);
     transition: transform 0.1s ease;
   }
 }
 
-// Анимация пульсации для индикатора загрузки
+// Обертка для иконки и текста внутри ссылки
+.contentWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px; // Расстояние между картинкой и буквами
+}
+
+// Стили самой картинки
+.menuIcon {
+  object-fit: contain;
+  // Размеры задаются в пропсах Image (width/height),
+  // но CSS гарантирует, что они не растянутся
+  display: block;
+}
+
 @keyframes loadingPulse {
   0% {
     opacity: 0.5;
@@ -70,7 +83,6 @@
   }
 }
 
-// Опционально: лоадер-иконка внутри текста (уже используется в JSX)
 .loader {
   animation: bounce 0.8s infinite alternate;
   font-size: 0.9em;

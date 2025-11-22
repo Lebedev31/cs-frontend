@@ -69,7 +69,7 @@ export default function Header() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <Image
-            src="/logo.jpg"
+            src="/logo.png"
             alt="CS 1.6 Server Parser"
             width={80}
             height={50}
@@ -90,7 +90,7 @@ export default function Header() {
       <div className={styles.logo}>
         <Link href="/">
           <Image
-            src="/logo.jpg"
+            src="/logo.png"
             alt="CS 1.6 Server Parser"
             priority
             width={80}

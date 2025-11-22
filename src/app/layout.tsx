@@ -5,6 +5,7 @@ import ReduxProvider from "@/Components/ReduxProvider/ReduxProvider";
 import ToastProvider from "@/Components/ToastContainer/ToastProvider";
 import Header from "@/Components/Header/Header";
 import Footer from "@/Components/Footer/Footer";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -103,6 +104,17 @@ export default function RootLayout({
     <html lang="ru">
       <head>
         {/* Дополнительные meta-теги */}
+        <Script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT}`}
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
+        <Script
+          src="https://yandex.ru/ads/system/context.js"
+          strategy="afterInteractive"
+        />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"

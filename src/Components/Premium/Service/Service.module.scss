@@ -50,6 +50,13 @@
     color: white;
     font-size: 18px;
   }
+  a {
+    text-decoration: none;
+  }
+
+  .color_offer {
+    color: v.$cs-blue-team;
+  }
 }
 
 .offer {
