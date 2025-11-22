@@ -123,6 +123,7 @@ export default function Color() {
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
           price={[50, 120, 250, 2000]}
+          discount={["", "", "", ""]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />

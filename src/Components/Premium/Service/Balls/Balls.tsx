@@ -123,6 +123,7 @@ export default function Balls() {
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
           price={[150, 300, 550, 5000]}
+          discount={["", "", "", ""]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />
