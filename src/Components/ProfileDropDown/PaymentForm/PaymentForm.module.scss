@@ -9,7 +9,7 @@
   width: 100%;
   max-width: 800px;
   padding: 60px 80px;
-  background: rgba(v.$bg-darker, 0.9);
+  background: v.$new-background;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
   box-shadow: v.$glow-primary, 0 10px 50px rgba(v.$neon-primary, 0.2);

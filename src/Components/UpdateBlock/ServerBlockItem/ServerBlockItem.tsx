@@ -97,17 +97,17 @@ export default function ServerBlockItem({
             <Play width="16" height="16" ip={server.ip} port={server.port} />
           </div>
 
-          {/* 2. Игроки */}
+          {/* 2. Карта (с троеточием) */}
+          <div className={styles.mapInfo} title={server.map}>
+            {server.map}
+          </div>
+
+          {/* 3. Игроки */}
           <div className={styles.playersWrapper}>
             <PlayersInfo
               players={server.players}
               maxPlayers={server.maxPlayers}
             />
-          </div>
-
-          {/* 3. Карта (с троеточием) */}
-          <div className={styles.mapInfo} title={server.map}>
-            {server.map}
           </div>
         </div>
       </div>

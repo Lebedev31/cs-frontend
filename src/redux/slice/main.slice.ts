@@ -5,6 +5,7 @@ interface InitialState {
   selectedServer: AsideEndpointsUnion;
   servers: GameServer[];
   originalServers: GameServer[];
+  isLoadingServers: boolean;
   game: Game;
   info: {
     avatarUrl: string;
@@ -16,6 +17,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   selectedServer: "CS:GO",
+  isLoadingServers: false,
   servers: [],
   originalServers: [],
   game: "CS:GO",
@@ -57,6 +59,10 @@ export const mainSlice = createSlice({
     setServerId: (state, action: PayloadAction<string | undefined>) => {
       state.serverId = action.payload;
     },
+
+    setIsLoadingServers: (state, action: PayloadAction<boolean>) => {
+      state.isLoadingServers = action.payload;
+    },
   },
 });
 
@@ -67,4 +73,5 @@ export const {
   setGame,
   setInfo,
   setServerId,
+  setIsLoadingServers,
 } = mainSlice.actions;

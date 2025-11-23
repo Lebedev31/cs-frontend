@@ -1,6 +1,7 @@
 export const mods = [
   "Arena",
   "COD",
+  "Combat Surf",
   "CSDM",
   "Deathrun",
   "DM Lite",

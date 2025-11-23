@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px; // Небольшой отступ между кнопками, если нужно
+  a {
+    text-decoration: none;
+  }
 }
 
 .link {

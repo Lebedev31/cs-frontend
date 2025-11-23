@@ -127,10 +127,11 @@
 .copyWrapper {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 
 // === ПРАВАЯ ЧАСТЬ (Картинка) ===
 .imageContainer {
   position: relative; // Нужно для layout="fill" у Next.js Image
-  width: 150px; // Ширина блока картинки
+  width: 180px; // Ширина блока картинки
 }

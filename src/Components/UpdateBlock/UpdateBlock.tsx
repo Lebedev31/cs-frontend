@@ -10,7 +10,10 @@ import AddBanner from "../AddBanner/AddBanner";
 
 export default function UpdateBlock() {
   const serversArr = useSelector((state: RootState) => state.main.servers);
-  if (!serversArr || serversArr.length === 0) {
+  const isLoading = useSelector(
+    (state: RootState) => state.main.isLoadingServers
+  );
+  if (isLoading) {
     return <MainPageSkeleton />;
   }
 
@@ -20,9 +23,13 @@ export default function UpdateBlock() {
         <AllServers data={serversArr} />
       </div>
       <div className={styles.premium}>
-        <PremiumServerBlockItem />
+        <PremiumServerBlockItem data={serversArr} />
         <div className={styles.advertising}>
-          <AddBanner format="rectangle" customHtml="<div>Моя реклама</div>" />
+          <AddBanner
+            size="responsive"
+            customHtml="<div>Моя реклама</div>"
+            style={{ minHeight: "300px" }}
+          />
         </div>
       </div>
     </div>

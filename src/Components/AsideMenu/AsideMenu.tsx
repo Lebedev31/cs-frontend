@@ -8,6 +8,7 @@ import {
   setSelectedServer,
   setServers,
   setOriginalServers,
+  setIsLoadingServers,
 } from "@/redux/slice/main.slice";
 import { AsideEndpointsUnion, GameServer } from "@/types/type";
 import { useEffect, useState } from "react";
@@ -113,7 +114,8 @@ export default function AsideMenu() {
       dispatch(setServers(rating));
       dispatch(setOriginalServers(rating));
     }
-  }, [data, dispatch]);
+    dispatch(setIsLoadingServers(isLoading));
+  }, [data, dispatch, isLoading]);
 
   const handleGameClick = (key: string) => {
     const gameKey = key as AsideEndpointsUnion;

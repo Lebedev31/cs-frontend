@@ -74,7 +74,7 @@
 
 @mixin input() {
   padding: 20px 24px;
-  background: v.$bg-dark;
+  background: v.$new-input-background;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
@@ -132,7 +132,7 @@
 }
 
 @mixin select() {
-  background: v.$bg-dark;
+  background: v.$new-input-background;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
@@ -200,7 +200,7 @@
 
 @mixin modal($color: v.$neon-warning, $color2: v.$cs-yellow) {
   max-width: 700px;
-  background: linear-gradient(135deg, v.$bg-darker 0%, #0a0a12 100%);
+  background: v.$new-panel;
   border: 2px solid $color;
   border-radius: 12px;
   padding: 40px;

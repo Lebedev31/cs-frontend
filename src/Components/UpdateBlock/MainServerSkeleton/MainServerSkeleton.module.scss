@@ -13,9 +13,9 @@
 @mixin skeleton-box {
   background: linear-gradient(
     90deg,
-    v.$bg-darker 0%,
+    v.$new-background 0%,
     rgba(v.$neon-primary, 0.08) 50%,
-    v.$bg-darker 100%
+    v.$new-background 100%
   );
   background-size: 200% 100%;
   animation: cyber-scan 1.5s infinite linear;
@@ -58,7 +58,7 @@
   height: 82px; // Высота реального блока
   border: 1px solid rgba(v.$neon-primary, 0.1);
   border-radius: v.$border-radius-neon;
-  background: transparent; // Или v.$bg-darker
+  background: v.$new-background;
 }
 
 .server_info {
@@ -120,7 +120,7 @@
 // Контейнер премиум блока (имитация PremiumServerBlockItem)
 .premium_container {
   width: 100%;
-  background: v.$bg-dark;
+  background: v.$new-background;
   padding: 10px;
   border-radius: v.$border-radius-neon;
   border: 1px solid rgba(v.$neon-primary, 0.2);
@@ -144,7 +144,7 @@
 // Карточка премиум сервера
 .premium_item {
   padding: 10px;
-  background-color: v.$bg-darker;
+  background-color: v.$new-background;
   border: 1px solid rgba(v.$neon-accent, 0.2);
   border-radius: v.$border-radius-sharp;
   height: 100px;

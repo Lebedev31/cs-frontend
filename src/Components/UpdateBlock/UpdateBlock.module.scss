@@ -4,15 +4,14 @@
   justify-content: space-between;
 
   .updateBlock_union {
-    width: 60%;
+    width: 55%;
   }
 
   .premium {
-    width: 35%;
+    width: 40%;
+    .advertising {
+      width: 100%;
+      height: 400px;
+    }
   }
-}
-
-.advertising {
-  width: 100%;
-  height: 300px;
 }

@@ -1,7 +1,5 @@
 "use client";
 import styles from "./PremiumServerBlockItem.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { GameServer } from "@/types/type";
 import PlayersInfo from "../Elements/PlayersInfo/PlayersInfo";
 import Play from "../Elements/Play/Play";
@@ -10,12 +8,22 @@ import Image from "next/image";
 import "flag-icons/css/flag-icons.min.css";
 import { getMapImagePath } from "@/lib/common";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-export default function PremiumServerBlockItem() {
-  const servers: GameServer[] = useSelector(
-    (state: RootState) => state.main.originalServers
-  ).filter((server) => server.service.top.status);
+type PremiumServerBlockProps = {
+  data: GameServer[];
+};
 
+export default function PremiumServerBlockItem({
+  data,
+}: PremiumServerBlockProps) {
+  const servers: GameServer[] = data.filter(
+    (server) => server.service.top.status
+  );
+  const isLoadingServer = useSelector(
+    (state: RootState) => state.main.isLoadingServers
+  );
   const router = useRouter();
   const handlerServerPage = (ip: string, port: string) => {
     router.push(`/serverPage/${ip}:${port}`);
@@ -24,7 +32,7 @@ export default function PremiumServerBlockItem() {
   return (
     <div className={styles.premiumServerBlockItem}>
       <h2>
-        {servers.length === 0
+        {data.length === 0 && isLoadingServer
           ? "На данный момент ТОП сервера отсутствуют"
           : "Топ сервера"}
       </h2>

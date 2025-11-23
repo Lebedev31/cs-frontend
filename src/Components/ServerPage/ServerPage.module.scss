@@ -77,14 +77,14 @@
   overflow-x: hidden;
   // Тонкий скроллбар только здесь
   scrollbar-width: thin;
-  scrollbar-color: v.$neon-accent v.$bg-darker;
+  scrollbar-color: v.$neon-accent v.$new-background;
 
   &::-webkit-scrollbar {
     width: 4px;
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent;
+    background: v.$new-background;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -92,7 +92,7 @@
     border-radius: 10px;
 
     &:hover {
-      background: v.$neon-primary;
+      background: v.$new-background;
     }
   }
 }

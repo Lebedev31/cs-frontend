@@ -24,7 +24,6 @@
     img {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 0 8px v.$neon-primary);
       border-radius: v.$border-radius-neon;
     }
   }
@@ -66,7 +65,7 @@
   .select {
     width: 100%;
     padding: 0.4rem;
-    background: v.$bg-dark;
+    background: v.$new-input-background;
     border: 1px solid rgba(v.$neon-primary, 0.4);
     border-radius: 6px;
     color: v.$text-primary;

@@ -1,17 +1,13 @@
-// components/AdBanner/AdBanner.module.scss
+@use "../../styles/variable.scss" as v;
 
 .adContainer {
   position: relative;
   margin: 20px auto;
   text-align: center;
-  background: #f5f5f5;
+  background: v.$new-panel;
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
-
-  &:hover {
-    background: #ececec;
-  }
 
   // Плейсхолдер
   .adPlaceholder {

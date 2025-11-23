@@ -15,9 +15,9 @@
   // Фон: темный + полоса сканера цвета neon-primary (очень прозрачная)
   background: linear-gradient(
     90deg,
-    v.$bg-darker 0%,
+    v.$new-background 0%,
     rgba(v.$neon-primary, 0.08) 50%,
-    v.$bg-darker 100%
+    v.$new-background 100%
   );
   background-size: 200% 100%;
   animation: cyber-scan 2s infinite linear;
@@ -72,7 +72,7 @@
 // 1. Карта
 .map_card {
   // Сохраняем бордеры оригинала, но делаем их чуть тусклее для состояния загрузки
-  background: v.$bg-darker;
+  background: v.$new-background;
   border: 2px solid rgba(v.$neon-accent, 0.3);
   border-radius: v.$border-radius-neon;
   padding: 20px;
@@ -91,7 +91,7 @@
 
 // 2. Список игроков
 .players_card {
-  background: v.$bg-darker;
+  background: v.$new-background;
   border: 2px solid rgba(v.$neon-accent, 0.3);
   border-radius: v.$border-radius-neon;
   padding: 20px;
@@ -114,7 +114,7 @@
 
 // 3. Хедер сервера
 .header_card {
-  background: v.$bg-darker;
+  background: v.$new-background;
   border: 2px solid rgba(v.$neon-secondary, 0.3); // Розовый оттенок
   border-radius: v.$border-radius-neon;
   padding: 30px;
@@ -148,7 +148,7 @@
 
 // 4. Владелец
 .owner_card {
-  background: v.$bg-darker;
+  background: v.$new-background;
   border: 2px solid rgba(v.$glitch-purple, 0.3);
   border-radius: v.$border-radius-neon;
   padding: 25px;
@@ -173,7 +173,7 @@
 }
 
 .rating_card {
-  background: v.$bg-darker;
+  background: v.$new-background;
   border: 2px solid rgba(v.$neon-warning, 0.3); // Желтый
   border-radius: v.$border-radius-neon;
   height: 240px;
