@@ -2,7 +2,6 @@
 @use "../../../styles/variable.scss" as v;
 
 .myServers {
-  background: v.$gradient-cyber-terminal;
   padding: 20px;
   min-height: 100vh;
 }
@@ -26,9 +25,9 @@
 
 .servers_block {
   position: relative;
-  background: rgba(v.$bg-darker, 0.6);
   border-radius: 12px;
   padding: 30px;
+  background-color: v.$new-common;
   border: 2px solid v.$neon-primary;
   box-shadow: v.$glow-primary, inset 0 0 40px rgba(v.$neon-primary, 0.1),
     0 0 60px rgba(v.$neon-primary, 0.3);

@@ -136,75 +136,78 @@ export default function AddServer({
     <div className={styles.addServer}>
       <div className={styles.container}>
         <h1 className={styles.title}>{title}</h1>
+        <div className={styles.wrapper}>
+          <form className={styles.form} onSubmit={onSubmit}>
+            <div className={styles.inputWrapper}>
+              <input
+                ref={ipRef}
+                type="text"
+                placeholder="IP:Port"
+                className={styles.input}
+              />
+              {validationError.errorIpPort && (
+                <p className={styles.error}>{validationError.errorIpPort}</p>
+              )}
+            </div>
 
-        <form className={styles.form} onSubmit={onSubmit}>
-          <div className={styles.inputWrapper}>
-            <input
-              ref={ipRef}
-              type="text"
-              placeholder="IP:Port"
-              className={styles.input}
-            />
-            {validationError.errorIpPort && (
-              <p className={styles.error}>{validationError.errorIpPort}</p>
-            )}
-          </div>
+            <div className={styles.inputWrapper}>
+              <select ref={gameRef} className={styles.select}>
+                <option value="">Игра</option>
+                {GAMES.map((game) => (
+                  <option key={game} value={game}>
+                    {game}
+                  </option>
+                ))}
+              </select>
+              {validationError.errorGame && (
+                <p className={styles.error}>{validationError.errorGame}</p>
+              )}
+            </div>
 
-          <div className={styles.inputWrapper}>
-            <select ref={gameRef} className={styles.select}>
-              <option value="">Игра</option>
-              {GAMES.map((game) => (
-                <option key={game} value={game}>
-                  {game}
-                </option>
-              ))}
-            </select>
-            {validationError.errorGame && (
-              <p className={styles.error}>{validationError.errorGame}</p>
-            )}
-          </div>
+            <div className={styles.inputWrapper}>
+              <select ref={modRef} className={styles.select}>
+                <option value="">Мод игры</option>
+                {mods.map((mod) => (
+                  <option key={mod} value={mod}>
+                    {mod}
+                  </option>
+                ))}
+              </select>
+              {validationError.errorMod && (
+                <p className={styles.error}>{validationError.errorMod}</p>
+              )}
+            </div>
 
-          <div className={styles.inputWrapper}>
-            <select ref={modRef} className={styles.select}>
-              <option value="">Мод игры</option>
-              {mods.map((mod) => (
-                <option key={mod} value={mod}>
-                  {mod}
-                </option>
-              ))}
-            </select>
-            {validationError.errorMod && (
-              <p className={styles.error}>{validationError.errorMod}</p>
-            )}
-          </div>
+            <div className={styles.inputWrapper}>
+              <textarea
+                ref={descriptionRef}
+                placeholder="Описание сервера&#10;(необязательно)"
+                className={styles.textarea}
+              />
+              {validationError.errorDescription && (
+                <p className={styles.error}>
+                  {validationError.errorDescription}
+                </p>
+              )}
+            </div>
 
-          <div className={styles.inputWrapper}>
-            <textarea
-              ref={descriptionRef}
-              placeholder="Описание сервера&#10;(необязательно)"
-              className={styles.textarea}
-            />
-            {validationError.errorDescription && (
-              <p className={styles.error}>{validationError.errorDescription}</p>
-            )}
-          </div>
+            <div className={styles.inputWrapper}>
+              <input
+                ref={websiteRef}
+                type="text"
+                placeholder="Сайт сервера (необязательно)"
+                className={styles.input}
+              />
+              {validationError.errorWebsite && (
+                <p className={styles.error}>{validationError.errorWebsite}</p>
+              )}
+            </div>
 
-          <div className={styles.inputWrapper}>
-            <input
-              ref={websiteRef}
-              type="text"
-              placeholder="Сайт сервера (необязательно)"
-              className={styles.input}
-            />
-            {validationError.errorWebsite && (
-              <p className={styles.error}>{validationError.errorWebsite}</p>
-            )}
-          </div>
-
-          <button type="submit" className={styles.button}>
-            {title}
-          </button>
-        </form>
+            <button type="submit" className={styles.button}>
+              {title}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

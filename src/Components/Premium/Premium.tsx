@@ -80,7 +80,7 @@ export default function Premium() {
         />
       ) : null}
       <h1 className={styles.title}>Платные услуги для продвижения</h1>
-      <div className={styles.page}>
+      <div className={styles.wrapper}>
         <div className={styles.servicesGrid}>
           {services.map((service) => (
             <div

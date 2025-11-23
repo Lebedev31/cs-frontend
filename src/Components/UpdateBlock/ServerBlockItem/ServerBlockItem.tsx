@@ -35,20 +35,20 @@ export default function ServerBlockItem({
       ) || 0;
     return server.rating + points;
   };
-
+  console.log(server.service.color.colorName);
   return (
     <div
       className={styles.serverBlockItem}
       style={{
         // Если нужен цветной бордер от привилегии, можно добавить сюда
         backgroundColor:
-          server.service.color.colorName !== "none"
-            ? "transparent" // Или цвет фона, если нужен
-            : undefined,
+          server.service.color.colorName === "none"
+            ? "#22262c" // Или цвет фона, если нужен
+            : server.service.color.colorName,
         border:
-          server.service.color.colorName !== "none"
-            ? "transparent" // Или цвет фона, если нужен
-            : undefined,
+          server.service.color.colorName === "none"
+            ? "1px solid rgba(v.$neon-primary, 0.1" // Или цвет фона, если нужен
+            : `2px solid ${server.service.color.colorName}`,
       }}
       onClick={() => handlerServerPage(server.ip, String(server.port))}
     >

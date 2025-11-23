@@ -272,7 +272,14 @@ export default function ServerPage() {
         {/* Нижняя секция */}
         <div>
           {server.service?.vip?.status ? (
-            <div className={styles.statusBadge}>VIP</div>
+            <div className={styles.statusBadge}>
+              <Image
+                fill
+                src={"/vip.png"}
+                style={{ objectFit: "cover" }}
+                alt="vip"
+              />
+            </div>
           ) : null}
           <CommentsBlock serverId={server.serverId} />
         </div>

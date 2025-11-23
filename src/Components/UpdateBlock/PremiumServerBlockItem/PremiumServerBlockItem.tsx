@@ -87,7 +87,7 @@ export default function PremiumServerBlockItem() {
             <div className={styles.imageContainer}>
               <Image
                 fill
-                style={{ objectFit: "contain" }}
+                style={{ objectFit: "cover" }}
                 src={`${getMapImagePath(server.map || "", server.game)}`}
                 alt={server.map || "map image"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

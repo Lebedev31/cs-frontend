@@ -3,7 +3,7 @@
 
 .premiumServerBlockItem {
   width: 100%;
-  background: v.$bg-dark;
+  background: v.$new-panel;
   padding: 10px;
   border-radius: v.$border-radius-neon;
   border: 1px solid rgba(v.$neon-primary, 0.2);
@@ -33,7 +33,7 @@
 .serverItem {
   // Убираем padding, чтобы картинка касалась краев
   padding: 0;
-  background-color: v.$bg-darker;
+  background-color: v.$new-common;
   border: v.$border-glow-primary;
   border-radius: v.$border-radius-neon;
   cursor: pointer;
@@ -132,6 +132,5 @@
 // === ПРАВАЯ ЧАСТЬ (Картинка) ===
 .imageContainer {
   position: relative; // Нужно для layout="fill" у Next.js Image
-  width: 120px; // Ширина блока картинки
-  min-width: 120px; // Чтобы не сжималась
+  width: 150px; // Ширина блока картинки
 }

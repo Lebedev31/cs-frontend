@@ -3,7 +3,6 @@
 
 .container {
   min-height: 100vh;
-  background: v.$gradient-cyber-terminal;
   padding: 60px 20px;
   display: flex;
   flex-direction: column;
@@ -13,8 +12,12 @@
   }
 }
 
-.page {
-  @include m.page();
+.wrapper {
+  background: rgba(v.$new-panel, 0.9);
+  border: 2px solid v.$neon-accent;
+  border-radius: v.$border-radius-neon;
+  box-shadow: v.$glow-primary, 0 10px 50px rgba(v.$neon-primary, 0.2);
+  padding: 60px 60px;
 }
 
 .title {
@@ -29,15 +32,15 @@
 }
 
 .servicesGrid {
-  max-width: 800px;
-  width: 100%;
+  width: 1000px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin: 0 auto;
 }
 
 .serviceCard {
-  background: rgba(v.$bg-darker, 0.9);
+  background: rgba(v.$new-common, 0.9);
   border: 3px solid;
   border-radius: v.$border-radius-neon;
   padding: 10px;

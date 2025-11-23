@@ -11,7 +11,6 @@ export default function MyServers() {
   const [onClose, setOnClose] = useState<boolean>(false);
   const [serverId, setServerId] = useState<string>("");
   const { data, isLoading } = useGetMyServersQuery();
-  console.log(data);
   const [activeTab, setActiveTab] = useState<"all" | Game>("all");
   const myServerList = useMemo(() => {
     if (!data?.data || isLoading) {

@@ -16,11 +16,12 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(0, 0, 0, 0.12)
-  );
+  // background: linear-gradient(
+  //  180deg,
+  //   rgba(255, 255, 255, 0.02),
+  //   rgba(0, 0, 0, 0.12)
+  //  );
+  background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
   padding: 40px;
@@ -35,7 +36,7 @@
 }
 
 .map_card {
-  background: v.$bg-darker;
+  background: v.$new-common;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
   padding: 20px;
@@ -67,7 +68,7 @@
 }
 
 .players_card {
-  background: v.$bg-darker;
+  background: v.$new-common;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
   padding: 20px;
@@ -150,7 +151,7 @@
 }
 
 .server_header {
-  background: v.$bg-darker;
+  background: v.$new-common;
   border: 2px solid v.$neon-secondary;
   border-radius: v.$border-radius-neon;
   padding: 30px;
@@ -246,7 +247,7 @@
 }
 
 .owner_section {
-  background: v.$bg-darker;
+  background: v.$new-common;
   border: 2px solid v.$glitch-purple;
   border-radius: v.$border-radius-neon;
   padding: 25px;
@@ -295,7 +296,7 @@
 }
 
 .rating_section {
-  background: v.$bg-darker;
+  background: v.$new-common;
   border: 2px solid v.$neon-warning;
   border-radius: v.$border-radius-neon;
   padding: 25px;
@@ -361,13 +362,20 @@
 }
 
 .statusBadge {
-  background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
-  color: v.$glitch-purple;
+  // background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
+  // color: v.$glitch-purple;
   padding: 10px 10px;
-  font-size: 28px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  width: 350px;
+  // font-size: 28px;
+  // font-weight: 700;
+  // text-transform: uppercase;
+  // text-align: center;
+  width: 200px;
+  height: 140px;
   margin: 20px auto;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }

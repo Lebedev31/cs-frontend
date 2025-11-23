@@ -2,7 +2,8 @@
 @use "../../styles/mixins.scss" as m;
 
 .footer {
-  background: v.$gradient-cyber-terminal;
+  // background: v.$gradient-cyber-terminal;
+  background-color: v.$new-panel;
   padding: 40px 20px;
   border-top: 2px solid v.$glitch-purple;
   margin-top: 10px;

@@ -12,6 +12,7 @@
   width: 100%;
   overflow: hidden;
   height: 80px; // Фиксируем высоту карточки для аккуратности
+  background-color: v.$new-panel;
 
   // --- НОВАЯ ЛОГИКА ВЫРАВНИВАНИЯ ---
   .contentWrapper {

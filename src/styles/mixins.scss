@@ -107,7 +107,7 @@
 }
 
 @mixin page() {
-  background: v.$gradient-cyber-terminal;
+  // background: v.$gradient-cyber-terminal;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,11 +118,12 @@
 @mixin wrapper() {
   width: 92%;
   max-width: 1200px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(0, 0, 0, 0.12)
-  );
+  // background: linear-gradient(
+  //  180deg,
+  //  rgba(255, 255, 255, 0.02),
+  //  rgba(0, 0, 0, 0.12)
+  // );
+  background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
   padding: 40px;
