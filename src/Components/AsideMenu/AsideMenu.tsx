@@ -109,12 +109,13 @@ export default function AsideMenu() {
   };
 
   useEffect(() => {
+    dispatch(setIsLoadingServers(isLoading));
     if (data && data.data) {
       const rating = globalFilter(data.data);
       dispatch(setServers(rating));
       dispatch(setOriginalServers(rating));
+      dispatch(setIsLoadingServers(isLoading));
     }
-    dispatch(setIsLoadingServers(isLoading));
   }, [data, dispatch, isLoading]);
 
   const handleGameClick = (key: string) => {

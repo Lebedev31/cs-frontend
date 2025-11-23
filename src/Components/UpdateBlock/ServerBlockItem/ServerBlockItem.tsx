@@ -35,7 +35,6 @@ export default function ServerBlockItem({
       ) || 0;
     return server.rating + points;
   };
-  console.log(server.service.color.colorName);
   return (
     <div
       className={styles.serverBlockItem}

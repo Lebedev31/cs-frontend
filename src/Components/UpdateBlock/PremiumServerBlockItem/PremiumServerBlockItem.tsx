@@ -28,11 +28,13 @@ export default function PremiumServerBlockItem({
   const handlerServerPage = (ip: string, port: string) => {
     router.push(`/serverPage/${ip}:${port}`);
   };
-
+  console.log(isLoadingServer);
   return (
     <div className={styles.premiumServerBlockItem}>
       <h2>
-        {data.length === 0 && isLoadingServer
+        {!isLoadingServer
+          ? "Топ сервера"
+          : servers.length === 0
           ? "На данный момент ТОП сервера отсутствуют"
           : "Топ сервера"}
       </h2>
