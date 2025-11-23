@@ -17,7 +17,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   selectedServer: "CS:GO",
-  isLoadingServers: false,
+  isLoadingServers: true,
   servers: [],
   originalServers: [],
   game: "CS:GO",

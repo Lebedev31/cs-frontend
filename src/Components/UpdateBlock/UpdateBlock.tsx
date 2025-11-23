@@ -23,7 +23,7 @@ export default function UpdateBlock() {
         <AllServers data={serversArr} />
       </div>
       <div className={styles.premium}>
-        <PremiumServerBlockItem data={serversArr} />
+        <PremiumServerBlockItem />
         <div className={styles.advertising}>
           <AddBanner
             size="responsive"

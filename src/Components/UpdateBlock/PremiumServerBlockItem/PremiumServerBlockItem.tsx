@@ -11,30 +11,19 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
-type PremiumServerBlockProps = {
-  data: GameServer[];
-};
+export default function PremiumServerBlockItem() {
+  const servers = useSelector(
+    (state: RootState) => state.main.originalServers
+  ).filter((server) => server.service.top.status);
 
-export default function PremiumServerBlockItem({
-  data,
-}: PremiumServerBlockProps) {
-  const servers: GameServer[] = data.filter(
-    (server) => server.service.top.status
-  );
-  const isLoadingServer = useSelector(
-    (state: RootState) => state.main.isLoadingServers
-  );
   const router = useRouter();
   const handlerServerPage = (ip: string, port: string) => {
     router.push(`/serverPage/${ip}:${port}`);
   };
-  console.log(isLoadingServer);
   return (
     <div className={styles.premiumServerBlockItem}>
       <h2>
-        {!isLoadingServer
-          ? "Топ сервера"
-          : servers.length === 0
+        {servers.length === 0
           ? "На данный момент ТОП сервера отсутствуют"
           : "Топ сервера"}
       </h2>

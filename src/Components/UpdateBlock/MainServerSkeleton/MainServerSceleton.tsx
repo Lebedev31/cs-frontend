@@ -1,3 +1,4 @@
+"use client";
 import styles from "./MainServerSkeleton.module.scss";
 
 export default function MainPageSkeleton() {
