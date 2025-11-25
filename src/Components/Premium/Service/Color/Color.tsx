@@ -122,8 +122,8 @@ export default function Color() {
       <>
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
-          price={[50, 120, 250, 2000]}
-          discount={["", "", "", ""]}
+          price={[50, 190, 1080, 2040]}
+          discount={["", "Скидка 5%", "Скидка 10%", "Скидка 15%"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />

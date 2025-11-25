@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://csrating.com"
   ),
   title: {
-    default: "CS Rating - Мониторинг серверов CS 1.6, CS:GO и CS2",
+    default: "GameState-Monitor",
     template: "%s | CS Rating",
   },
   description:
@@ -83,9 +83,8 @@ export const metadata: Metadata = {
 
   // Иконки
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
   },
 
   // Верификация (ДОБАВЬТЕ свои ключи)

@@ -135,67 +135,76 @@ export default function Login({ setToggle }: RegistrationProps) {
     <div className={styles.pageContainer}>
       <div className={styles.loginForm}>
         <h1 className={styles.title}>Вход в аккаунт</h1>
-        <Home />
-        <form className={styles.form} onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Email"
-            className={styles.input}
-            ref={emailRef}
-          />
+        <div className={styles.wrapper}>
+          <Home />
+          <form className={styles.form} onSubmit={onSubmit}>
+            <input
+              type="text"
+              placeholder="Email"
+              className={styles.input}
+              ref={emailRef}
+            />
 
-          {validationError.errorEmail && (
-            <p className={styles.error}>{validationError.errorEmail}</p>
-          )}
+            {validationError.errorEmail && (
+              <p className={styles.error}>{validationError.errorEmail}</p>
+            )}
 
-          <input
-            type="password"
-            placeholder="Пароль"
-            className={styles.input}
-            ref={passwordRef}
-          />
+            <input
+              type="password"
+              placeholder="Пароль"
+              className={styles.input}
+              ref={passwordRef}
+            />
 
-          {validationError.errorPassword && (
-            <p className={styles.error}>{validationError.errorPassword}</p>
-          )}
+            {validationError.errorPassword && (
+              <p className={styles.error}>{validationError.errorPassword}</p>
+            )}
 
-          <Link href="/forgotPassword" className={styles.forgotPassword}>
-            Забыли пароль?
-          </Link>
+            <Link href="/forgotPassword" className={styles.forgotPassword}>
+              Забыли пароль?
+            </Link>
 
-          {validationError.unionErrorForm && (
-            <p className={styles.error}>{validationError.unionErrorForm}</p>
-          )}
+            {validationError.unionErrorForm && (
+              <p className={styles.error}>{validationError.unionErrorForm}</p>
+            )}
 
-          <button type="submit" className={styles.loginButton}>
-            Войти
-          </button>
+            <button type="submit" className={styles.loginButton}>
+              Войти
+            </button>
 
-          <a
-            href="#"
-            className={styles.createAccount}
-            onClick={() => setToggle(true)}
-          >
-            Создать аккаунт
-          </a>
-        </form>
+            <a
+              href="#"
+              className={styles.createAccount}
+              onClick={() => setToggle(true)}
+            >
+              Создать аккаунт
+            </a>
+          </form>
 
-        <div className={styles.divider}></div>
+          <div className={styles.divider}></div>
 
-        <div className={styles.socialLogin}>
-          <button className={styles.socialButton} onClick={authSteam}>
-            <span className={styles.buttonNumber}>
-              <Image width={35} height={35} src="/steam.png" alt="steam" />
-            </span>
-            Войти с помощью Steam
-          </button>
+          <div className={styles.socialLogin}>
+            <button className={styles.socialButton} onClick={authSteam}>
+              <span className={styles.buttonNumber}>
+                <Image width={35} height={35} src="/steam.png" alt="steam" />
+              </span>
+              Войти с помощью Steam
+            </button>
 
-          <button className={styles.socialButton} onClick={authVk}>
-            <span className={styles.buttonNumber}>
-              <Image width={35} height={35} src="/vk.png" alt="vk" />
-            </span>
-            Войти с помощью ВК
-          </button>
+            <button className={styles.socialButton} onClick={authVk}>
+              <span className={styles.buttonNumber}>
+                <Image width={35} height={35} src="/vk.png" alt="vk" />
+              </span>
+              Войти с помощью ВК
+            </button>
+          </div>
+
+          <div className={styles.disclaimer}>
+            Нажимая кнопку «Зарегистрироваться», Вы соглашаетесь с{" "}
+            <Link href="/agreement">пользовательским соглашением</Link> , и
+            даете своё согласие на обработку данных в соответствии с нашей{" "}
+            <Link href="/policy">политикой конфиденциальности.</Link>
+          </div>
         </div>
       </div>
     </div>

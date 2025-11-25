@@ -11,6 +11,7 @@ import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import useRecaptcha from "../Recaptcha/useRecaptcha";
 import { validateWithZod, handleToastError } from "@/lib/common";
 import Home from "@/Components/Home/Home";
+import Link from "next/link";
 
 export default function Registration({ setToggle }: RegistrationProps) {
   const [registerMutation] = useRegisterMutation();
@@ -115,88 +116,90 @@ export default function Registration({ setToggle }: RegistrationProps) {
     <div className={styles.pageContainer}>
       <div className={styles.loginForm}>
         <h1 className={styles.title}>Регистрация</h1>
-        <Home />
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY_V3!}
-        >
-          <form className={styles.form} onSubmit={onSubmit}>
-            <input
-              type="text"
-              placeholder="Логин"
-              className={styles.input}
-              ref={login}
-            />
-            {validationError.errorLogin && (
-              <p className={styles.error}>{validationError.errorLogin}</p>
-            )}
+        <div className={styles.wrapper}>
+          <Home />
+          <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY_V3!}
+          >
+            <form className={styles.form} onSubmit={onSubmit}>
+              <input
+                type="text"
+                placeholder="Логин"
+                className={styles.input}
+                ref={login}
+              />
+              {validationError.errorLogin && (
+                <p className={styles.error}>{validationError.errorLogin}</p>
+              )}
 
-            <input
-              type="text"
-              placeholder="Email"
-              className={styles.input}
-              ref={email}
-            />
-            {validationError.errorEmail && (
-              <p className={styles.error}>{validationError.errorEmail}</p>
-            )}
+              <input
+                type="text"
+                placeholder="Email"
+                className={styles.input}
+                ref={email}
+              />
+              {validationError.errorEmail && (
+                <p className={styles.error}>{validationError.errorEmail}</p>
+              )}
 
-            <input
-              type="password"
-              placeholder="Пароль"
-              className={styles.input}
-              ref={password}
-              autoComplete="new-password"
-            />
-            {validationError.errorPassword && (
-              <p className={styles.error}>{validationError.errorPassword}</p>
-            )}
+              <input
+                type="password"
+                placeholder="Пароль"
+                className={styles.input}
+                ref={password}
+                autoComplete="new-password"
+              />
+              {validationError.errorPassword && (
+                <p className={styles.error}>{validationError.errorPassword}</p>
+              )}
 
-            <input
-              type="password"
-              placeholder="Подтвердите пароль"
-              className={styles.input}
-              ref={confirmPassword}
-              autoComplete="new-password"
-            />
-            {validationError.errorConfirmPassword && (
-              <p className={styles.error}>
-                {validationError.errorConfirmPassword}
-              </p>
-            )}
+              <input
+                type="password"
+                placeholder="Подтвердите пароль"
+                className={styles.input}
+                ref={confirmPassword}
+                autoComplete="new-password"
+              />
+              {validationError.errorConfirmPassword && (
+                <p className={styles.error}>
+                  {validationError.errorConfirmPassword}
+                </p>
+              )}
 
-            {/* reCAPTCHA */}
-            {!visibleV2 && <V3 onVerify={handleVerifyV3} />}
-            {visibleV2 && <V2 onVerify={handleVerifyV2} />}
+              {/* reCAPTCHA */}
+              {!visibleV2 && <V3 onVerify={handleVerifyV3} />}
+              {visibleV2 && <V2 onVerify={handleVerifyV2} />}
 
-            {validationError.unionErrorForm && (
-              <p className={styles.error}>{validationError.unionErrorForm}</p>
-            )}
+              {validationError.unionErrorForm && (
+                <p className={styles.error}>{validationError.unionErrorForm}</p>
+              )}
 
-            <button
-              type="submit"
-              className={styles.loginButton}
-              disabled={isVerifying}
-            >
-              {isVerifying ? "Проверка..." : "Зарегистрироваться"}
-            </button>
+              <button
+                type="submit"
+                className={styles.loginButton}
+                disabled={isVerifying}
+              >
+                {isVerifying ? "Проверка..." : "Зарегистрироваться"}
+              </button>
 
-            <a
-              href="#"
-              className={styles.createAccount}
-              onClick={(e) => {
-                e.preventDefault();
-                setToggle(false);
-              }}
-            >
-              Уже есть аккаунт? Войти
-            </a>
-          </form>
-        </GoogleReCaptchaProvider>
-
-        <div className={styles.disclaimer}>
-          Нажимая кнопку «Зарегистрироваться», Вы соглашаетесь с
-          пользовательским соглашением, и даете своё согласие на обработку
-          данных в соответствии с нашей политикой конфиденциальности.
+              <a
+                href="#"
+                className={styles.createAccount}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setToggle(false);
+                }}
+              >
+                Уже есть аккаунт? Войти
+              </a>
+            </form>
+          </GoogleReCaptchaProvider>
+          <div className={styles.disclaimer}>
+            Нажимая кнопку «Зарегистрироваться», Вы соглашаетесь с{" "}
+            <Link href="/agreement">пользовательским соглашением</Link> , и
+            даете своё согласие на обработку данных в соответствии с нашей{" "}
+            <Link href="/policy">политикой конфиденциальности.</Link>
+          </div>
         </div>
       </div>
     </div>

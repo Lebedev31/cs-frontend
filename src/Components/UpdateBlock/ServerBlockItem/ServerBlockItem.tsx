@@ -9,6 +9,15 @@ import CoppyButton from "../Elements/CopyButton/CoppyButton";
 import { useRouter, usePathname } from "next/navigation";
 import { getMapImagePath } from "@/lib/common";
 
+export const safePoints = (server: GameServer) => {
+  const points =
+    server.service.balls?.listService?.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    ) || 0;
+  return server.rating + points;
+};
+
 export default function ServerBlockItem({
   server,
   onClose,
@@ -27,14 +36,6 @@ export default function ServerBlockItem({
     }
   };
 
-  const safePoints = (server: GameServer) => {
-    const points =
-      server.service.balls?.listService?.reduce(
-        (acc, item) => acc + item.quantity,
-        0
-      ) || 0;
-    return server.rating + points;
-  };
   return (
     <div
       className={styles.serverBlockItem}

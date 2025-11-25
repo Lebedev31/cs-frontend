@@ -4,9 +4,11 @@ import { Payment, PaymentSchema, RedirectYooCassa } from "@/types/type";
 import { useCreatePaymentMutation } from "@/redux/apiSlice/paymentApi";
 import { useState, useRef } from "react";
 import { handleSubmit } from "@/lib/common";
+import { useGetBalanceQuery } from "@/redux/apiSlice/paymentApi";
 
 export default function PaymentForm() {
   const paymentRef = useRef<HTMLInputElement>(null);
+  const { data } = useGetBalanceQuery();
   const [createPayment] = useCreatePaymentMutation();
   const [validationError, setValidationError] = useState({
     errorPayment: "",
@@ -50,7 +52,9 @@ export default function PaymentForm() {
         <h1 className={styles.title}>Пополнить баланс</h1>
 
         <div className={styles.balanceInfo}>
-          <p className={styles.balanceLabel}>Ваш текущий баланс — (сумма)</p>
+          <p className={styles.balanceLabel}>
+            Ваш текущий баланс — {data && data.data ? data.data : 0}
+          </p>
           <div className={styles.balanceLine}></div>
         </div>
 

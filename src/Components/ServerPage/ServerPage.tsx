@@ -16,6 +16,8 @@ import { getMapImagePath, getFormatData } from "@/lib/common";
 import Modal from "./Modal/Modal";
 // Импортируем скелетон
 import ServerPageSkeleton from "./ServerPageSkeleton/ServerPageSkeleton";
+import { safePoints } from "../UpdateBlock/ServerBlockItem/ServerBlockItem";
+import Play from "../UpdateBlock/Elements/Play/Play";
 
 export default function ServerPage() {
   const { id } = useParams();
@@ -26,6 +28,15 @@ export default function ServerPage() {
   const [increaseRating] = useIncreaseRatingMutation();
   const [balls, setBalls] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const setPremiumBalls = (server: GameServer) => {
+    return (
+      server.service.balls?.listService?.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+      ) || 0
+    );
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -42,7 +53,7 @@ export default function ServerPage() {
 
     if (foundInRedux) {
       setServer(foundInRedux);
-      setBalls(foundInRedux.rating);
+      setBalls(foundInRedux.rating + setPremiumBalls(foundInRedux));
     } else {
       // 2. Если нет в Redux, запрашиваем через API
       getByServer(decodedId);
@@ -57,7 +68,7 @@ export default function ServerPage() {
       const result = await trigger({ id: serverId });
       if (result.data?.data) {
         setServer(result.data.data);
-        setBalls(result.data.data.rating);
+        setBalls(safePoints(result.data.data));
       } else if (result.isError) {
         toast.error("Не удалось найти сервер");
       }
@@ -73,9 +84,9 @@ export default function ServerPage() {
       const result = await increaseRating({
         serverId: server.serverId,
       }).unwrap();
-      if (result.data) {
-        setBalls(result.data.rating);
-        toast.success("Рейтинг повышен!");
+      if (result.data && result.data.rating !== undefined) {
+        console.log(result.data.rating);
+        setBalls(setPremiumBalls(server) + result.data.rating);
       }
     } catch (error) {
       console.log(error);
@@ -168,13 +179,21 @@ export default function ServerPage() {
               <div className={styles.server_title}>{server.name}</div>
 
               <div className={styles.server_address}>
-                <div className={styles.countryFlag}>
-                  <span className={`fi fi-${server.country}`}></span>{" "}
-                </div>
+                <span
+                  className={`fi fi-${server.country.toLowerCase()} ${
+                    styles.countryFlag
+                  }`}
+                ></span>
                 <p
                   className={styles.address_value}
                 >{`${server.ip}:${server.port}`}</p>
                 <CoppyButton ip={server.ip} port={String(server.port)} />
+                <Play
+                  width="12"
+                  height="12"
+                  ip={server.ip}
+                  port={server.port}
+                />
               </div>
 
               <div className={styles.server_info_grid}>
@@ -240,11 +259,13 @@ export default function ServerPage() {
             {/* Рейтинг и Описание */}
             <div className={styles.block_flex}>
               <div className={styles.rating_section}>
-                <h3 className={styles.rating_title}>Рейтинг сервера:</h3>
+                <h3 className={styles.rating_title}>Описание сервера:</h3>
+                <p className={styles.description_text}>
+                  {server.description || "Описание отсутствует"}
+                </p>
+              </div>
+              <div className={styles.rating_section_v2}>
                 <div className={styles.rating_value}>{balls}</div>
-                <h4 className={styles.rating_title}>
-                  Повысить рейтинг сервера
-                </h4>
                 <div
                   className={styles.rating_img}
                   style={{ cursor: "pointer" }}
@@ -257,13 +278,6 @@ export default function ServerPage() {
                     onClick={rating}
                   />
                 </div>
-              </div>
-
-              <div className={styles.rating_section}>
-                <h3 className={styles.rating_title}>Описание сервера:</h3>
-                <p className={styles.description_text}>
-                  {server.description || "Описание отсутствует"}
-                </p>
               </div>
             </div>
           </div>

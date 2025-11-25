@@ -52,28 +52,30 @@ export default function ForgotPassword() {
     <div className={styles.pageContainer}>
       <div className={styles.loginForm}>
         <h1 className={styles.title}>Забыли пароль</h1>
-        <Home />
-        <form className={styles.form} onSubmit={onSubmit}>
-          <input
-            type="text"
-            className={styles.input}
-            placeholder="Email"
-            ref={emailRef}
-            autoComplete="email"
-          />
-          {/* Теперь validationError определен и будет работать */}
-          {validationError.errorEmail && (
-            <p className={styles.error}>{validationError.errorEmail}</p>
-          )}
+        <div className={styles.wrapper}>
+          <Home />
+          <form className={styles.form} onSubmit={onSubmit}>
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Email"
+              ref={emailRef}
+              autoComplete="email"
+            />
+            {/* Теперь validationError определен и будет работать */}
+            {validationError.errorEmail && (
+              <p className={styles.error}>{validationError.errorEmail}</p>
+            )}
 
-          <button
-            type="submit"
-            className={styles.loginButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "Отправка..." : "Сбросить пароль"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className={styles.loginButton}
+              disabled={isLoading}
+            >
+              {isLoading ? "Отправка..." : "Сбросить пароль"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

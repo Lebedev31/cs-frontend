@@ -55,22 +55,10 @@ export const colorSchema = generalSchema.extend({
 
 export type ColorValidation = VipValidationType & { color: HexColorLiteral };
 
-export const ballsArr = [
-  "50",
-  "100",
-  "200",
-  "500",
-  "1000",
-  "1500",
-  "2000",
-  "2500",
-];
-export type BallsLiteral = (typeof ballsArr)[number];
-
-export type BallsValidation = VipValidationType & { balls: BallsLiteral };
-export type BallsType = VipType & { balls: BallsLiteral };
+export type BallsValidation = VipValidationType & { balls: string };
+export type BallsType = VipType & { balls: string };
 export const ballsSchema = generalSchema.extend({
-  balls: z.enum(ballsArr),
+  balls: z.string(),
 });
 
 export type BoxShadowUnionType = "#ffd700" | "#ff4c4c" | "#4c8aff" | "#39ff14";

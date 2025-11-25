@@ -174,7 +174,6 @@
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-  justify-content: center;
   height: 30px;
   gap: 15px;
 }
@@ -303,7 +302,7 @@
   box-shadow: 0 0 10px rgba(v.$neon-warning, 0.3);
   text-align: center;
   height: 248px;
-  width: 50%;
+  width: 80%;
 
   overflow-x: hidden;
   // Тонкий скроллбар только здесь
@@ -328,6 +327,10 @@
   }
 }
 
+.rating_section_v2 {
+  width: 20%;
+}
+
 .rating_title {
   font-size: 16px;
   color: v.$neon-warning;
@@ -341,6 +344,7 @@
   color: v.$neon-success;
   font-weight: 700;
   text-shadow: 0 0 15px rgba(v.$neon-success, 0.6);
+  text-align: center;
 }
 
 .rating_img {

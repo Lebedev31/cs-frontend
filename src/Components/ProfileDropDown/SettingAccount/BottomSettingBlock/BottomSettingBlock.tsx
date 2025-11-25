@@ -65,38 +65,42 @@ export default function BottomSettingBlock() {
     <section className={styles.password_section}>
       <h2 className={styles.password_title}>Смена пароля</h2>
 
-      <form className={styles.password_form} onSubmit={onSubmit}>
-        <input
-          type="password"
-          placeholder="Старый пароль"
-          className={styles.setting_input}
-          ref={oldPasswordRef}
-        />
-        {validationError.errorOldPassword && (
-          <p className={styles.error}>{validationError.errorOldPassword}</p>
-        )}
-        <input
-          type="password"
-          placeholder="Новый пароль"
-          className={styles.setting_input}
-          ref={passwordRef}
-        />
-        {validationError.errorPassword && (
-          <p className={styles.error}>{validationError.errorPassword}</p>
-        )}
-        <input
-          type="password"
-          placeholder="Подтвердите новый пароль"
-          className={styles.setting_input}
-          ref={confirmPasswordRef}
-        />
-        {validationError.errorConfirmPassword && (
-          <p className={styles.error}>{validationError.errorConfirmPassword}</p>
-        )}
-        <button type="submit" className={styles.change_password_button}>
-          Изменить пароль
-        </button>
-      </form>
+      <div className={styles.wrapper}>
+        <form className={styles.password_form} onSubmit={onSubmit}>
+          <input
+            type="password"
+            placeholder="Старый пароль"
+            className={styles.setting_input}
+            ref={oldPasswordRef}
+          />
+          {validationError.errorOldPassword && (
+            <p className={styles.error}>{validationError.errorOldPassword}</p>
+          )}
+          <input
+            type="password"
+            placeholder="Новый пароль"
+            className={styles.setting_input}
+            ref={passwordRef}
+          />
+          {validationError.errorPassword && (
+            <p className={styles.error}>{validationError.errorPassword}</p>
+          )}
+          <input
+            type="password"
+            placeholder="Подтвердите новый пароль"
+            className={styles.setting_input}
+            ref={confirmPasswordRef}
+          />
+          {validationError.errorConfirmPassword && (
+            <p className={styles.error}>
+              {validationError.errorConfirmPassword}
+            </p>
+          )}
+          <button type="submit" className={styles.change_password_button}>
+            Изменить пароль
+          </button>
+        </form>
+      </div>
     </section>
   );
 }

@@ -8,8 +8,12 @@
 .loginForm {
   padding: 30px 80px;
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   position: relative;
+}
+
+.wrapper {
+  @include m.wrapper();
 }
 
 .title {
@@ -49,7 +53,7 @@
   color: rgba(v.$text-primary, 0.7);
   font-size: 14px;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
   position: relative;
   cursor: pointer;
 }

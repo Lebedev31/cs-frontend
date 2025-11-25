@@ -66,39 +66,41 @@ export default function ChangePassword() {
     <div className={styles.pageContainer}>
       <div className={styles.loginForm}>
         <h1 className={styles.title}>Создание нового пароля</h1>
-        <Home />
-        <form className={styles.form} onSubmit={onSubmit}>
-          <input
-            type="password"
-            className={styles.input}
-            placeholder="Новый пароль"
-            ref={passwordRef}
-          />
-          {validationError.errorPassword && (
-            <p className={styles.error}>{validationError.errorPassword}</p>
-          )}
+        <div className={styles.wrapper}>
+          <Home />
+          <form className={styles.form} onSubmit={onSubmit}>
+            <input
+              type="password"
+              className={styles.input}
+              placeholder="Новый пароль"
+              ref={passwordRef}
+            />
+            {validationError.errorPassword && (
+              <p className={styles.error}>{validationError.errorPassword}</p>
+            )}
 
-          <input
-            type="password"
-            className={styles.input}
-            placeholder="Подтвердите новый пароль"
-            ref={confirmPasswordRef}
-            autoComplete="new-password"
-          />
-          {validationError.errorConfirmPassword && (
-            <p className={styles.error}>
-              {validationError.errorConfirmPassword}
-            </p>
-          )}
+            <input
+              type="password"
+              className={styles.input}
+              placeholder="Подтвердите новый пароль"
+              ref={confirmPasswordRef}
+              autoComplete="new-password"
+            />
+            {validationError.errorConfirmPassword && (
+              <p className={styles.error}>
+                {validationError.errorConfirmPassword}
+              </p>
+            )}
 
-          <button
-            type="submit"
-            className={styles.loginButton}
-            disabled={isLoading}
-          >
-            {isLoading ? "Изменение..." : "Изменить пароль"}
-          </button>
-        </form>
+            <button
+              type="submit"
+              className={styles.loginButton}
+              disabled={isLoading}
+            >
+              {isLoading ? "Изменение..." : "Изменить пароль"}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

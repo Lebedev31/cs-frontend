@@ -9,10 +9,12 @@ export default function SettingAccount() {
   return (
     <div className={styles.setting_container}>
       <h1 className={styles.title}>Настройки аккаунта</h1>
+      <div className={styles.wrapper}>
+        <Home />
+        <TopSettingBlock />
+        {/* Разделитель */}
+      </div>
 
-      <Home />
-      <TopSettingBlock />
-      {/* Разделитель */}
       <div className={styles.divider} />
 
       {/* Смена пароля */}
