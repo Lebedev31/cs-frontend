@@ -9,15 +9,10 @@ export default function WrapperSettingServer() {
   const newId = id as string;
   const decodeId = decodeURIComponent(newId);
   const [updateServer] = useUpadateServerMutation();
-  const handleTrigger = () => {
-    // Действия после успешного обновления сервера
-    console.log("Сервер успешно обновлен");
-  };
 
   return (
     <AddServer
       title="Обновить настройки"
-      trigger={handleTrigger}
       successMessage="Сервер обновлен!"
       schema={SettingSchema}
       mutation={updateServer}

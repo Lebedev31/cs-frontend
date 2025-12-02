@@ -70,6 +70,7 @@
         overflow: hidden;
         text-overflow: ellipsis; // Троеточие для имени
         display: block;
+        margin-bottom: 10px;
       }
     }
 
@@ -126,7 +127,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: left; // Карта прижата к правому краю перед картинкой
+    text-align: center;
     padding-right: 5px;
   }
 }

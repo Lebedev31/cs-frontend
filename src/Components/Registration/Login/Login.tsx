@@ -200,7 +200,7 @@ export default function Login({ setToggle }: RegistrationProps) {
           </div>
 
           <div className={styles.disclaimer}>
-            Нажимая кнопку «Зарегистрироваться», Вы соглашаетесь с{" "}
+            Нажимая кнопку «Войти», Вы соглашаетесь с{" "}
             <Link href="/agreement">пользовательским соглашением</Link> , и
             даете своё согласие на обработку данных в соответствии с нашей{" "}
             <Link href="/policy">политикой конфиденциальности.</Link>

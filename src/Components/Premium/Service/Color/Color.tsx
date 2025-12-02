@@ -101,7 +101,10 @@ export default function Color() {
       colorSchema,
       formData,
       (data) => {
-        toast.success(data.message || "Услуга успешно заказана!");
+        toast.success(
+          data.message ||
+            "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+        );
         setSelectedPlan(null);
         setSelectedPrice(0);
         setColor("none");
@@ -123,7 +126,7 @@ export default function Color() {
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
           price={[50, 190, 1080, 2040]}
-          discount={["", "Скидка 5%", "Скидка 10%", "Скидка 15%"]}
+          discount={["", "(Скидка 5%)", "(Скидка 10%)", "(Скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}
         />

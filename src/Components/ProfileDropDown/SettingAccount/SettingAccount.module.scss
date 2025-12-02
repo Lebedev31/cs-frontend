@@ -18,6 +18,11 @@
   @include m.wrapper();
 }
 
+.wrapper_password_block {
+  @include m.wrapper();
+  display: flex;
+  justify-content: center;
+}
 /* Блок с формой и аватаркой (две колонки) */
 .setting_block {
   width: 100%;
@@ -63,8 +68,8 @@
 
 /* Окно предпросмотра аватарки */
 .avatar_preview {
-  width: 350px;
-  height: 230px;
+  width: 280px;
+  height: 190px;
   border: 2px solid rgba(255, 255, 255, 0.06);
   display: flex;
   align-items: center;

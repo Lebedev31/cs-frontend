@@ -2,8 +2,9 @@
 @use "../../styles/mixins.scss" as m;
 
 .server_page {
-  @include m.page();
+  max-width: 1300px;
   position: relative;
+  margin: 20px auto;
 }
 
 .server_info {
@@ -13,19 +14,17 @@
   margin-bottom: 25px;
 }
 
+.title {
+  @include m.title();
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
-  // background: linear-gradient(
-  //  180deg,
-  //   rgba(255, 255, 255, 0.02),
-  //   rgba(0, 0, 0, 0.12)
-  //  );
   background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
   padding: 40px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
 }
 
 .aside {
@@ -44,7 +43,7 @@
 }
 
 .map_title {
-  font-size: 16px;
+  font-size: 14px;
   color: v.$neon-primary;
   text-align: center;
   margin-bottom: 15px;
@@ -73,7 +72,7 @@
   border-radius: v.$border-radius-neon;
   padding: 20px;
   box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
-  height: 425px;
+  height: 390px;
   overflow-x: hidden;
   // Тонкий скроллбар только здесь
   scrollbar-width: thin;
@@ -105,7 +104,6 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
-  text-shadow: v.$glow-primary;
 }
 
 .players_table {
@@ -160,16 +158,6 @@
   overflow: hidden;
 }
 
-.server_title {
-  font-size: 24px;
-  color: v.$text-primary;
-  font-weight: 700;
-  margin-bottom: 20px;
-  text-shadow: v.$glow-primary;
-  text-align: left;
-  gap: 15px;
-}
-
 .server_address {
   display: flex;
   align-items: center;
@@ -198,8 +186,8 @@
 
 .server_info_grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  grid-template-columns: 50% 1fr;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -215,6 +203,7 @@
   color: v.$neon-accent;
   text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .info_value {
@@ -237,6 +226,12 @@
   color: v.$text-primary;
   font-weight: 600;
   text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap; /* 1. Запрет переноса */
+  overflow: hidden; /* 2. Обрезка лишнего */
+  text-overflow: ellipsis;
+  display: block; /* 1. Делаем элемент блочным, чтобы к нему применялись размеры */
+  max-width: 230px;
 }
 
 .player_count {
@@ -301,7 +296,7 @@
   padding: 25px;
   box-shadow: 0 0 10px rgba(v.$neon-warning, 0.3);
   text-align: center;
-  height: 248px;
+  height: 387px;
   width: 80%;
 
   overflow-x: hidden;

@@ -65,7 +65,7 @@ export default function BottomSettingBlock() {
     <section className={styles.password_section}>
       <h2 className={styles.password_title}>Смена пароля</h2>
 
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper_password_block}>
         <form className={styles.password_form} onSubmit={onSubmit}>
           <input
             type="password"

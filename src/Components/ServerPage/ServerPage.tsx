@@ -14,10 +14,10 @@ import Image from "next/image";
 import { useIncreaseRatingMutation } from "@/redux/apiSlice/ratingApi";
 import { getMapImagePath, getFormatData } from "@/lib/common";
 import Modal from "./Modal/Modal";
-// Импортируем скелетон
 import ServerPageSkeleton from "./ServerPageSkeleton/ServerPageSkeleton";
 import { safePoints } from "../UpdateBlock/ServerBlockItem/ServerBlockItem";
 import Play from "../UpdateBlock/Elements/Play/Play";
+import SocialMediaBlock from "./SocialMediaBlock/SocialMediaBlock";
 
 export default function ServerPage() {
   const { id } = useParams();
@@ -113,6 +113,7 @@ export default function ServerPage() {
         onClose={handleCloseModal}
         serverId={decodeURIComponent(id as string)}
       />
+      <h1 className={styles.title}>{server.name}</h1>
       <div className={styles.wrapper}>
         <div className={styles.server_info}>
           {/* Левая панель */}
@@ -170,14 +171,18 @@ export default function ServerPage() {
                 </table>
               </div>
             </div>
+
+            <SocialMediaBlock
+              vk={server.vk}
+              twitch={server.twitch}
+              telegram={server.telergam}
+            />
           </div>
 
           {/* Основной контент */}
           <div className={styles.main_content}>
             {/* Заголовок сервера */}
             <div className={styles.server_header}>
-              <div className={styles.server_title}>{server.name}</div>
-
               <div className={styles.server_address}>
                 <span
                   className={`fi fi-${server.country.toLowerCase()} ${
@@ -227,9 +232,13 @@ export default function ServerPage() {
 
                 <div className={styles.info_item}>
                   <span className={styles.info_label}>Сайт сервера:</span>
-                  <span className={styles.info_website}>
-                    {server.website || "---"}
-                  </span>
+                  <a
+                    className={styles.info_website}
+                    target="_blank"
+                    href={server.website}
+                  >
+                    {server.website || null}
+                  </a>
                 </div>
 
                 <div className={styles.info_item}>

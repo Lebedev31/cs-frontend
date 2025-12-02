@@ -40,7 +40,7 @@ export default function Footer() {
         </nav>
       </div>
       <div className={styles.tagline}>
-        <p>Мониторинг {new Date().getFullYear()} (пример)</p>
+        <p>GameState-Monitor {new Date().getFullYear()}</p>
       </div>
     </footer>
   );

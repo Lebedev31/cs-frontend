@@ -98,7 +98,10 @@ export default function Top() {
       generalSchema,
       formData,
       (data) => {
-        toast.success(data.message || "Услуга успешно заказана!");
+        toast.success(
+          data.message ||
+            "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+        );
         setSelectedPlan(null);
         setSelectedPrice(0);
         if (refs.serverRef.current) refs.serverRef.current.value = "";

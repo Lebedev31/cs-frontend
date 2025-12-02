@@ -1,0 +1,41 @@
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
+
+.social {
+  width: 100%;
+  border: 2px solid v.$neon-primary;
+  height: 100px;
+  border-radius: v.$border-radius-neon;
+  padding: 5px;
+  background-color: v.$new-common;
+
+  h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: v.$neon-primary;
+    text-align: center;
+  }
+
+  p {
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    color: v.$text-primary;
+  }
+}
+
+.img_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 35px;
+}
+
+.socialButton {
+  background-color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  cursor: pointer;
+}

@@ -15,7 +15,6 @@ type MutationResult = {
 
 type AddServerProps = {
   title: string;
-  trigger: () => void;
   successMessage: string;
   schema: any;
   mutation: (arg: any) => MutationResult;
@@ -24,7 +23,6 @@ type AddServerProps = {
 
 export default function AddServer({
   title,
-  trigger,
   successMessage,
   schema,
   mutation,
@@ -35,6 +33,9 @@ export default function AddServer({
   const modRef = useRef<HTMLSelectElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
+  const vkRef = useRef<HTMLInputElement>(null);
+  const twitchRef = useRef<HTMLInputElement>(null);
+  const telegramRef = useRef<HTMLInputElement>(null);
 
   const [validationError, setValidationError] = useState({
     errorIpPort: "",
@@ -42,6 +43,9 @@ export default function AddServer({
     errorMod: "",
     errorDescription: "",
     errorWebsite: "",
+    errorVk: "",
+    errorTwitch: "",
+    errorTelegram: "",
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,6 +57,10 @@ export default function AddServer({
       const modVal = modRef.current?.value?.trim() ?? "";
       const descVal = descriptionRef.current?.value?.trim() ?? "";
       const webVal = websiteRef.current?.value?.trim() ?? "";
+      const vkVal = vkRef.current?.value?.trim() ?? "";
+      const twitchVal = twitchRef.current?.value?.trim() ?? "";
+      const telegramVal = telegramRef.current?.value?.trim() ?? "";
+
       // Формируем объект только с непустыми полями + обязателен serverId
       const updateData: SettingSchemaType & { serverId: string } = {
         ...(ipVal !== "" ? { ipPort: ipVal } : {}),
@@ -60,6 +68,9 @@ export default function AddServer({
         ...(modVal !== "" ? { mod: modVal } : {}),
         ...(descVal !== "" ? { description: descVal } : {}),
         ...(webVal !== "" ? { website: webVal } : {}),
+        ...(vkVal !== "" ? { vk: vkVal } : {}),
+        ...(twitchVal !== "" ? { twitch: twitchVal } : {}),
+        ...(telegramVal !== "" ? { telegram: telegramVal } : {}),
         serverId,
       };
 
@@ -74,6 +85,9 @@ export default function AddServer({
             errorMod: errors.mod || "",
             errorDescription: errors.description || "",
             errorWebsite: errors.website || "",
+            errorVk: errors.vk || "",
+            errorTwitch: errors.twitch || "",
+            errorTelegram: errors.telegram || "",
           });
         },
         mutation,
@@ -82,20 +96,19 @@ export default function AddServer({
         updateData,
         (data) => {
           toast.success(data.message || successMessage);
-          // при обновлении обычно не очищают поля — но оставлю как было
           if (ipRef.current) ipRef.current.value = "";
           if (gameRef.current) gameRef.current.value = "";
           if (modRef.current) modRef.current.value = "";
           if (descriptionRef.current) descriptionRef.current.value = "";
           if (websiteRef.current) websiteRef.current.value = "";
-          trigger();
+          if (vkRef.current) vkRef.current.value = "";
+          if (twitchRef.current) twitchRef.current.value = "";
+          if (telegramRef.current) telegramRef.current.value = "";
         }
       );
 
       return;
     }
-
-    console.log(2);
 
     // --- Режим добавления (full) ---
     const addData: AddServerType = {
@@ -104,6 +117,9 @@ export default function AddServer({
       mod: modRef.current?.value || "",
       description: descriptionRef.current?.value || "",
       website: websiteRef.current?.value || "",
+      vk: vkRef.current?.value || "",
+      twitch: twitchRef.current?.value || "",
+      telegram: telegramRef.current?.value || "",
     };
 
     handleSubmit(
@@ -115,6 +131,9 @@ export default function AddServer({
           errorMod: errors.mod || "",
           errorDescription: errors.description || "",
           errorWebsite: errors.website || "",
+          errorVk: errors.vk || "",
+          errorTwitch: errors.twitch || "",
+          errorTelegram: errors.telegram || "",
         });
       },
       mutation,
@@ -128,6 +147,9 @@ export default function AddServer({
         if (modRef.current) modRef.current.value = "";
         if (descriptionRef.current) descriptionRef.current.value = "";
         if (websiteRef.current) websiteRef.current.value = "";
+        if (vkRef.current) vkRef.current.value = "";
+        if (twitchRef.current) twitchRef.current.value = "";
+        if (telegramRef.current) telegramRef.current.value = "";
       }
     );
   };
@@ -200,6 +222,42 @@ export default function AddServer({
               />
               {validationError.errorWebsite && (
                 <p className={styles.error}>{validationError.errorWebsite}</p>
+              )}
+            </div>
+
+            <div className={styles.inputWrapper}>
+              <input
+                ref={vkRef}
+                type="text"
+                placeholder="VK (необязательно, https://vk.com/...)"
+                className={styles.input}
+              />
+              {validationError.errorVk && (
+                <p className={styles.error}>{validationError.errorVk}</p>
+              )}
+            </div>
+
+            <div className={styles.inputWrapper}>
+              <input
+                ref={twitchRef}
+                type="text"
+                placeholder="Twitch (необязательно, https://twitch.tv/...)"
+                className={styles.input}
+              />
+              {validationError.errorTwitch && (
+                <p className={styles.error}>{validationError.errorTwitch}</p>
+              )}
+            </div>
+
+            <div className={styles.inputWrapper}>
+              <input
+                ref={telegramRef}
+                type="text"
+                placeholder="Telegram (необязательно, https://t.me/...)"
+                className={styles.input}
+              />
+              {validationError.errorTelegram && (
+                <p className={styles.error}>{validationError.errorTelegram}</p>
               )}
             </div>
 

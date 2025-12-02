@@ -76,7 +76,10 @@ export default function Balls() {
       ballsSchema,
       formData,
       (data) => {
-        toast.success(data.message || "Услуга успешно заказана!");
+        toast.success(
+          data.message ||
+            "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+        );
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
@@ -95,8 +98,6 @@ export default function Balls() {
         <h3 className={styles.title_service}>
           Баллы можно приобрести только на один месяц
         </h3>
-
-        <h4 className={styles.title_service}> 1 балл стоит 1 рубль</h4>
         <input
           type="number"
           className={styles.input}

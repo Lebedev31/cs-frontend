@@ -107,7 +107,7 @@
 }
 
 @mixin page() {
-  // background: v.$gradient-cyber-terminal;
+  //background: v.$gradient-cyber-terminal;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,21 +118,16 @@
 @mixin wrapper() {
   width: 92%;
   max-width: 1200px;
-  // background: linear-gradient(
-  //  180deg,
-  //  rgba(255, 255, 255, 0.02),
-  //  rgba(0, 0, 0, 0.12)
-  // );
   background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
   padding: 40px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
+  // box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
   margin: 20px auto;
 }
 
 @mixin select() {
-  background: v.$new-input-background;
+  background: v.$new-common;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
@@ -149,7 +144,7 @@
   height: 70px;
 
   option {
-    background: v.$bg-dark;
+    background: v.$new-common;
   }
 
   &:hover {

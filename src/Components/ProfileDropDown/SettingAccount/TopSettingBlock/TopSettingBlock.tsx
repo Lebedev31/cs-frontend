@@ -97,7 +97,12 @@ export default function TopSettingBlock() {
           placeholder="Email"
           className={styles.setting_input}
           ref={emailRef}
-          defaultValue={info?.email ?? ""}
+          defaultValue={
+            // Проверяем: если email существует И соответствует шаблону, то выводим его, иначе пустую строку
+            info?.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(info.email)
+              ? info.email
+              : ""
+          }
         />
         {validationError.errorEmail && (
           <p className={styles.error}>{validationError.errorEmail}</p>

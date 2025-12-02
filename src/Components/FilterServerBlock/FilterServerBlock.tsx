@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @next/next/no-img-element */
 import styles from "./FilterServerBlock.module.scss";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
@@ -101,10 +101,11 @@ export default function FilterServerBlock() {
       {/* Логотип слева */}
       <div className={styles.filterServerBlock_logo}>
         <Image
-          width={120}
-          height={100}
           src={selected === "CS2" ? "/cs2_logo (1).jpeg" : "/csgo_logo.jpg"}
-          alt="Логотип игры"
+          alt="картинка"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 

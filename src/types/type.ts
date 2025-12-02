@@ -25,6 +25,9 @@ export interface GameServer {
   website: string;
   service: Service;
   description: string;
+  vk: string;
+  twitch: string;
+  telergam: string;
 }
 
 export interface Service {

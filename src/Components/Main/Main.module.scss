@@ -2,8 +2,10 @@
 
 .container {
   min-height: 100vh;
-  // background: v.$gradient-cyber-terminal;
   padding: 60px 20px;
+  a {
+    text-decoration: none;
+  }
 }
 
 .grid {
@@ -20,15 +22,13 @@
   border-radius: v.$border-radius-neon;
   overflow: hidden;
   border: v.$border-glow-primary;
-  box-shadow: v.$glow-primary;
   transition: v.$transition-glow;
   cursor: pointer;
   position: relative;
 
   &:hover {
     border: v.$border-glow-hover;
-    box-shadow: 0 0 15px rgba(v.$neon-accent, 0.9),
-      0 0 30px rgba(v.$neon-accent, 0.6);
+
     transform: translateY(-5px);
 
     // Дополнительный эффект зума для картинки при наведении
@@ -58,6 +58,7 @@
 
 .content {
   padding: 24px;
+  background-color: v.$new-panel;
 }
 
 .gameName {
