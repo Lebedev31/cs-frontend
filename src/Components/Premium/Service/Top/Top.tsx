@@ -99,8 +99,7 @@ export default function Top() {
       formData,
       (data) => {
         toast.success(
-          data.message ||
-            "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
         );
         setSelectedPlan(null);
         setSelectedPrice(0);

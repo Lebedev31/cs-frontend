@@ -40,14 +40,13 @@ export default function ServerBlockItem({
     <div
       className={styles.serverBlockItem}
       style={{
-        // Если нужен цветной бордер от привилегии, можно добавить сюда
         backgroundColor:
           server.service.color.colorName === "none"
-            ? "#22262c" // Или цвет фона, если нужен
+            ? "#22262c"
             : server.service.color.colorName,
         border:
           server.service.color.colorName === "none"
-            ? "1px solid rgba(v.$neon-primary, 0.1" // Или цвет фона, если нужен
+            ? "1px solid rgba(v.$neon-primary, 0.1"
             : `2px solid ${server.service.color.colorName}`,
       }}
       onClick={() => handlerServerPage(server.ip, String(server.port))}
@@ -84,25 +83,27 @@ export default function ServerBlockItem({
             <span className={styles.address}>
               {server.ip}:{server.port}
             </span>
-            <div onClick={(e) => e.stopPropagation()}>
-              <CoppyButton ip={server.ip} port={String(server.port)} />
-            </div>
           </div>
         </div>
 
-        {/* ПРАВАЯ ЧАСТЬ: МЕТА (Фиксированная ширина 300px) */}
+        {/* ПРАВАЯ ЧАСТЬ: КНОПКИ + МЕТА (Фиксированная ширина) */}
         <div className={styles.rightMetaGroup}>
-          {/* 1. Кнопка Play */}
+          {/* 1. Кнопка Copy (слева) */}
+          <div className={styles.copyBtn} onClick={(e) => e.stopPropagation()}>
+            <CoppyButton ip={server.ip} port={String(server.port)} />
+          </div>
+
+          {/* 2. Кнопка Play */}
           <div className={styles.playBtn}>
             <Play width="16" height="16" ip={server.ip} port={server.port} />
           </div>
 
-          {/* 2. Карта (с троеточием) */}
+          {/* 3. Карта (с троеточием) */}
           <div className={styles.mapInfo} title={server.map}>
             {server.map}
           </div>
 
-          {/* 3. Игроки */}
+          {/* 4. Игроки */}
           <div className={styles.playersWrapper}>
             <PlayersInfo
               players={server.players}

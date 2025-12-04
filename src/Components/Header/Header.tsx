@@ -71,8 +71,8 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="CS 1.6 Server Parser"
-            width={240}
-            height={120}
+            width={165}
+            height={60}
             priority
           />
         </div>
@@ -93,8 +93,8 @@ export default function Header() {
             src="/logo.png"
             alt="CS 1.6 Server Parser"
             priority
-            width={240}
-            height={120}
+            width={165}
+            height={60}
           />
         </Link>
       </div>

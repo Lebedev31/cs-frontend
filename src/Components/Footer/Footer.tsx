@@ -19,7 +19,11 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.logo}>
           <div className={styles.logoCircle}>
-            <a href="#" rel="noopener noreferrer">
+            <a
+              href=" https://vk.com/gamestatemonitor"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               <Image width={70} height={70} alt="VK" src="/vk.png" />
             </a>
           </div>

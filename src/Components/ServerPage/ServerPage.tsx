@@ -279,13 +279,15 @@ export default function ServerPage() {
                   className={styles.rating_img}
                   style={{ cursor: "pointer" }}
                 >
-                  <Image
-                    width={50}
-                    height={50}
-                    alt="повысить рейтинг"
-                    src={"/стрелочка.png"}
-                    onClick={rating}
-                  />
+                  <div className={styles.img_block}>
+                    <Image
+                      width={50}
+                      height={50}
+                      alt="повысить рейтинг"
+                      src={"/стрелочка.png"}
+                      onClick={rating}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

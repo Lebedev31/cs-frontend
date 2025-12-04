@@ -45,6 +45,11 @@
   box-shadow: v.$glow-secondary;
   background-color: white;
   border-radius: 100%;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.3s all;
+  }
 }
 
 .nav {

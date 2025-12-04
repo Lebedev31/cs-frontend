@@ -4,19 +4,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 20px;
   width: 100%;
   //  background: v.$text-header;
   background: v.$new-panel;
   border-bottom: 1px solid rgba(v.$neon-primary, 0.2);
   box-shadow: inset 0 -1px 0 rgba(v.$neon-accent, 0.3);
-  height: 150px;
+  height: 90px;
 }
 
 .logo {
   display: inline-block;
   transition: transform 0.2s ease;
-  opacity: 0.1;
   &:hover {
     transform: scale(1.03);
   }
@@ -28,6 +30,7 @@
   img {
     transition: filter 0.3s ease;
     border-radius: v.$border-radius-neon;
+    object-fit: cover;
   }
 }
 

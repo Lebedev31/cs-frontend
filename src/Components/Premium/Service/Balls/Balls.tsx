@@ -77,8 +77,7 @@ export default function Balls() {
       formData,
       (data) => {
         toast.success(
-          data.message ||
-            "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
         );
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";

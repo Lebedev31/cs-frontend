@@ -11,17 +11,20 @@
   box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   width: 100%;
   overflow: hidden;
-  height: 80px; // Фиксируем высоту карточки для аккуратности
+  height: 80px;
   background-color: v.$new-panel;
+  transition: 0.3s all;
+  &:hover {
+    transform: scale(1.01);
+  }
 
-  // --- НОВАЯ ЛОГИКА ВЫРАВНИВАНИЯ ---
   .contentWrapper {
-    flex: 1; // Занимает всё пространство до картинки
+    flex: 1;
     display: flex;
     align-items: center;
-    padding: 10px 15px 10px 15px; // Отступы слева/справа внутри контента
+    padding: 10px 15px 10px 15px;
     gap: 15px;
-    min-width: 0; // КРИТИЧНО для работы text-overflow внутри flex
+    min-width: 0;
   }
 
   // ЛЕВАЯ КОЛОНКА (Имя + IP)
@@ -32,8 +35,8 @@
     gap: 4px;
     padding-top: 5px;
     padding-bottom: 5px;
-    flex: 1; // Растет, занимая всё свободное место
-    min-width: 0; // Позволяет сжимать текст, если места мало
+    flex: 1;
+    min-width: 0;
 
     .nameRow {
       display: flex;
@@ -60,7 +63,7 @@
         font-weight: 800;
         border-radius: 3px;
         text-transform: uppercase;
-        flex-shrink: 0; // Чтобы бейдж не сплющило
+        flex-shrink: 0;
       }
 
       .name {
@@ -68,7 +71,7 @@
         font-size: 14px;
         white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis; // Троеточие для имени
+        text-overflow: ellipsis;
         display: block;
         margin-bottom: 10px;
       }
@@ -83,47 +86,62 @@
       .points {
         color: v.$neon-warning;
         white-space: nowrap;
+        width: 120px; // Фиксированная ширина для баллов
+        flex-shrink: 0;
       }
 
       .countryFlag {
         font-size: 16px;
         line-height: 1;
         flex-shrink: 0;
+        width: 20px; // Фиксированная ширина для флага
       }
 
       .address {
         @include m.ipPort;
         font-size: 13px;
         white-space: nowrap;
+        width: 150px; // Фиксированная ширина для IP адреса
+        flex-shrink: 0;
       }
     }
   }
 
-  // ПРАВАЯ КОЛОНКА (Мета-данные: Play, Игроки, Карта)
+  // ПРАВАЯ КОЛОНКА (Кнопки + Мета-данные)
   .rightMetaGroup {
-    display: grid; // Используем Grid для идеальных колонок
-    // 1. Кнопка (auto) | 2. Игроки (60px) | 3. Карта (остаток)
-    grid-template-columns: 40px 1fr 60px;
+    display: grid;
+    // Кнопка копировать | Кнопка Play | Карта | Игроки
+    grid-template-columns: 40px 40px 1fr 60px;
     align-items: center;
     gap: 15px;
+    width: 320px; // Увеличили ширину для двух кнопок
+    flex-shrink: 0;
+  }
 
-    // ФИКСИРОВАННАЯ ШИРИНА - залог ровных столбцов во всех строках
-    width: 300px;
-    flex-shrink: 0; // Запрещаем сжиматься
+  // Блок кнопки копирования
+  .copyBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // Блок кнопки Play
+  .playBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   // Блок Игроки
   .playersWrapper {
     display: flex;
-    justify-content: flex-start; // Выравнивание по левому краю колонки
+    justify-content: flex-start;
   }
 
   // Блок Карта
   .mapInfo {
     font-size: 12px;
-    color: v.$neon-warning; // Желтый цвет, как на скрине
-
-    // Логика троеточия
+    color: v.$neon-warning;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -135,7 +153,7 @@
 // КАРТИНКА (самая правая часть)
 .imageContainer {
   position: relative;
-  width: 130px; // Фиксированная ширина
+  width: 130px;
   min-width: 130px;
   border-left: 1px solid rgba(v.$neon-primary, 0.1);
   background: black;

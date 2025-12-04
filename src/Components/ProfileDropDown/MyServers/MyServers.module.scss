@@ -29,8 +29,6 @@
   padding: 30px;
   background-color: v.$new-common;
   border: 2px solid v.$neon-primary;
-  box-shadow: v.$glow-primary, inset 0 0 40px rgba(v.$neon-primary, 0.1),
-    0 0 60px rgba(v.$neon-primary, 0.3);
 }
 
 .tabs {
@@ -59,7 +57,6 @@
 
   &:hover {
     border-color: v.$neon-accent;
-    box-shadow: 0 0 15px rgba(v.$neon-accent, 0.5);
     transform: translateY(-2px);
 
     &::before {
@@ -74,7 +71,6 @@
       rgba(v.$neon-accent, 0.2)
     );
     border-color: v.$neon-primary;
-    box-shadow: v.$glow-primary, inset 0 0 20px rgba(v.$neon-primary, 0.2);
     color: v.$neon-primary;
     text-shadow: 0 0 10px rgba(v.$neon-primary, 0.8);
 

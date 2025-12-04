@@ -36,10 +36,9 @@
 
 .map_card {
   background: v.$new-common;
-  border: 2px solid v.$neon-accent;
+  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
 }
 
 .map_title {
@@ -62,16 +61,14 @@
   justify-content: center;
   font-size: 48px;
   border: 1px solid v.$glitch-purple;
-  box-shadow: 0 0 15px rgba(v.$glitch-purple, 0.2);
   position: relative;
 }
 
 .players_card {
   background: v.$new-common;
-  border: 2px solid v.$neon-accent;
+  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
   height: 390px;
   overflow-x: hidden;
   // Тонкий скроллбар только здесь
@@ -124,7 +121,7 @@
 
   tbody {
     tr {
-      border-bottom: 1px solid rgba(v.$neon-accent, 0.2);
+      border-bottom: 1px solid rgba(v.$cs-blue-team, 0.2);
       transition: v.$transition-fast;
 
       &:hover {
@@ -150,10 +147,9 @@
 
 .server_header {
   background: v.$new-common;
-  border: 2px solid v.$neon-secondary;
+  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 30px;
-  box-shadow: 0 0 20px rgba(v.$neon-secondary, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -242,10 +238,9 @@
 
 .owner_section {
   background: v.$new-common;
-  border: 2px solid v.$glitch-purple;
+  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 25px;
-  box-shadow: 0 0 15px rgba(v.$glitch-purple, 0.3);
 }
 
 .owner_title {
@@ -291,10 +286,10 @@
 
 .rating_section {
   background: v.$new-common;
-  border: 2px solid v.$neon-warning;
+  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 25px;
-  box-shadow: 0 0 10px rgba(v.$neon-warning, 0.3);
+
   text-align: center;
   height: 387px;
   width: 80%;
@@ -345,8 +340,27 @@
 .rating_img {
   display: flex;
   justify-content: center;
-  img {
-    cursor: pointer;
+
+  // 👇 БЫЛО: .img-block (с дефисом)
+  // 👇 СТАЛО: .img_block (с подчеркиванием, как в JSX)
+  .img_block {
+    width: 50px;
+    height: 50px;
+
+    // Переход должен быть здесь, у родителя
+    transition: transform 0.3s ease;
+
+    img {
+      cursor: pointer;
+      // Иногда Next.js Image требует этого для корректного масштабирования
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 

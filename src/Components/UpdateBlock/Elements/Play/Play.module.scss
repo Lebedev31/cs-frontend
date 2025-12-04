@@ -16,4 +16,9 @@
   &:active {
     transform: translateY(0);
   }
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: #33c7ec;
+  }
 }
