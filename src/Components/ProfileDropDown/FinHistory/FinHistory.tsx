@@ -108,8 +108,7 @@ export default function FinHistory() {
       </div>
     </div>
   );
-}
-*/
+}*/
 "use client";
 import React from "react";
 import styles from "./FinHistory.module.scss";

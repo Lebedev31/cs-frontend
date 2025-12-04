@@ -127,7 +127,7 @@
 }
 
 @mixin select() {
-  background: v.$new-common;
+  background: v.$new-input-background;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
   font-size: 18px;
