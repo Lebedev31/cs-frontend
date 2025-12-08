@@ -2,6 +2,7 @@
 @use "../../../styles/mixins.scss" as m;
 
 .serverBlockItem {
+  will-change: transform;
   display: flex;
   align-items: stretch;
   border: 1px solid rgba(v.$neon-primary, 0.1);

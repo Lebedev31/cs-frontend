@@ -34,7 +34,7 @@ export default function AddServer({
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
   const vkRef = useRef<HTMLInputElement>(null);
-  const twitchRef = useRef<HTMLInputElement>(null);
+  const discordRef = useRef<HTMLInputElement>(null);
   const telegramRef = useRef<HTMLInputElement>(null);
 
   const [validationError, setValidationError] = useState({
@@ -44,7 +44,7 @@ export default function AddServer({
     errorDescription: "",
     errorWebsite: "",
     errorVk: "",
-    errorTwitch: "",
+    errorDiscord: "",
     errorTelegram: "",
   });
 
@@ -58,7 +58,7 @@ export default function AddServer({
       const descVal = descriptionRef.current?.value?.trim() ?? "";
       const webVal = websiteRef.current?.value?.trim() ?? "";
       const vkVal = vkRef.current?.value?.trim() ?? "";
-      const twitchVal = twitchRef.current?.value?.trim() ?? "";
+      const discordVal = discordRef.current?.value?.trim() ?? "";
       const telegramVal = telegramRef.current?.value?.trim() ?? "";
 
       // Формируем объект только с непустыми полями + обязателен serverId
@@ -69,7 +69,7 @@ export default function AddServer({
         ...(descVal !== "" ? { description: descVal } : {}),
         ...(webVal !== "" ? { website: webVal } : {}),
         ...(vkVal !== "" ? { vk: vkVal } : {}),
-        ...(twitchVal !== "" ? { twitch: twitchVal } : {}),
+        ...(discordVal !== "" ? { discord: discordVal } : {}),
         ...(telegramVal !== "" ? { telegram: telegramVal } : {}),
         serverId,
       };
@@ -86,7 +86,7 @@ export default function AddServer({
             errorDescription: errors.description || "",
             errorWebsite: errors.website || "",
             errorVk: errors.vk || "",
-            errorTwitch: errors.twitch || "",
+            errorDiscord: errors.discord || "",
             errorTelegram: errors.telegram || "",
           });
         },
@@ -102,7 +102,7 @@ export default function AddServer({
           if (descriptionRef.current) descriptionRef.current.value = "";
           if (websiteRef.current) websiteRef.current.value = "";
           if (vkRef.current) vkRef.current.value = "";
-          if (twitchRef.current) twitchRef.current.value = "";
+          if (discordRef.current) discordRef.current.value = "";
           if (telegramRef.current) telegramRef.current.value = "";
         }
       );
@@ -118,7 +118,7 @@ export default function AddServer({
       description: descriptionRef.current?.value || "",
       website: websiteRef.current?.value || "",
       vk: vkRef.current?.value || "",
-      twitch: twitchRef.current?.value || "",
+      discord: discordRef.current?.value || "",
       telegram: telegramRef.current?.value || "",
     };
 
@@ -132,7 +132,7 @@ export default function AddServer({
           errorDescription: errors.description || "",
           errorWebsite: errors.website || "",
           errorVk: errors.vk || "",
-          errorTwitch: errors.twitch || "",
+          errorDiscord: errors.discord || "",
           errorTelegram: errors.telegram || "",
         });
       },
@@ -148,7 +148,7 @@ export default function AddServer({
         if (descriptionRef.current) descriptionRef.current.value = "";
         if (websiteRef.current) websiteRef.current.value = "";
         if (vkRef.current) vkRef.current.value = "";
-        if (twitchRef.current) twitchRef.current.value = "";
+        if (discordRef.current) discordRef.current.value = "";
         if (telegramRef.current) telegramRef.current.value = "";
       }
     );
@@ -239,13 +239,13 @@ export default function AddServer({
 
             <div className={styles.inputWrapper}>
               <input
-                ref={twitchRef}
+                ref={discordRef}
                 type="text"
-                placeholder="Twitch (необязательно, https://twitch.tv/...)"
+                placeholder="Discord (необязательно, например https://discord.gg/....)"
                 className={styles.input}
               />
-              {validationError.errorTwitch && (
-                <p className={styles.error}>{validationError.errorTwitch}</p>
+              {validationError.errorDiscord && (
+                <p className={styles.error}>{validationError.errorDiscord}</p>
               )}
             </div>
 

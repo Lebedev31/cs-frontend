@@ -3,17 +3,17 @@ import Image from "next/image";
 
 type SocialMediaProps = {
   vk: string;
-  twitch: string;
+  discord: string;
   telegram: string;
 };
 
 export default function SocialMediaBlock({
   vk,
-  twitch,
+  discord,
   telegram,
 }: SocialMediaProps) {
-  const socialArr = [vk, twitch, telegram];
-  const imgArr = ["/vk2.png", "/twitch.png", "/telegram2.png"];
+  const socialArr = [vk, discord, telegram];
+  const imgArr = ["/vk2.png", "/discord.png", "/telegram2.png"];
   const existEmptyString = socialArr.some((item) => item === "");
   return (
     <div className={styles.social}>

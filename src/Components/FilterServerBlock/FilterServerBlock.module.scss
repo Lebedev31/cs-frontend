@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   border-radius: v.$border-radius-neon;
-  height: 160px;
+  min-height: 180px; // Изменено с height на min-height для адаптивности
   background: v.$new-panel;
   border: 1px solid rgba(v.$neon-primary, 0.3);
   padding: 10px 20px 10px 20px;
@@ -16,11 +16,13 @@
 
   .filterServerBlock_logo {
     width: 250px;
+    min-width: 250px;
     height: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    align-self: center;
 
     img {
       width: 100%;
@@ -31,7 +33,7 @@
   }
 
   .filterServerBlock_filtration {
-    width: 85%; // Изменено с 75% на 85%, чтобы занять всю оставшуюся ширину
+    width: 85%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -45,18 +47,54 @@
       margin: 0;
     }
 
+    // Контейнер для тегов
+    .tagsContainer {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.3rem;
+    }
+
+    // Стили для кнопок-тегов
+    .tagButton {
+      padding: 0.4rem 1rem;
+      background: v.$new-input-background;
+      border: 1px solid rgba(v.$neon-primary, 0.4);
+      border-radius: v.$border-radius-neon;
+      color: v.$text-primary;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+        border-color: v.$neon-primary;
+        box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
+        transform: translateY(-1px);
+      }
+
+      &.tagActive {
+        background: rgba(v.$neon-primary, 0.2);
+        border-color: v.$neon-primary;
+        box-shadow: 0 0 12px rgba(v.$neon-primary, 0.5);
+        color: v.$neon-primary;
+        font-weight: 600;
+      }
+    }
+
     .filterServerBlock_flex {
       display: flex;
       gap: 1.5rem;
       align-items: center;
       margin-top: 0.5rem;
-      flex: 1; // Добавлено для занятия всей доступной высоты
+      flex: 1;
     }
   }
 
-  // Добавляем стили для блоков фильтров
+  // Блоки фильтров
   .filterServerBlock_block {
-    flex: 1; // Каждый блок занимает равную долю ширины
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -73,6 +111,10 @@
     color: v.$text-primary;
     font-size: 0.9rem;
     transition: v.$transition-fast;
+
+    &::placeholder {
+      color: rgba(v.$text-primary, 0.5);
+    }
 
     &:focus {
       outline: none;

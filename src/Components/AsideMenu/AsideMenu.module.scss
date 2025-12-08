@@ -59,6 +59,16 @@
   }
 }
 
+.link {
+  outline: none;
+}
+
+.link:focus-visible {
+  /* аккуратный фокус, одинаковый на всех системах */
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
+  border-radius: 8px;
+}
+
 // Обертка для иконки и текста внутри ссылки
 .contentWrapper {
   display: flex;

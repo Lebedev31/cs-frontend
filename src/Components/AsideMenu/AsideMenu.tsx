@@ -30,14 +30,14 @@ const menuItems: MenuItem[] = [
   {
     key: "CS:GO",
     label: "CS GO",
-    icon: "/csgo_icon (2).png", // <-- Твоя картинка для CS:GO
+    icon: "/csgo-icon-2.png",
     type: "api",
     href: "/server-list/csgo",
   },
   {
     key: "CS2",
     label: "CS2",
-    icon: "/cs2_ico (1).jpg", // <-- Твоя картинка для CS2
+    icon: "/cs2_ico.jpg", // <-- Твоя картинка для CS2
     type: "api",
     href: "/server-list/cs2",
   },
@@ -135,6 +135,8 @@ export default function AsideMenu() {
             width={20}
             height={20}
             className={styles.menuIcon}
+            priority
+            unoptimized
           />
         )}
         <span>{item.label}</span>

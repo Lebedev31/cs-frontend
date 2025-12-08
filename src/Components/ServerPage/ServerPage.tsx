@@ -22,7 +22,6 @@ import SocialMediaBlock from "./SocialMediaBlock/SocialMediaBlock";
 export default function ServerPage() {
   const { id } = useParams();
   const serverList = useSelector((state: RootState) => state.main.servers);
-  // Инициализируем как null, чтобы четко понимать, когда данных нет
   const [server, setServer] = useState<GameServer | null>(null);
   const [trigger, { isFetching }] = useLazyGetServerByIdQuery();
   const [increaseRating] = useIncreaseRatingMutation();
@@ -45,7 +44,6 @@ export default function ServerPage() {
     const decodedId = decodeURIComponent(newId);
     const ipAndPortArr = decodedId.split(":");
 
-    // 1. Сначала ищем в Redux (быстрый доступ)
     const foundInRedux = serverList.find(
       (item) =>
         item.ip === ipAndPortArr[0] && item.port.toString() === ipAndPortArr[1]
@@ -55,12 +53,8 @@ export default function ServerPage() {
       setServer(foundInRedux);
       setBalls(foundInRedux.rating + setPremiumBalls(foundInRedux));
     } else {
-      // 2. Если нет в Redux, запрашиваем через API
       getByServer(decodedId);
     }
-
-    // Убрал 'server' из зависимостей, чтобы избежать бесконечного цикла,
-    // если объект server меняется (ссылка на объект)
   }, [id, serverList]);
 
   async function getByServer(serverId: string) {
@@ -97,8 +91,13 @@ export default function ServerPage() {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  // ЛОГИКА ОТОБРАЖЕНИЯ:
-  // Если сервер еще null ИЛИ идет загрузка из API -> показываем Скелетон
+  // Функция для определения цвета пинга
+  const getPingColor = (ping: number) => {
+    if (ping < 50) return styles.pingGood;
+    if (ping < 100) return styles.pingMedium;
+    return styles.pingBad;
+  };
+
   if (!server || isFetching) {
     return (
       <div className={styles.server_page}>
@@ -106,6 +105,7 @@ export default function ServerPage() {
       </div>
     );
   }
+
   return (
     <div className={styles.server_page}>
       <Modal
@@ -127,7 +127,6 @@ export default function ServerPage() {
                   alt="картинка карты"
                   style={{ objectFit: "cover" }}
                   src={`${getMapImagePath(server.map || "", server.game)}`}
-                  // Добавил sizes для оптимизации Next.js Image
                   sizes="(max-width: 768px) 100vw, 350px"
                 />
               </div>
@@ -174,7 +173,7 @@ export default function ServerPage() {
 
             <SocialMediaBlock
               vk={server.vk}
-              twitch={server.twitch}
+              discord={server.discord}
               telegram={server.telergam}
             />
           </div>
@@ -288,6 +287,37 @@ export default function ServerPage() {
                       onClick={rating}
                     />
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* НОВЫЕ БЛОКИ: Пинг и Теги */}
+            <div className={styles.additional_info_flex}>
+              {/* Блок пинга */}
+              <div className={styles.ping_card}>
+                <div className={styles.ping_title}>ПИНГ:</div>
+                <div
+                  className={`${styles.ping_value} ${getPingColor(
+                    server.ping
+                  )}`}
+                >
+                  {server.ping} ms
+                </div>
+              </div>
+
+              {/* Блок тегов */}
+              <div className={styles.tags_card}>
+                <div className={styles.tags_title}>ТЕГИ:</div>
+                <div className={styles.tags_list}>
+                  {server.tags && server.tags.length > 0 ? (
+                    server.tags.map((tag, index) => (
+                      <span key={index} className={styles.tag_item}>
+                        {tag}
+                      </span>
+                    ))
+                  ) : (
+                    <span className={styles.no_tags}>Теги отсутствуют</span>
+                  )}
                 </div>
               </div>
             </div>

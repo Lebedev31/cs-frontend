@@ -6,21 +6,53 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/redux/store";
 import { useState } from "react";
 import { setServers } from "@/redux/slice/main.slice";
-import { mods } from "@/lib/mode"; // map_names убрали, он больше не нужен
+import { mods } from "@/lib/mode";
+
+// Определяем доступные теги для фильтрации
+const AVAILABLE_TAGS = [
+  { label: "Скины", keywords: ["skin", "skins", "ws"] },
+  { label: "Ножи", keywords: ["knife", "knive", "!knife", "ножи", "нож"] },
+  {
+    label: "Перчатки",
+    keywords: ["glove", "gloves", "!glove", "!gloves", "gl", "перчатки"],
+  },
+  { label: "Агенты", keywords: ["agent", "agents", "агенты"] },
+  { label: "128 Tick", keywords: ["128", "128tick", "128tr", "128tik"] },
+  { label: "FPS Boost", keywords: ["fps", "boost", "фпс"] },
+];
+
+// Функция для извлечения тегов из массива tags сервера
+function extractMatchingTags(serverTags: string[]): string[] {
+  const matched: string[] = [];
+
+  AVAILABLE_TAGS.forEach((tag) => {
+    const hasMatch = serverTags.some((serverTag) =>
+      tag.keywords.some((keyword) =>
+        serverTag.toLowerCase().includes(keyword.toLowerCase())
+      )
+    );
+
+    if (hasMatch) {
+      matched.push(tag.label);
+    }
+  });
+
+  return matched;
+}
 
 export default function FilterServerBlock() {
   const originalServers = useSelector(
     (state: RootState) => state.main.originalServers
   );
-
   const selected = useSelector((state: RootState) => state.main.selectedServer);
-
   const dispatch: AppDispatch = useDispatch();
+
   const [serverNameValue, setServerNameValue] = useState<string>("");
   const [minPlayers, setMinPlayers] = useState<string>("");
   const [maxPlayers, setMaxPlayers] = useState<string>("");
   const [mapValue, setMapValue] = useState<string>("");
   const [modeValue, setModeValue] = useState<string>("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   // Универсальная функция фильтрации
   const applyFilters = (
@@ -28,7 +60,8 @@ export default function FilterServerBlock() {
     min = minPlayers,
     max = maxPlayers,
     map = mapValue,
-    mode = modeValue
+    mode = modeValue,
+    tags = selectedTags
   ) => {
     let filtered = originalServers;
 
@@ -51,15 +84,25 @@ export default function FilterServerBlock() {
       filtered = filtered.filter((item) => item.players <= Number(max));
     }
 
-    // --- ИЗМЕНЕНИЕ: Фильтр по карте (теперь текстовый поиск) ---
+    // Фильтр по карте
     if (map.trim()) {
       filtered = filtered.filter((item) =>
         item.map.toLowerCase().includes(map.toLowerCase())
       );
     }
 
+    // Фильтр по режиму
     if (mode) {
       filtered = filtered.filter((item) => item.mode === mode);
+    }
+
+    // Фильтр по тегам (ВСЕ выбранные теги должны присутствовать)
+    if (tags.length > 0) {
+      filtered = filtered.filter((server) => {
+        const serverMatchedTags = extractMatchingTags(server.tags || []);
+        // Проверяем, что все выбранные теги присутствуют у сервера
+        return tags.every((tag) => serverMatchedTags.includes(tag));
+      });
     }
 
     dispatch(setServers(filtered));
@@ -83,7 +126,6 @@ export default function FilterServerBlock() {
     applyFilters(serverNameValue, minPlayers, value);
   };
 
-  // --- ИЗМЕНЕНИЕ: Тип события теперь HTMLInputElement ---
   const changeMapFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMapValue(value);
@@ -94,6 +136,23 @@ export default function FilterServerBlock() {
     const value = e.target.value;
     setModeValue(value);
     applyFilters(serverNameValue, minPlayers, maxPlayers, mapValue, value);
+  };
+
+  // Обработчик клика по тегу
+  const toggleTag = (tagLabel: string) => {
+    const newSelectedTags = selectedTags.includes(tagLabel)
+      ? selectedTags.filter((t) => t !== tagLabel)
+      : [...selectedTags, tagLabel];
+
+    setSelectedTags(newSelectedTags);
+    applyFilters(
+      serverNameValue,
+      minPlayers,
+      maxPlayers,
+      mapValue,
+      modeValue,
+      newSelectedTags
+    );
   };
 
   return (
@@ -112,6 +171,7 @@ export default function FilterServerBlock() {
       {/* Фильтры справа */}
       <div className={styles.filterServerBlock_filtration}>
         <h2>Сервера {selected === "CS:GO" ? "CS GO" : selected}</h2>
+
         <div className={styles.filterServerBlock_flex}>
           {/* Блок: Поиск + Мин/Макс игроков */}
           <div className={styles.filterServerBlock_block}>
@@ -142,7 +202,6 @@ export default function FilterServerBlock() {
 
           {/* Блок: Карта + Режим */}
           <div className={styles.filterServerBlock_block}>
-            {/* --- ИЗМЕНЕНИЕ: Теперь это Input вместо Select --- */}
             <input
               type="text"
               placeholder="Поиск по карте"
@@ -166,6 +225,20 @@ export default function FilterServerBlock() {
               })}
             </select>
           </div>
+        </div>
+        {/* Теги */}
+        <div className={styles.tagsContainer}>
+          {AVAILABLE_TAGS.map((tag) => (
+            <button
+              key={tag.label}
+              className={`${styles.tagButton} ${
+                selectedTags.includes(tag.label) ? styles.tagActive : ""
+              }`}
+              onClick={() => toggleTag(tag.label)}
+            >
+              {tag.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
