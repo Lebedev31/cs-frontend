@@ -15,7 +15,7 @@ const games = [
   {
     id: 2,
     name: "CS2",
-    image: "/cs2_logo (1).jpeg",
+    image: "/cs2-icon-1.jpg",
   },
 ];
 

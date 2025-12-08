@@ -160,7 +160,7 @@ export default function FilterServerBlock() {
       {/* Логотип слева */}
       <div className={styles.filterServerBlock_logo}>
         <Image
-          src={selected === "CS2" ? "/cs2_logo (1).jpeg" : "/csgo_logo.jpg"}
+          src={selected === "CS2" ? "/cs2-icon-1.jpg" : "/csgo_logo.jpg"}
           alt="картинка"
           fill
           priority
