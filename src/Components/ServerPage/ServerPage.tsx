@@ -106,6 +106,9 @@ export default function ServerPage() {
     );
   }
 
+  const percentage =
+    Math.round((server.players / server.maxPlayers) * 100) || 0;
+
   return (
     <div className={styles.server_page}>
       <Modal
@@ -113,14 +116,12 @@ export default function ServerPage() {
         onClose={handleCloseModal}
         serverId={decodeURIComponent(id as string)}
       />
-      <h1 className={styles.title}>{server.name}</h1>
+
       <div className={styles.wrapper}>
+        <h1 className={styles.title}>{server.name}</h1>
         <div className={styles.server_info}>
-          {/* Левая панель */}
-          <div className={styles.aside}>
-            {/* Карточка карты */}
+          <div className={styles.left_column}>
             <div className={styles.map_card}>
-              <div className={styles.map_title}>{server.map}</div>
               <div className={styles.map_image}>
                 <Image
                   fill
@@ -130,214 +131,216 @@ export default function ServerPage() {
                   sizes="(max-width: 768px) 100vw, 350px"
                 />
               </div>
+              <div className={styles.map_title}>{server.map}</div>
             </div>
-
-            {/* Список игроков */}
-            <div className={styles.players_card}>
-              <div className={styles.players_title}>Список игроков</div>
-              <div
-                className={styles.table_container}
-                style={{ overflowY: "auto", maxHeight: "300px" }}
-              >
-                <table className={styles.players_table}>
-                  <thead>
-                    <tr>
-                      <th>№</th>
-                      <th>Ник</th>
-                      <th>Счёт</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {server.playersList?.length > 0 ? (
-                      server.playersList.map((item, index) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{item?.name === "" ? "unnamed" : item?.name}</td>
-                          <td>{item?.raw ? item?.raw.score : 0}</td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan={3}
-                          style={{ textAlign: "center", padding: "20px" }}
-                        >
-                          Игроков нет
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+            <div className={styles.progress_card}>
+              <div className={styles.progress_text}>
+                Количество игроков: {server.players}/{server.maxPlayers} ~
+                {percentage}%
+              </div>
+              <div className={styles.progress_bar}>
+                <div
+                  className={styles.progress_fill}
+                  style={{ width: `${percentage}%` }}
+                ></div>
+              </div>
+            </div>
+            <div className={styles.tags_card}>
+              <div className={styles.tags_title}>Опции:</div>
+              <div className={styles.tags_list}>
+                {server.tags && server.tags.length > 0 ? (
+                  server.tags.map((tag, index) => (
+                    <span key={index} className={styles.tag_item}>
+                      {tag}
+                    </span>
+                  ))
+                ) : (
+                  <span className={styles.no_tags}>Опции отсутствуют</span>
+                )}
               </div>
             </div>
 
-            <SocialMediaBlock
-              vk={server.vk}
-              discord={server.discord}
-              telegram={server.telergam}
-            />
-          </div>
-
-          {/* Основной контент */}
-          <div className={styles.main_content}>
-            {/* Заголовок сервера */}
-            <div className={styles.server_header}>
-              <div className={styles.server_address}>
-                <span
-                  className={`fi fi-${server.country.toLowerCase()} ${
-                    styles.countryFlag
-                  }`}
-                ></span>
-                <p
-                  className={styles.address_value}
-                >{`${server.ip}:${server.port}`}</p>
-                <CoppyButton ip={server.ip} port={String(server.port)} />
-                <Play
-                  width="12"
-                  height="12"
-                  ip={server.ip}
-                  port={server.port}
+            <div className={styles.rating_card}>
+              <div className={styles.rating_value}>{balls}</div>
+              <div className={styles.rating_img} style={{ cursor: "pointer" }}>
+                <div className={styles.img_block}>
+                  <Image
+                    width={50}
+                    height={50}
+                    alt="повысить рейтинг"
+                    src={"/стрелочка.png"}
+                    onClick={rating}
+                  />
+                </div>
+              </div>
+            </div>
+            {server.service?.vip?.status ? (
+              <div className={styles.vip_crown}>
+                <Image
+                  fill
+                  src={"/vip.png"}
+                  style={{ objectFit: "cover" }}
+                  alt="vip"
                 />
               </div>
+            ) : null}
+          </div>
+          <div className={styles.right_wrapper}>
+            <div className={styles.center_right_wrapper}>
+              <div className={styles.center_column}>
+                <div className={styles.server_header}>
+                  <div className={styles.server_info_grid}>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Игра:</span>
+                      <span className={styles.info_value}>{server.game}</span>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Адрес:</span>
+                      <div className={styles.address_value}>
+                        <span
+                          className={`fi fi-${server.country.toLowerCase()} ${
+                            styles.countryFlag
+                          }`}
+                        ></span>
+                        {`${server.ip}:${server.port}`}
+                        <CoppyButton
+                          ip={server.ip}
+                          port={String(server.port)}
+                        />
+                        <Play
+                          width="12"
+                          height="12"
+                          ip={server.ip}
+                          port={server.port}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Статус сервера:</span>
+                      <span
+                        className={`${styles.info_value} ${
+                          server.isOnline ? styles.online : styles.offline
+                        }`}
+                      >
+                        {server.isOnline ? "Включен" : "Выключен"}
+                      </span>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Добавлен:</span>
+                      <span className={styles.info_value}>
+                        {getFormatData(server.createdAt).formattedDate}
+                      </span>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Владелец:</span>
+                      <span className={styles.owner_nick}>
+                        {server.ownerLogin || (
+                          <span className={styles.info_value}>
+                            Владелец отсутсвует
+                          </span>
+                        )}
+                      </span>
+                      <span
+                        onClick={handleOpenModal}
+                        className={styles.owner_link}
+                      >
+                        (Это Вы?)
+                      </span>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Сайт сервера:</span>
+                      {!server.website ? (
+                        <span className={styles.info_value}>
+                          Сайт отсутствует
+                        </span>
+                      ) : (
+                        <a
+                          className={styles.info_website}
+                          target="_blank"
+                          href={server.website}
+                        >
+                          {server.website}
+                        </a>
+                      )}
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Мод:</span>
+                      <span className={styles.info_value}>{server.mode}</span>
+                    </div>
 
-              <div className={styles.server_info_grid}>
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Статус сервера:</span>
-                  <span
-                    className={`${styles.info_value} ${
-                      server.isOnline ? styles.online : styles.offline
-                    }`}
-                  >
-                    {server.isOnline ? "Включен" : "Выключен"}
-                  </span>
-                </div>
-
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Игра:</span>
-                  <span className={styles.info_value}>{server.game}</span>
-                </div>
-
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Мод: </span>
-                  <span className={styles.info_value}>{server.mode}</span>
-                </div>
-
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Игроки:</span>
-                  <span
-                    className={styles.player_count}
-                  >{`${server.players}/${server.maxPlayers}`}</span>
-                </div>
-
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Сайт сервера:</span>
-                  <a
-                    className={styles.info_website}
-                    target="_blank"
-                    href={server.website}
-                  >
-                    {server.website || null}
-                  </a>
-                </div>
-
-                <div className={styles.info_item}>
-                  <span className={styles.info_label}>Добавлен:</span>
-                  {
-                    <span className={styles.info_value}>
-                      {getFormatData(server.createdAt).formattedDate}
-                    </span>
-                  }
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>Пинг:</span>
+                      <span className={styles.info_value}>
+                        <span
+                          className={`${styles.ping_in_line} ${getPingColor(
+                            server.ping
+                          )}`}
+                        >
+                          {server.ping} ms
+                        </span>
+                      </span>
+                    </div>
+                    <div className={styles.info_item}>
+                      <span className={styles.info_label}>
+                        Социальные сети:
+                      </span>
+                      <SocialMediaBlock
+                        vk={server.vk}
+                        discord={server.discord}
+                        telegram={server.telegram}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Владелец */}
-            <div className={styles.owner_section}>
-              <div className={styles.owner_title}>Владелец:</div>
-              <div className={styles.owner_info}>
-                <span className={styles.owner_nick}>
-                  {server.ownerLogin || "Нет владельца"}
-                </span>
-                <span onClick={handleOpenModal} className={styles.owner_link}>
-                  Я владелец/подтвердить сервер
-                </span>
-              </div>
-            </div>
-
-            {/* Рейтинг и Описание */}
-            <div className={styles.block_flex}>
-              <div className={styles.rating_section}>
-                <h3 className={styles.rating_title}>Описание сервера:</h3>
-                <p className={styles.description_text}>
-                  {server.description || "Описание отсутствует"}
-                </p>
-              </div>
-              <div className={styles.rating_section_v2}>
-                <div className={styles.rating_value}>{balls}</div>
-                <div
-                  className={styles.rating_img}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div className={styles.img_block}>
-                    <Image
-                      width={50}
-                      height={50}
-                      alt="повысить рейтинг"
-                      src={"/стрелочка.png"}
-                      onClick={rating}
-                    />
+              <div className={styles.right_column}>
+                <div className={styles.players_card}>
+                  <div className={styles.players_title}>Список игроков</div>
+                  <div className={styles.table_container}>
+                    <table className={styles.players_table}>
+                      <thead>
+                        <tr>
+                          <th>№</th>
+                          <th>Ник</th>
+                          <th>Счёт</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {server.playersList?.length > 0 ? (
+                          server.playersList.map((item, index) => (
+                            <tr key={index}>
+                              <td>{index + 1}</td>
+                              <td>
+                                {item?.name === "" ? "unnamed" : item?.name}
+                              </td>
+                              <td>{item?.raw ? item?.raw.score : 0}</td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td
+                              colSpan={3}
+                              style={{ textAlign: "center", padding: "20px" }}
+                            >
+                              Игроков нет
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* НОВЫЕ БЛОКИ: Пинг и Теги */}
-            <div className={styles.additional_info_flex}>
-              {/* Блок пинга */}
-              <div className={styles.ping_card}>
-                <div className={styles.ping_title}>ПИНГ:</div>
-                <div
-                  className={`${styles.ping_value} ${getPingColor(
-                    server.ping
-                  )}`}
-                >
-                  {server.ping} ms
-                </div>
-              </div>
-
-              {/* Блок тегов */}
-              <div className={styles.tags_card}>
-                <div className={styles.tags_title}>ТЕГИ:</div>
-                <div className={styles.tags_list}>
-                  {server.tags && server.tags.length > 0 ? (
-                    server.tags.map((tag, index) => (
-                      <span key={index} className={styles.tag_item}>
-                        {tag}
-                      </span>
-                    ))
-                  ) : (
-                    <span className={styles.no_tags}>Теги отсутствуют</span>
-                  )}
-                </div>
-              </div>
+            <div className={styles.description_card}>
+              <div className={styles.description_title}>Описание</div>
+              <p className={styles.description_text}>
+                {server.description || "Описание отсутствует"}
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Нижняя секция */}
-        <div>
-          {server.service?.vip?.status ? (
-            <div className={styles.statusBadge}>
-              <Image
-                fill
-                src={"/vip.png"}
-                style={{ objectFit: "cover" }}
-                alt="vip"
-              />
-            </div>
-          ) : null}
-          <CommentsBlock serverId={server.serverId} />
-        </div>
+        <CommentsBlock serverId={server.serverId} />
       </div>
     </div>
   );

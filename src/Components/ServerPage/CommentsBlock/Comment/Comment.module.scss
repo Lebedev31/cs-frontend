@@ -13,7 +13,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: 1px solid #3a3a3a;
+  border: 1px solid white;
   background-color: v.$bg-darker;
   overflow: hidden;
   flex-shrink: 0;
@@ -42,17 +42,17 @@
 .login {
   font-size: 18px;
   font-weight: 900;
-  color: rgb(49, 42, 42);
+  color: white;
 }
 
 .date {
   font-size: 14px;
-  color: #a0a0a0;
+  color: white;
 }
 
 .text {
   margin: 0;
-  color: rgb(49, 42, 42);
+  color: white;
   font-size: 15px;
   line-height: 20px;
   word-break: break-word;

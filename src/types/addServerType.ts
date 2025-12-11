@@ -38,6 +38,8 @@ const telegramSchema = z
   .optional()
   .or(z.literal(""));
 
+const tagsSchema = z.array(z.string()).optional().default([]);
+
 // Полная схема формы с опциональным serverId
 export const AddServerSchema = z.object({
   ipPort: ipPortSchema,
@@ -52,6 +54,7 @@ export const AddServerSchema = z.object({
   discord: discordSchema,
   telegram: telegramSchema,
   serverId: z.string().optional(),
+  tags: tagsSchema,
 });
 
 export type AddServerType = z.infer<typeof AddServerSchema>;

@@ -2,16 +2,47 @@
 @use "../../styles/mixins.scss" as m;
 
 .server_page {
-  max-width: 1300px;
   position: relative;
   margin: 20px auto;
 }
 
 .server_info {
   display: flex;
-  gap: 30px;
-  width: 1200px;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
   margin-bottom: 25px;
+}
+
+.left_column {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right_wrapper {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.center_right_wrapper {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.center_column {
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right_column {
+  width: 48%;
 }
 
 .title {
@@ -20,32 +51,25 @@
 
 .wrapper {
   display: flex;
+  width: 1300px;
   flex-direction: column;
   background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
-  padding: 40px;
-}
-
-.aside {
-  width: 35%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  padding: 20px;
 }
 
 .map_card {
   background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 20px;
 }
 
 .map_title {
-  font-size: 14px;
+  font-size: 12px;
   color: v.$neon-primary;
   text-align: center;
-  margin-bottom: 15px;
+  margin-top: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
@@ -64,12 +88,112 @@
   position: relative;
 }
 
-.players_card {
+.progress_card {
   background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 20px;
-  height: 390px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress_text {
+  font-size: 16px;
+  color: v.$text-primary;
+  text-align: center;
+}
+
+.progress_bar {
+  height: 10px;
+  background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress_fill {
+  background: #007bff;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.description_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  height: 400px;
+}
+
+.description_title {
+  font-size: 14px;
+  color: v.$neon-primary;
+  text-align: center;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.rating_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating_value {
+  font-size: 24px;
+  color: v.$neon-success;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(v.$neon-success, 0.6);
+  border: 2px solid v.$neon-success;
+  border-radius: 50px;
+  padding: 5px 20px;
+}
+
+.rating_img {
+  display: flex;
+  justify-content: center;
+
+  .img_block {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+
+    img {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.vip_crown {
+  padding: 10px 10px;
+  width: 200px;
+  height: 140px;
+  position: relative;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.players_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  height: 342px;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: v.$neon-accent v.$new-background;
@@ -94,6 +218,7 @@
 
 .players_title {
   font-size: 18px;
+  line-height: 1.2;
   color: v.$neon-primary;
   text-align: center;
   margin-bottom: 20px;
@@ -137,60 +262,27 @@
   }
 }
 
-.main_content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
 .server_header {
   background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
-  padding: 30px;
+  padding: 20px;
+  padding-top: 2px;
   position: relative;
   overflow: hidden;
 }
 
-.server_address {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  height: 30px;
-  gap: 15px;
-}
-
-.address_label {
-  font-size: 16px;
-  color: v.$neon-accent;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.address_value {
-  font-size: 16px;
-  color: v.$glitch-purple;
-  font-weight: 600;
-}
-
-.countryFlag {
-  font-size: 17px;
-  line-height: 1;
-}
-
 .server_info_grid {
-  display: grid;
-  grid-template-columns: 50% 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   margin-top: 20px;
 }
 
 .info_item {
   display: flex;
-  gap: 5px;
-  height: 30px;
   align-items: center;
+  gap: 5px;
+  height: auto;
 }
 
 .info_label {
@@ -202,7 +294,7 @@
 }
 
 .info_value {
-  font-size: 16px;
+  font-size: 14px;
   color: v.$text-primary;
   font-weight: 600;
   text-transform: uppercase;
@@ -229,39 +321,25 @@
   max-width: 230px;
 }
 
-.player_count {
-  font-size: 18px;
-  color: v.$neon-success;
-  font-weight: 700;
-}
-
-.owner_section {
-  background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
-  border-radius: v.$border-radius-neon;
-  padding: 25px;
-}
-
-.owner_title {
-  font-size: 16px;
-  color: v.$glitch-purple;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-
-.owner_info {
+.address_value {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  font-size: 16px;
+  color: v.$glitch-purple;
+  font-weight: 600;
 }
 
+.countryFlag {
+  font-size: 17px;
+  line-height: 1;
+}
 .owner_nick {
-  font-size: 18px;
+  font-size: 14px;
   color: v.$text-primary;
   font-weight: 600;
   text-transform: uppercase;
+  margin-right: 20px;
 }
 
 .owner_link {
@@ -277,165 +355,16 @@
   }
 }
 
-.owner_actions {
-  margin-top: 10px;
-  color: v.$text-primary;
-  font-size: 14px;
-}
-
-.rating_section {
-  background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
-  border-radius: v.$border-radius-neon;
-  padding: 25px;
-  text-align: center;
-  height: 230px; // Уменьшено с 387px
-  width: 80%;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: v.$neon-warning v.$bg-darker;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: v.$neon-warning;
-    border-radius: 10px;
-
-    &:hover {
-      background: v.$neon-primary;
-    }
-  }
-}
-
-.rating_section_v2 {
-  width: 20%;
-}
-
-.rating_title {
-  font-size: 16px;
-  color: v.$neon-warning;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.rating_value {
-  font-size: 36px;
-  color: v.$neon-success;
-  font-weight: 700;
-  text-shadow: 0 0 15px rgba(v.$neon-success, 0.6);
-  text-align: center;
-}
-
-.rating_img {
-  display: flex;
-  justify-content: center;
-
-  .img_block {
-    width: 50px;
-    height: 50px;
-    transition: transform 0.3s ease;
-
-    img {
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-}
-
-.block_flex {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-}
-
 .description_text {
   color: v.$neon-success;
-}
-
-.statusBadge {
-  padding: 10px 10px;
-  width: 200px;
-  height: 140px;
-  margin: 20px auto;
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-}
-
-// ===== НОВЫЕ СТИЛИ ДЛЯ ПИНГА И ТЕГОВ =====
-
-.additional_info_flex {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-  height: 138px;
-}
-
-// Блок пинга
-.ping_card {
-  background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
-  width: 20%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.ping_title {
-  font-size: 14px;
-  color: v.$neon-primary;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 700;
   text-align: center;
+  font-size: 18px;
 }
 
-.ping_value {
-  font-size: 26px;
-  font-weight: 700;
-  text-shadow: 0 0 15px currentColor;
-
-  &.pingGood {
-    color: v.$neon-success;
-  }
-
-  &.pingMedium {
-    color: v.$neon-warning;
-  }
-
-  &.pingBad {
-    color: v.$neon-danger;
-  }
-}
-
-// Блок тегов
 .tags_card {
   background: v.$new-common;
-  border: 2px solid v.$cs-blue-team;
   border-radius: v.$border-radius-neon;
   padding: 10px;
-  width: 80%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -483,4 +412,20 @@
   font-size: 14px;
   font-style: italic;
   opacity: 0.7;
+}
+
+.ping_in_line {
+  font-size: 14px;
+}
+
+.pingGood {
+  color: v.$neon-success;
+}
+
+.pingMedium {
+  color: v.$neon-warning;
+}
+
+.pingBad {
+  color: v.$neon-danger;
 }

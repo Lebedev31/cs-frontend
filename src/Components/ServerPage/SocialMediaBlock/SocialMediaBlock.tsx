@@ -13,11 +13,10 @@ export default function SocialMediaBlock({
   telegram,
 }: SocialMediaProps) {
   const socialArr = [vk, discord, telegram];
-  const imgArr = ["/vk2.png", "/discord.png", "/telegram2.png"];
+  const imgArr = ["/newVk3.png", "/newDiscord.png", "/newTelegram.png"];
   const existEmptyString = socialArr.some((item) => item === "");
   return (
     <div className={styles.social}>
-      <h3>Социальные сети</h3>
       <div className={styles.img_block}>
         {!existEmptyString ? (
           socialArr.map((item, index) => {
@@ -32,8 +31,8 @@ export default function SocialMediaBlock({
                   key={index}
                 >
                   <Image
-                    width={35}
-                    height={35}
+                    width={30}
+                    height={30}
                     alt="иконка"
                     src={`${imgArr[index]}`}
                   />

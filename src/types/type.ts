@@ -27,7 +27,7 @@ export interface GameServer {
   description: string;
   vk: string;
   discord: string;
-  telergam: string;
+  telegram: string;
   tags: string[];
 }
 

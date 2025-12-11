@@ -10,35 +10,13 @@ import { mods } from "@/lib/mode";
 
 // Определяем доступные теги для фильтрации
 const AVAILABLE_TAGS = [
-  { label: "Скины", keywords: ["skin", "skins", "ws"] },
-  { label: "Ножи", keywords: ["knife", "knive", "!knife", "ножи", "нож"] },
-  {
-    label: "Перчатки",
-    keywords: ["glove", "gloves", "!glove", "!gloves", "gl", "перчатки"],
-  },
-  { label: "Агенты", keywords: ["agent", "agents", "агенты"] },
-  { label: "128 Tick", keywords: ["128", "128tick", "128tr", "128tik"] },
-  { label: "FPS Boost", keywords: ["fps", "boost", "фпс"] },
+  { label: "Скины" },
+  { label: "Ножи" },
+  { label: "Перчатки" },
+  { label: "Агенты" },
+  { label: "128 Tick" },
+  { label: "FPS Boost" },
 ];
-
-// Функция для извлечения тегов из массива tags сервера
-function extractMatchingTags(serverTags: string[]): string[] {
-  const matched: string[] = [];
-
-  AVAILABLE_TAGS.forEach((tag) => {
-    const hasMatch = serverTags.some((serverTag) =>
-      tag.keywords.some((keyword) =>
-        serverTag.toLowerCase().includes(keyword.toLowerCase())
-      )
-    );
-
-    if (hasMatch) {
-      matched.push(tag.label);
-    }
-  });
-
-  return matched;
-}
 
 export default function FilterServerBlock() {
   const originalServers = useSelector(
@@ -99,9 +77,12 @@ export default function FilterServerBlock() {
     // Фильтр по тегам (ВСЕ выбранные теги должны присутствовать)
     if (tags.length > 0) {
       filtered = filtered.filter((server) => {
-        const serverMatchedTags = extractMatchingTags(server.tags || []);
-        // Проверяем, что все выбранные теги присутствуют у сервера
-        return tags.every((tag) => serverMatchedTags.includes(tag));
+        // Проверяем, что все выбранные теги присутствуют в tags сервера
+        return tags.every((tag) =>
+          server.tags?.some((serverTag) =>
+            serverTag.toLowerCase().includes(tag.toLowerCase())
+          )
+        );
       });
     }
 
