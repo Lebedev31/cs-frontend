@@ -12,7 +12,6 @@
 
 // Миксин для блоков скелетона
 @mixin skeleton-box {
-  // Фон: темный + полоса сканера цвета neon-primary (очень прозрачная)
   background: linear-gradient(
     90deg,
     v.$new-background 0%,
@@ -24,59 +23,39 @@
   border-radius: v.$border-radius-neon;
 }
 
-// --- Layout (копия из ServerPage для сохранения сетки) ---
-.server_page {
-  position: relative;
-  min-height: 100vh;
-  padding-top: 100px; // Примерный отступ, как в миксине page()
-}
-
+// --- Layout ---
 .wrapper {
   display: flex;
   flex-direction: column;
-  // Используем тот же фон, что и в оригинале, чтобы рамка не прыгала
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(0, 0, 0, 0.12)
-  );
+  background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
-  padding: 40px;
-  width: 1200px;
-  margin: 0 auto; // Центрируем
+  padding: 20px;
+  width: 1300px;
+  margin: 0 auto;
 }
 
 .server_info {
   display: flex;
-  gap: 30px;
+  justify-content: space-between;
+  gap: 15px;
   width: 100%;
+  margin-bottom: 25px;
 }
 
-.aside {
-  width: 35%;
+// --- Левая колонка (30%) ---
+.left_column {
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.main_content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-// --- Компоненты Скелетона ---
-
-// 1. Карта
+// Карта
 .map_card {
-  // Сохраняем бордеры оригинала, но делаем их чуть тусклее для состояния загрузки
-  background: v.$new-background;
-  border: 2px solid rgba(v.$neon-accent, 0.3);
+  background: v.$new-common;
   border-radius: v.$border-radius-neon;
   padding: 20px;
-  height: 250px; // Фиксируем высоту, чтобы не скакало
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -89,20 +68,115 @@
   border: 1px solid rgba(v.$glitch-purple, 0.3);
 }
 
-// 2. Список игроков
-.players_card {
-  background: v.$new-background;
-  border: 2px solid rgba(v.$neon-accent, 0.3);
+// Прогресс
+.progress_card {
+  background: v.$new-common;
   border-radius: v.$border-radius-neon;
   padding: 20px;
-  height: 425px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress_bar_skeleton {
+  @include skeleton-box;
+  width: 100%;
+  height: 10px;
+}
+
+// Теги
+.tags_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tag_skeleton {
+  @include skeleton-box;
+  height: 24px;
+  width: 70px;
+  border-radius: 4px;
+}
+
+// Рейтинг
+.rating_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating_circle {
+  @include skeleton-box;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+// --- Правая обёртка (70%) ---
+.right_wrapper {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+// Центральная и правая колонки в одном ряду
+.center_right_wrapper {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+// Центральная колонка (52%)
+.center_column {
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  min-height: 360px;
+}
+
+.info_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.text_line {
+  @include skeleton-box;
+  height: 20px;
+  margin-bottom: 8px;
+}
+
+// Правая колонка - список игроков (48%)
+.right_column {
+  width: 48%;
+}
+
+.players_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  min-height: 360px;
 }
 
 .table_rows {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
 }
 
 .table_row_skeleton {
@@ -112,89 +186,11 @@
   opacity: 0.6;
 }
 
-// 3. Хедер сервера
-.header_card {
-  background: v.$new-background;
-  border: 2px solid rgba(v.$neon-secondary, 0.3); // Розовый оттенок
+// Блок описания (под центральной и правой колонками)
+.description_card {
+  background: v.$new-common;
   border-radius: v.$border-radius-neon;
-  padding: 30px;
-  height: 280px; // Примерная высота хедера
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-// Полоски текста (универсальные)
-.text_line {
-  @include skeleton-box;
-  height: 20px;
-  margin-bottom: 8px;
-}
-
-.title_line {
-  @include skeleton-box;
-  height: 32px;
-  width: 60%;
-  margin-bottom: 15px;
-}
-
-// Сетка инфо в хедере
-.info_grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-// 4. Владелец
-.owner_card {
-  background: v.$new-background;
-  border: 2px solid rgba(v.$glitch-purple, 0.3);
-  border-radius: v.$border-radius-neon;
-  padding: 25px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.avatar_circle {
-  @include skeleton-box;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-// 5. Нижние блоки (Рейтинг + Описание)
-.block_flex {
-  display: flex;
-  gap: 15px;
+  padding: 20px;
   width: 100%;
-}
-
-.rating_card {
-  background: v.$new-background;
-  border: 2px solid rgba(v.$neon-warning, 0.3); // Желтый
-  border-radius: v.$border-radius-neon;
-  height: 240px;
-  width: 50%;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.rating_circle {
-  @include skeleton-box;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-}
-
-.desc_card {
-  @extend .rating_card; // Используем те же стили
-  align-items: flex-start; // Но выравнивание слева
-  border-color: rgba(v.$neon-warning, 0.3);
+  min-height: 240px;
 }
