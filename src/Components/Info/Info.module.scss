@@ -41,6 +41,24 @@
     letter-spacing: 1px;
   }
 
+  h4 {
+    color: #ffffff; /* заголовки h4 должны быть белыми */
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  a {
+    color: v.$neon-primary;
+    text-decoration: underline;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+
+    &:hover {
+      color: v.$neon-warning;
+      text-shadow: 0 0 6px rgba(v.$neon-warning, 0.3);
+    }
+  }
+
   p {
     font-size: 16px;
     line-height: 1.7;

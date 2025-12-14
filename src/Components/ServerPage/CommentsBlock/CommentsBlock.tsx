@@ -157,9 +157,16 @@ export default function CommentsBlock({ serverId }: CommentBlockProps) {
           </div>
         </form>
         <div className={styles.commentsBlockItems}>
-          {comments.map((item, index) => {
-            return <CommentItem key={index} comment={item} />;
-          })}
+          {comments.length === 0 ? (
+            <div className={styles.noComments}>
+              Отзывы для этого сервера отсутствуют. Станьте первым, кто оставит
+              свой!
+            </div>
+          ) : (
+            comments.map((item, index) => {
+              return <CommentItem key={index} comment={item} />;
+            })
+          )}
           <div className={styles.buttonPagination}>
             {hiddenPaginationButton && (
               <button

@@ -135,8 +135,12 @@ export default function ServerPage() {
             </div>
             <div className={styles.progress_card}>
               <div className={styles.progress_text}>
-                Количество игроков: {server.players}/{server.maxPlayers} ~
-                {percentage}%
+                <span className={styles.players_label}>
+                  Количество игроков:
+                </span>{" "}
+                <span className={styles.players_count}>
+                  {server.players}/{server.maxPlayers} ~ {percentage}%
+                </span>
               </div>
               <div className={styles.progress_bar}>
                 <div
@@ -334,8 +338,12 @@ export default function ServerPage() {
             </div>
             <div className={styles.description_card}>
               <div className={styles.description_title}>Описание</div>
-              <p className={styles.description_text}>
-                {server.description || "Описание отсутствует"}
+              <p
+                className={`${styles.description_text} ${
+                  !server.description ? styles.description_missing : ""
+                }`}
+              >
+                {server.description || "Описания нет"}
               </p>
             </div>
           </div>

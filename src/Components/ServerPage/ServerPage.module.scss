@@ -103,6 +103,19 @@
   text-align: center;
 }
 
+.players_count {
+  color: v.$neon-warning; /* выделить в стиле сайта */
+  font-weight: 800; /* сделать жирнее */
+  font-size: 18px; /* чуть больше, чтобы выделяться */
+  text-shadow: none; /* убираем неоновое свечение */
+  margin: 0 6px;
+}
+
+.players_label {
+  color: v.$neon-primary; /* бирюзовый цвет из переменных */
+  font-weight: 700;
+}
+
 .progress_bar {
   height: 10px;
   background: #fff;
@@ -358,7 +371,14 @@
 .description_text {
   color: v.$neon-success;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px; /* обычный размер для текста описания */
+}
+
+.description_missing {
+  font-size: 36px; /* крупный шрифт, когда описания нет */
+  font-weight: 700;
+  color: v.$neon-success;
+  text-align: center;
 }
 
 .tags_card {

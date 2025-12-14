@@ -6,6 +6,7 @@ import ToastProvider from "@/Components/ToastContainer/ToastProvider";
 import Header from "@/Components/Header/Header";
 import Footer from "@/Components/Footer/Footer";
 import Script from "next/script";
+import Cookies from "@/Components/Cookies/Cookies";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -147,6 +148,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Cookies />
         </ReduxProvider>
         <ToastProvider />
       </body>
