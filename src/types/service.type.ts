@@ -11,7 +11,7 @@ export const generalSchema = z.object({
     .max(1000, { message: "Неправильные данные" }),
   offer: z.literal(true, { message: "Подвердите оферту" }),
   email: z.email({ message: "Укажите email для отправки чека" }),
-  plan: z.enum(["oneWeek", "twoWeeks", "month", "year"], {
+  plan: z.enum(["oneWeek", "month", "sixMonth", "year"], {
     message: "Укажите план",
   }),
   services: z.enum(["vip", "top", "color", "balls"], {
