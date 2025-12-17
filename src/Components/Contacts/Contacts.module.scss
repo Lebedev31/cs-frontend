@@ -3,6 +3,9 @@
 
 .page {
   @include m.page();
+  a {
+    text-decoration: none;
+  }
 }
 
 .wrapper {
@@ -43,6 +46,38 @@
 .button {
   @include m.button();
   margin-top: 10px;
+}
+
+.consentBlock {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.consentLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: v.$text-primary;
+}
+
+.consentCheckbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(v.$text-primary, 0.95);
+  margin-top: 10px;
+}
+
+.link {
+  color: v.$neon-primary;
+  text-decoration: none;
 }
 
 .error {

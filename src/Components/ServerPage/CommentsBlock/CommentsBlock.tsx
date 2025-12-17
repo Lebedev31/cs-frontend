@@ -137,7 +137,7 @@ export default function CommentsBlock({ serverId }: CommentBlockProps) {
             </div>
             <textarea
               className={styles.textArea}
-              placeholder="Оставьте свой комментарий..."
+              placeholder="Оставьте свой отзыв..."
               ref={textAreaRef}
             ></textarea>
           </div>

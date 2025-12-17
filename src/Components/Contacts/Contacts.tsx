@@ -5,6 +5,7 @@ import { ContactsSchema, Contacts as ContactsType } from "@/types/type";
 import { useMessageMutation } from "@/redux/apiSlice/contactsApi";
 import { useState, useRef } from "react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function Contacts() {
   const [sendMessage] = useMessageMutation();
@@ -19,6 +20,8 @@ export default function Contacts() {
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const formData: ContactsType = {
       name: nameRef.current?.value || "",
       email: emailRef.current?.value || "",
@@ -91,6 +94,19 @@ export default function Contacts() {
           <button type="submit" className={styles.button}>
             Отправить
           </button>
+
+          <div className={styles.footerText}>
+            Нажимая кнопку «Отправить», Вы соглашаетесь с&nbsp;
+            <Link href="/agreement">
+              <span className={styles.link}>пользовательским соглашением</span>
+            </Link>
+            , и даёте своё согласие на обработку данных в соответствии с
+            нашей&nbsp;
+            <Link href="/policy">
+              <span className={styles.link}>политикой конфиденциальности</span>
+            </Link>
+            .
+          </div>
         </form>
 
         <div className={styles.contactInfo}>
@@ -101,7 +117,9 @@ export default function Contacts() {
           </div>
           <div className={styles.infoItem}>
             <span className={styles.infoLabel}>ВК</span>
-            <span className={styles.infoValue}>vk.com/csrating</span>
+            <span className={styles.infoValue}>
+              https://vk.com/gamestatemonitor?from=groups
+            </span>
           </div>
         </div>
       </div>

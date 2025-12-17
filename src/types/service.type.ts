@@ -1,6 +1,6 @@
 import z from "zod";
 
-export type PlanUnionLiteral = "oneWeek" | "twoWeeks" | "month" | "year";
+export type PlanUnionLiteral = "oneWeek" | "month" | "sixMonth" | "year";
 export type ServiceUnionLiteral = "vip" | "top" | "color" | "balls";
 
 export const generalSchema = z.object({

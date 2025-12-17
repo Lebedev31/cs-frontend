@@ -37,7 +37,7 @@ export default function PremiumServerBlockItem() {
             {/* ЛЕВАЯ ЧАСТЬ: Контент */}
             <div className={styles.contentWrapper}>
               {/* 1. Имя сервера */}
-              <div className={styles.serverName}>{server.name}</div>
+              <p className={styles.serverName}>{server.name}</p>
 
               {/* 2. Карта */}
               <div className={styles.mapName}>{server.map}</div>

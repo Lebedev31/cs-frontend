@@ -1,5 +1,7 @@
 "use client";
 import styles from "./PaymentForm.module.scss";
+import Link from "next/link";
+import { toast } from "react-toastify";
 import { Payment, PaymentSchema, RedirectYooCassa } from "@/types/type";
 import { useCreatePaymentMutation } from "@/redux/apiSlice/paymentApi";
 import { useState, useRef } from "react";
@@ -13,12 +15,20 @@ export default function PaymentForm() {
   const [validationError, setValidationError] = useState({
     errorPayment: "",
   });
+  const [agreed, setAgreed] = useState(false);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const amount = Number(paymentRef?.current?.value);
     console.log(amount);
     if (!amount) {
+      return;
+    }
+
+    if (!agreed) {
+      toast.error(
+        "Пожалуйста, примите оферту и согласитесь на обработку данных платежным агрегатором"
+      );
       return;
     }
 
@@ -71,6 +81,41 @@ export default function PaymentForm() {
               <span className={styles.currency}>рублей</span>
             </div>
           </div>
+
+          <div className={styles.agreementBlock}>
+            <label className={styles.agreement} htmlFor="payment-agreement">
+              <input
+                id="payment-agreement"
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className={styles.agreementCheckbox}
+              />
+              <span className={styles.agreementText}>
+                Я согласен с&nbsp;
+                <Link href="/offer">
+                  <span className={styles.agreementLink}>договором оферты</span>
+                </Link>
+                &nbsp;и&nbsp;
+                <Link href="/agreement">
+                  <span className={styles.agreementLink}>
+                    пользовательским соглашением
+                  </span>
+                </Link>
+                , а также даю согласие на&nbsp;обработку данных
+                <a
+                  className={styles.agreementLink}
+                  href="https://yoomoney.ru/document/politika-konfidencialnosti-ooo-nko-yoomoney"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  &nbsp;платёжным агрегатором
+                </a>
+                .
+              </span>
+            </label>
+          </div>
+
           {validationError.errorPayment && (
             <p className={styles.error}>{validationError.errorPayment}</p>
           )}

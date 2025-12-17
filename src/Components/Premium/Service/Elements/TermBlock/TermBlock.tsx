@@ -16,8 +16,8 @@ export default function TermBlock({
 }: TermProps) {
   const terms: { label: string; value: PlanUnionLiteral }[] = [
     { label: "1 неделя", value: "oneWeek" },
-    { label: "2 недели", value: "twoWeeks" },
     { label: "Месяц", value: "month" },
+    { label: "6 месяцев", value: "sixMonth" },
     { label: "Год", value: "year" },
   ];
 

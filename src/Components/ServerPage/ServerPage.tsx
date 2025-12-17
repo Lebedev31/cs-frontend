@@ -139,8 +139,9 @@ export default function ServerPage() {
                   Количество игроков:
                 </span>{" "}
                 <span className={styles.players_count}>
-                  {server.players}/{server.maxPlayers} ~ {percentage}%
+                  {server.players}/{server.maxPlayers}
                 </span>
+                ~ {percentage}%
               </div>
               <div className={styles.progress_bar}>
                 <div
