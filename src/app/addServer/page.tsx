@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "регистрация сервера",
   ],
   openGraph: {
-    title: "Добавить сервер в мониторинг - CS Rating",
+    title: "Добавить сервер в мониторинг - gamestate-monitor.ru",
     url: "/addServer",
   },
   alternates: { canonical: "/addServer" },

@@ -29,7 +29,7 @@ export async function generateMetadata({
       "cs рейтинг сервера",
     ],
     openGraph: {
-      title: `Сервер ${serverId} - CS Rating`,
+      title: `Сервер ${serverId} - gamestate-monitor.ru`,
       description: `Информация о сервере Counter-Strike ${serverId}`,
       url: `${absoluteBase}/serverPage/${encodeURIComponent(
         resolvedParams.id

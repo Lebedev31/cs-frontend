@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "игровые серверы",
   ],
   openGraph: {
-    title: "CS Rating - Мониторинг серверов Counter-Strike",
+    title: "gamestate-monitor.ru - Мониторинг серверов Counter-Strike",
     description:
       "Найдите лучшие серверы CS 1.6, CS:GO и CS2. Рейтинг, статистика, онлайн игроков",
     url: "/",

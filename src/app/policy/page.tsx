@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Policy from "@/Components/Info/policy/Policy";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности - CS Rating",
+  title: "Политика конфиденциальности - gamestate-monitor.ru",
   description:
-    "Политика конфиденциальности и обработки персональных данных на сайте мониторинга серверов CS Rating.",
+    "Политика конфиденциальности и обработки персональных данных на сайте мониторинга серверов gamestate-monitor.ru.",
   robots: { index: true, follow: true },
   alternates: { canonical: "/policy" },
 };

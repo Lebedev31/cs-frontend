@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://csrating.com"
   ),
   title: {
-    default: "GameState-Monitor",
-    template: "%s | CS Rating",
+    default: "gamestate-monitor.ru",
+    template: "%s | gamestate-monitor.ru",
   },
   description:
     "Лучший мониторинг игровых серверов Counter-Strike 1.6, CS:GO и CS2. Рейтинг серверов, статистика игроков, поиск по картам и режимам. Добавьте свой сервер бесплатно!",
@@ -39,24 +39,24 @@ export const metadata: Metadata = {
     "рейтинг серверов",
     "игровые сервера",
   ],
-  authors: [{ name: "CS Rating" }],
-  creator: "CS Rating",
-  publisher: "CS Rating",
+  authors: [{ name: "gamestate-monitor.ru" }],
+  creator: "gamestate-monitor.ru",
+  publisher: "gamestate-monitor.ru",
 
   // Open Graph (для соцсетей)
   openGraph: {
     type: "website",
     locale: "ru_RU",
     url: "/",
-    siteName: "CS Rating",
-    title: "CS Rating - Мониторинг серверов Counter-Strike",
+    siteName: "gamestate-monitor.ru",
+    title: "gamestate-monitor",
     description: "Мониторинг и рейтинг игровых серверов CS 1.6, CS:GO и CS2",
     images: [
       {
         url: "/og-image.png", // ДОБАВЬТЕ это изображение в public/
         width: 1200,
         height: 630,
-        alt: "CS Rating Logo",
+        alt: "gamestate-monitor.ru Logo",
       },
     ],
   },
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "CS Rating - Мониторинг серверов Counter-Strike",
+    title: "Мониторинг серверов Counter-Strike",
     description: "Мониторинг и рейтинг игровых серверов CS 1.6, CS:GO и CS2",
     images: ["/og-image.png"],
   },
@@ -129,7 +129,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "CS Rating",
+              name: "gamestate-monitor.ru",
               description: "Мониторинг серверов Counter-Strike",
               url: process.env.NEXT_PUBLIC_SITE_URL,
               potentialAction: {

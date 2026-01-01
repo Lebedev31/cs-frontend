@@ -3,9 +3,9 @@ import RegisterBlock from "@/Components/Registration/RegisterBlock";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Вход в аккаунт - Авторизация на CS Rating",
+  title: "Вход в аккаунт - Авторизация на gamestate-monitor.ru",
   description:
-    "Войдите в личный кабинет CS Rating для управления серверами, просмотра статистики и использования дополнительных возможностей.",
+    "Войдите в личный кабинет gamestate-monitor.ru для управления серверами, просмотра статистики и использования дополнительных возможностей.",
   robots: { index: false, follow: true },
   alternates: { canonical: "/login" },
 };
