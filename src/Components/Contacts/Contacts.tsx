@@ -113,7 +113,9 @@ export default function Contacts() {
           <h3 className={styles.infoTitle}>Контактные данные:</h3>
           <div className={styles.infoItem}>
             <span className={styles.infoLabel}>Email</span>
-            <span className={styles.infoValue}>support@csrating.com</span>
+            <span className={styles.infoValue}>
+              administration@gamestate-monitor.ru
+            </span>
           </div>
           <div className={styles.infoItem}>
             <span className={styles.infoLabel}>ВК</span>
