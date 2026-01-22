@@ -46,7 +46,7 @@ export default function Contacts() {
         if (nameRef.current) nameRef.current.value = "";
         if (emailRef.current) emailRef.current.value = "";
         if (descriptionRef.current) descriptionRef.current.value = "";
-      }
+      },
     );
   };
 
@@ -120,7 +120,7 @@ export default function Contacts() {
           <div className={styles.infoItem}>
             <span className={styles.infoLabel}>ВК</span>
             <span className={styles.infoValue}>
-              https://vk.com/gamestatemonitor?from=groups
+              https://vk.com/gamestatemonitor
             </span>
           </div>
         </div>
