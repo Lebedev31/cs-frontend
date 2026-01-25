@@ -27,7 +27,7 @@ export default function PaymentForm() {
 
     if (!agreed) {
       toast.error(
-        "Пожалуйста, примите оферту и согласитесь на обработку данных платежным агрегатором"
+        "Пожалуйста, примите оферту и согласитесь на обработку данных платежным агрегатором",
       );
       return;
     }
@@ -52,7 +52,7 @@ export default function PaymentForm() {
         if (data.statusCode >= 200 && data.data) {
           window.location.href = data.data?.confirmation_url;
         }
-      }
+      },
     );
   };
 
@@ -123,6 +123,21 @@ export default function PaymentForm() {
             Пополнить
           </button>
         </form>
+
+        <div className={styles.paymentMethods}>
+          <div className={styles.methodsLine}></div>
+          <p className={styles.note}>Баланс пополняется без учёта комиссии.</p>
+          <p className={styles.methodsTitle}>Способы оплаты</p>
+          <div className={styles.methodsList}>
+            <p className={styles.methodItem}>ЮMoney — комиссия 3.5%</p>
+            <p className={styles.methodItem}>
+              Банковские карты — комиссия 3.5%
+            </p>
+            <p className={styles.methodItem}>SberPay — комиссия 3.5%</p>
+            <p className={styles.methodItem}>СБП — комиссия 0.4%</p>
+            <p className={styles.methodItem}>T-Pay — комиссия 4.2%</p>
+          </div>
+        </div>
       </div>
     </div>
   );
