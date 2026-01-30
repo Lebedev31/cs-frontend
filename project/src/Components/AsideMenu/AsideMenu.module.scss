@@ -1,0 +1,112 @@
+@use "../../styles/variable.scss" as v;
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px; // Небольшой отступ между кнопками, если нужно
+  a {
+    text-decoration: none;
+  }
+}
+
+.link {
+  display: flex; // <-- Меняем block на flex для выравнивания лоадера и контента
+  align-items: center;
+  justify-content: space-between; // Текст слева, лоадер справа
+  padding: 0.8rem 1.2rem;
+  color: v.$text-primary;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: v.$border-radius-neon;
+  transition: v.$transition-fast;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    color: v.$neon-primary;
+    background: rgba(v.$neon-primary, 0.05);
+    box-shadow: inset 4px 0 0 v.$neon-primary;
+  }
+
+  &.active {
+    color: v.$neon-warning;
+    background: rgba(v.$neon-warning, 0.08);
+    box-shadow: inset 4px 0 0 v.$neon-warning;
+    font-weight: 600;
+  }
+
+  &.loading {
+    color: v.$neon-warning !important;
+    position: relative;
+    pointer-events: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: v.$neon-warning;
+      animation: loadingPulse 1s infinite;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+.link {
+  outline: none;
+}
+
+.link:focus-visible {
+  /* аккуратный фокус, одинаковый на всех системах */
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
+  border-radius: 8px;
+}
+
+// Обертка для иконки и текста внутри ссылки
+.contentWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px; // Расстояние между картинкой и буквами
+}
+
+// Стили самой картинки
+.menuIcon {
+  object-fit: contain;
+  // Размеры задаются в пропсах Image (width/height),
+  // но CSS гарантирует, что они не растянутся
+  display: block;
+}
+
+@keyframes loadingPulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.loader {
+  animation: bounce 0.8s infinite alternate;
+  font-size: 0.9em;
+  margin-left: 6px;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}

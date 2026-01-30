@@ -1,0 +1,88 @@
+@use "../../styles/variable.scss" as v;
+
+.container {
+  min-height: 100vh;
+  padding: 60px 20px;
+  a {
+    text-decoration: none;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: v.$new-background;
+  border-radius: v.$border-radius-neon;
+  overflow: hidden;
+  border: v.$border-glow-primary;
+  transition: v.$transition-glow;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    border: v.$border-glow-hover;
+
+    transform: translateY(-5px);
+
+    // Дополнительный эффект зума для картинки при наведении
+    .gameImage {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  // padding-top задает соотношение сторон (aspect-ratio).
+  // 56.25% = 16:9, 75% = 4:3.
+  padding-top: 75%;
+  position: relative; // Важно! Next.js Image fill ищет ближайшего relative родителя
+  background: linear-gradient(135deg, #1a1a2e, v.$text-header);
+  overflow: hidden;
+}
+
+// Класс непосредственно для тега <img />, который генерирует Next.js
+.gameImage {
+  transition: transform 0.5s ease; // Плавный зум
+  img {
+    object-fit: cover;
+  }
+}
+
+.content {
+  padding: 24px;
+  background-color: v.$new-panel;
+}
+
+.gameName {
+  font-size: 32px;
+  font-weight: bold;
+  color: v.$text-primary;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(v.$neon-primary, 0.5);
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

@@ -21,11 +21,11 @@ const geistMono = Geist_Mono({
 // SEO: Базовые метаданные
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://csrating.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://csrating.com",
   ),
   title: {
-    default: "gamestate-monitor.ru",
-    template: "%s | gamestate-monitor.ru",
+    default: "GameState-Monitor — Игровые сервера",
+    template: "%s | GameState-Monitor — Игровые сервера",
   },
   description:
     "Лучший мониторинг игровых серверов Counter-Strike 1.6, CS:GO и CS2. Рейтинг серверов, статистика игроков, поиск по картам и режимам. Добавьте свой сервер бесплатно!",
@@ -49,8 +49,9 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     url: "/",
     siteName: "gamestate-monitor.ru",
-    title: "gamestate-monitor",
-    description: "Мониторинг и рейтинг игровых серверов CS 1.6, CS:GO и CS2",
+    title: "GameState-Monitor — Игровые сервера",
+    description:
+      "МонGameState-Monitor — Игровые сервераиторинг и рейтинг игровых серверов CS 1.6, CS:GO и CS2",
     images: [
       {
         url: "/og-image.png", // ДОБАВЬТЕ это изображение в public/

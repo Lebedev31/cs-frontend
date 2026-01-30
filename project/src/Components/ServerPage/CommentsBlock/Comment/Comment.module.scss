@@ -1,0 +1,59 @@
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-color: v.$bg-darker;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.login {
+  font-size: 18px;
+  font-weight: 900;
+  color: white;
+}
+
+.date {
+  font-size: 14px;
+  color: white;
+}
+
+.text {
+  margin: 0;
+  color: white;
+  font-size: 15px;
+  line-height: 20px;
+  word-break: break-word;
+}

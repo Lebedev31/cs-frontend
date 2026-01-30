@@ -1,0 +1,43 @@
+@use "../../../styles/mixins.scss" as m;
+@use "../../../styles/variable.scss" as v;
+
+.modalOverlay {
+  @include m.modalOverlay();
+}
+
+.modal {
+  @include m.modal();
+}
+
+.closeButton {
+  @include m.closeButton();
+}
+
+.title {
+  @include m.titleModal();
+}
+
+.description {
+  @include m.descriptionModal();
+}
+
+.confirmButton {
+  @include m.confirmModalButton();
+}
+
+@include m.animationModal();
+
+// Адаптивность
+@media (max-width: 768px) {
+  .modal {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}

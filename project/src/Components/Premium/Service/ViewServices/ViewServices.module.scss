@@ -1,0 +1,16 @@
+@use "../../../../styles/mixins.scss" as m;
+
+.viewServices {
+  @include m.modalOverlay();
+}
+
+.modal_image {
+  position: relative;
+  width: min(90vw, 900px);
+  max-width: 900px;
+  height: 400px;
+  img {
+    border-radius: 2%;
+    object-fit: contain;
+  }
+}

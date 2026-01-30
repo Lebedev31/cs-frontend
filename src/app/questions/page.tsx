@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Questions from "@/Components/Info/questions/Questions";
 
 export const metadata: Metadata = {
-  title: "Часто задаваемые вопросы (FAQ) - gamestate-monitor.ru",
+  title: "Часто задаваемые вопросы (FAQ) | GameState-Monitor",
   description:
     "Ответы на популярные вопросы о мониторинге серверов Counter-Strike: как добавить сервер, повысить рейтинг, работает система VIP размещения.",
   keywords: ["faq gamestate-monitor.ru", "вопросы и ответы", "помощь"],

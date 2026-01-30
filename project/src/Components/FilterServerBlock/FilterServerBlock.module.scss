@@ -1,0 +1,147 @@
+@use "../../styles/variable.scss" as v;
+
+.filterServerBlock {
+  width: 100%;
+  display: flex;
+  border-radius: v.$border-radius-neon;
+  min-height: 180px; // Изменено с height на min-height для адаптивности
+  background: v.$new-panel;
+  border: 1px solid rgba(v.$neon-primary, 0.3);
+  padding: 10px 20px 10px 20px;
+  margin-top: 1rem;
+  color: v.$text-primary;
+  box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
+  margin-bottom: 25px;
+  gap: 40px;
+
+  .filterServerBlock_logo {
+    width: 250px;
+    min-width: 250px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    align-self: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: v.$border-radius-neon;
+      object-fit: cover;
+    }
+  }
+
+  .filterServerBlock_filtration {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h2 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1.2rem;
+      color: v.$neon-warning;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    // Контейнер для тегов
+    .tagsContainer {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.3rem;
+    }
+
+    // Стили для кнопок-тегов
+    .tagButton {
+      padding: 0.4rem 1rem;
+      background: v.$new-input-background;
+      border: 1px solid rgba(v.$neon-primary, 0.4);
+      border-radius: v.$border-radius-neon;
+      color: v.$text-primary;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+        border-color: v.$neon-primary;
+        box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
+        transform: translateY(-1px);
+      }
+
+      &.tagActive {
+        background: rgba(v.$neon-primary, 0.2);
+        border-color: v.$neon-primary;
+        box-shadow: 0 0 12px rgba(v.$neon-primary, 0.5);
+        color: v.$neon-primary;
+        font-weight: 600;
+      }
+    }
+
+    .filterServerBlock_flex {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 0.5rem;
+      flex: 1;
+    }
+  }
+
+  // Блоки фильтров
+  .filterServerBlock_block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  // Общие стили для инпутов и селектов
+  .input,
+  .select {
+    width: 100%;
+    padding: 0.4rem;
+    background: v.$new-input-background;
+    border: 1px solid rgba(v.$neon-primary, 0.4);
+    border-radius: 6px;
+    color: v.$text-primary;
+    font-size: 0.9rem;
+    transition: v.$transition-fast;
+
+    &::placeholder {
+      color: rgba(v.$text-primary, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: v.$neon-primary;
+      box-shadow: 0 0 8px rgba(v.$neon-primary, 0.5);
+    }
+  }
+
+  // Группа инпутов (мин/макс)
+  .inputGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+
+    input {
+      flex: 1;
+      min-width: 80px;
+    }
+  }
+
+  // Селект
+  .select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M7.41%208.59L12%2013.17l4.59-4.58L18%2010l-6%206-6-6z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 12px;
+    padding-right: 1.5rem;
+  }
+}

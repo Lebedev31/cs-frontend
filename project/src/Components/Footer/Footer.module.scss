@@ -1,0 +1,121 @@
+@use "../../styles/variable.scss" as v;
+@use "../../styles/mixins.scss" as m;
+
+.footer {
+  // background: v.$gradient-cyber-terminal;
+  background-color: v.$new-panel;
+  padding: 20px 20px;
+  border-top: 2px solid v.$glitch-purple;
+  margin-top: 10px;
+}
+
+.description {
+  color: v.$text-primary;
+  font-size: 14px;
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.logo {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  color: v.$bg-dark;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 16px;
+  box-shadow: v.$glow-secondary;
+  background-color: white;
+  border-radius: 100%;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.3s all;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.link {
+  color: v.$text-primary;
+  text-decoration: none;
+  font-size: 18px;
+  transition: v.$transition-glow;
+  white-space: nowrap;
+
+  &:hover {
+    color: v.$neon-primary;
+    text-shadow: v.$glow-primary;
+  }
+}
+
+.tagline {
+  p {
+    color: v.$glitch-purple;
+    font-size: 16px;
+    //  margin-top: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .nav {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 30px 15px;
+  }
+
+  .logoCircle {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .description p,
+  .tagline p {
+    font-size: 14px;
+  }
+
+  .link {
+    font-size: 14px;
+  }
+}

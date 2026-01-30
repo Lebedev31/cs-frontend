@@ -13,13 +13,10 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const serverId = decodeURIComponent(resolvedParams.id);
 
-  // TODO: при желании можно тут же сделать fetch к API, например:
-  // const server = await fetch(`https://api.../servers/${serverId}`).then(r => r.json());
-
-  const absoluteBase = "https://cs-server.fun"; // замени на свой домен
+  const absoluteBase = "https://gamestate-monitor.ru"; // замени на свой домен
 
   return {
-    title: `Сервер ${serverId} - Информация и статистика`,
+    title: `Сервер ${serverId} - Информация и статистика | GameState-Monitor`,
     description: `Подробная информация об игровом сервере Counter-Strike ${serverId}. Количество игроков онлайн, карта, режим игры, рейтинг и отзывы.`,
     keywords: [
       `сервер ${serverId}`,
@@ -29,16 +26,16 @@ export async function generateMetadata({
       "cs рейтинг сервера",
     ],
     openGraph: {
-      title: `Сервер ${serverId} - gamestate-monitor.ru`,
+      title: `Сервер ${serverId} | GameState-Monitor`,
       description: `Информация о сервере Counter-Strike ${serverId}`,
       url: `${absoluteBase}/serverPage/${encodeURIComponent(
-        resolvedParams.id
+        resolvedParams.id,
       )}`,
       type: "website",
     },
     alternates: {
       canonical: `${absoluteBase}/serverPage/${encodeURIComponent(
-        resolvedParams.id
+        resolvedParams.id,
       )}`,
     },
     robots: {

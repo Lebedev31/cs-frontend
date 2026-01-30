@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Offer from "@/Components/Info/offer/Offer";
 
 export const metadata: Metadata = {
-  title: "Договор оферты - Условия использования gamestate-monitor.ru",
+  title: "Договор оферты | GameState-Monitor",
   description:
     "Публичная оферта на оказание услуг по размещению информации о серверах Counter-Strike на платформе gamestate-monitor.ru.",
   robots: { index: true, follow: true },

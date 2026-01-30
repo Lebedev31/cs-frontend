@@ -1,0 +1,132 @@
+@use "../../styles/variable.scss" as v;
+
+.adContainer {
+  position: relative;
+  margin: 20px auto;
+  text-align: center;
+  background: v.$new-panel;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  // Плейсхолдер
+  .adPlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Сам рекламный блок
+  ins {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// РАЗМЕРЫ
+.ad-small {
+  max-width: 300px;
+  min-height: 250px;
+  padding: 10px;
+}
+
+.ad-medium {
+  max-width: 728px;
+  min-height: 90px;
+  padding: 15px;
+}
+
+.ad-large {
+  max-width: 970px;
+  min-height: 250px;
+  padding: 20px;
+}
+
+.ad-responsive {
+  width: 100%;
+  min-height: 90px;
+  padding: 15px;
+}
+
+// ФОРМАТЫ
+.ad-horizontal {
+  max-width: 728px;
+  min-height: 90px;
+}
+
+.ad-vertical {
+  max-width: 160px;
+  min-height: 600px;
+}
+
+.ad-rectangle {
+  max-width: 300px;
+  min-height: 250px;
+}
+
+.ad-auto {
+  width: 100%;
+  min-height: 100px;
+}
+
+// АДАПТИВНОСТЬ
+@media (max-width: 768px) {
+  .adContainer {
+    margin: 15px auto;
+    padding: 10px;
+  }
+
+  .ad-small,
+  .ad-medium,
+  .ad-large {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .ad-horizontal {
+    max-width: 100%;
+    min-height: 50px;
+  }
+
+  .ad-vertical {
+    max-width: 100%;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .adContainer {
+    margin: 10px auto;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .adPlaceholder {
+    font-size: 10px;
+  }
+}
+
+// ТЕМЫ (опционально)
+.adContainer[data-theme="dark"] {
+  background: #2a2a2a;
+
+  .adPlaceholder {
+    color: #666;
+  }
+}
+
+.adContainer[data-theme="minimal"] {
+  background: transparent;
+  border: 1px solid #e0e0e0;
+
+  &:hover {
+    border-color: #ccc;
+  }
+}

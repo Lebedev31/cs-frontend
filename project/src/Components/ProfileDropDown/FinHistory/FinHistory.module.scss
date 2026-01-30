@@ -1,0 +1,223 @@
+@use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
+.page {
+  @include m.page();
+  color: v.$text-primary;
+}
+
+.wrapper {
+  width: 92%;
+  max-width: 1200px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(0, 0, 0, 0.12)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: v.$border-radius-neon;
+  padding: 40px;
+}
+
+/* Заголовок */
+.title {
+  @include m.title();
+  margin-top: 0;
+}
+
+/* Обёртка таблицы */
+.tableWrapper {
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(5, 5, 8, 0.6);
+}
+
+/* Таблица — ровная, терминальная */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: v.$text-primary;
+}
+
+/* Заголовок таблицы */
+.table thead {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.06);
+}
+
+.table thead th {
+  padding: 18px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: v.$text-primary;
+  letter-spacing: 0.4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.table thead th:last-child {
+  border-right: none;
+}
+
+/* Колонки: ширины как на макете */
+.colDate {
+  width: 25%;
+}
+.colDesc {
+  width: 45%;
+}
+.colAmount {
+  width: 16%;
+  text-align: right;
+}
+.colStatus {
+  width: 14%;
+  text-align: center;
+}
+
+/* Тело таблицы */
+.table tbody tr {
+  transition: v.$transition-fast;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  height: 80px;
+}
+
+.table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 20px rgba(0, 247, 255, 0.03);
+}
+
+/* Ячейки */
+.table td {
+  padding: 18px 20px;
+  vertical-align: middle;
+  color: v.$text-primary;
+  border-right: 1px solid rgba(255, 255, 255, 0.01);
+}
+
+.table td:last-child {
+  border-right: none;
+}
+
+/* Сумма: плюс/минус визуал */
+.amount {
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  font-weight: 700;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.amountPlus {
+  color: v.$neon-success;
+  text-shadow: v.$glow-success;
+}
+
+.amountMinus {
+  color: v.$neon-danger;
+  text-shadow: v.$glow-danger;
+}
+
+/* Статус */
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: v.$text-header;
+}
+
+.statusSuccess {
+  background: rgba(v.$neon-success, 0.12);
+  color: v.$neon-success;
+  box-shadow: v.$glow-success;
+  border: 1px solid rgba(57, 255, 20, 0.12);
+}
+
+.statusPending {
+  background: rgba(v.$neon-warning, 0.12);
+  color: v.$neon-warning;
+  box-shadow: v.$glow-warning;
+  border: 1px solid rgba(255, 234, 0, 0.12);
+}
+
+.statusFailed {
+  background: rgba(v.$neon-danger, 0.08);
+  color: v.$neon-danger;
+  box-shadow: v.$glow-danger;
+  border: 1px solid rgba(255, 0, 60, 0.12);
+}
+
+/* Мелкие стили для адаптива */
+@media (max-width: 900px) {
+  .colDesc {
+    width: 46%;
+  }
+  .colDate {
+    width: 22%;
+  }
+  .colAmount {
+    width: 18%;
+  }
+  .table thead th,
+  .table td {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+  .wrapper {
+    padding: 24px;
+  }
+  .title {
+    font-size: 28px;
+    margin-bottom: 28px;
+  }
+}
+
+@media (max-width: 520px) {
+  .table thead {
+    display: none;
+  }
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+  .table tr {
+    margin-bottom: 12px;
+    border-bottom: none;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px;
+  }
+  .table td {
+    padding: 8px 10px;
+    border-right: none;
+  }
+  .cellDate::before {
+    content: "Дата: ";
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .cellDesc::before {
+    content: "Описание: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+  .cellAmount::before {
+    content: "Сумма: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+  .cellStatus::before {
+    content: "Статус: ";
+    font-weight: 700;
+    display: block;
+    margin-top: 6px;
+  }
+}
