@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Premium from "@/Components/Premium/Premium";
 
 export const metadata: Metadata = {
-  title: "Платные услуги | GameState-Monitor",
+  title: "Платные услуги",
   description:
     "VIP размещение, TOP позиции, цветное выделение и баллы рейтинга для продвижения вашего сервера Counter-Strike. Увеличьте количество игроков!",
   keywords: [

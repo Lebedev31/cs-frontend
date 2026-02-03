@@ -32,7 +32,7 @@ export default function ServerPage() {
     return (
       server.service.balls?.listService?.reduce(
         (acc, item) => acc + item.quantity,
-        0
+        0,
       ) || 0
     );
   };
@@ -42,18 +42,42 @@ export default function ServerPage() {
 
     const newId = id as string;
     const decodedId = decodeURIComponent(newId);
-    const ipAndPortArr = decodedId.split(":");
+
+    // --- ЛОГИКА ПАРСИНГА URL ---
+    // Мы ожидаем формат "Nazvanie-Servera-IP:PORT" или просто "IP:PORT"
+    // Регулярка ищет IP (4 группы цифр) и Порт в конце строки
+    // Группа 1: IP, Группа 2: Port
+    const match = decodedId.match(
+      /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)$/,
+    );
+
+    let targetIp = "";
+    let targetPort = "";
+
+    if (match) {
+      targetIp = match[1];
+      targetPort = match[2];
+    } else {
+      // Фолбек на старый метод, если регулярка не сработала
+      const splitArr = decodedId.split(":");
+      if (splitArr.length >= 2) {
+        targetIp = splitArr[0];
+        targetPort = splitArr[1];
+      }
+    }
+
+    const cleanServerId = `${targetIp}:${targetPort}`; // Чистый ID для запросов
 
     const foundInRedux = serverList.find(
-      (item) =>
-        item.ip === ipAndPortArr[0] && item.port.toString() === ipAndPortArr[1]
+      (item) => item.ip === targetIp && item.port.toString() === targetPort,
     );
 
     if (foundInRedux) {
       setServer(foundInRedux);
       setBalls(foundInRedux.rating + setPremiumBalls(foundInRedux));
     } else {
-      getByServer(decodedId);
+      // Отправляем запрос только по чистому ID (ip:port)
+      getByServer(cleanServerId);
     }
   }, [id, serverList]);
 
@@ -114,7 +138,7 @@ export default function ServerPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        serverId={decodeURIComponent(id as string)}
+        serverId={`${server.ip}:${server.port}`} // Передаем чистый ID в модалку
       />
 
       <div className={styles.wrapper}>
@@ -278,7 +302,7 @@ export default function ServerPage() {
                       <span className={styles.info_value}>
                         <span
                           className={`${styles.ping_in_line} ${getPingColor(
-                            server.ping
+                            server.ping,
                           )}`}
                         >
                           {server.ping} ms

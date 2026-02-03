@@ -1,6 +1,5 @@
 "use client";
 import styles from "./PremiumServerBlockItem.module.scss";
-import { GameServer } from "@/types/type";
 import PlayersInfo from "../Elements/PlayersInfo/PlayersInfo";
 import Play from "../Elements/Play/Play";
 import CoppyButton from "../Elements/CopyButton/CoppyButton";
@@ -13,13 +12,24 @@ import { RootState } from "@/redux/store";
 
 export default function PremiumServerBlockItem() {
   const servers = useSelector(
-    (state: RootState) => state.main.originalServers
+    (state: RootState) => state.main.originalServers,
   ).filter((server) => server.service.top.status);
 
   const router = useRouter();
-  const handlerServerPage = (ip: string, port: string) => {
-    router.push(`/serverPage/${ip}:${port}`);
+
+  const handlerServerPage = (name: string, ip: string, port: string) => {
+    // 1. Очищаем имя (буквы, цифры, пробелы, тире, подчеркивания)
+    const safeName = name
+      .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+
+    // Формируем URL
+    const urlSlug = `${safeName}-${ip}:${port}`;
+
+    router.push(`/serverPage/${urlSlug}`);
   };
+
   return (
     <div className={styles.premiumServerBlockItem}>
       <h2>
@@ -32,7 +42,10 @@ export default function PremiumServerBlockItem() {
           <li
             key={server.id}
             className={styles.serverItem}
-            onClick={() => handlerServerPage(server.ip, String(server.port))}
+            // Передаем имя, IP и порт
+            onClick={() =>
+              handlerServerPage(server.name, server.ip, String(server.port))
+            }
           >
             {/* ЛЕВАЯ ЧАСТЬ: Контент */}
             <div className={styles.contentWrapper}>

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Agreement from "@/Components/Info/agreement/Agreement";
 
 export const metadata: Metadata = {
-  title: "Пользовательское соглашение | GameState-Monitor",
+  title: "Пользовательское соглашение",
   description:
     "Правила использования сервиса мониторинга серверов gamestate-monitor.ru. Права и обязанности пользователей.",
   robots: { index: true, follow: true },

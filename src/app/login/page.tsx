@@ -3,7 +3,7 @@ import RegisterBlock from "@/Components/Registration/RegisterBlock";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Вход в аккаунт - Авторизация | GameState-Monitor",
+  title: "Вход в аккаунт - Авторизация",
   description:
     "Войдите в личный кабинет gamestate-monitor.ru для управления серверами, просмотра статистики и использования дополнительных возможностей.",
   robots: { index: false, follow: true },

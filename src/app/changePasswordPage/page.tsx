@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import ChangePassword from "@/Components/Registration/ChangePassword/ChangePassword";
 
 export const metadata: Metadata = {
-  title: "Изменение пароля | GameState-Monitor",
+  title: "Изменение пароля",
   description:
     "Безопасное восстановление доступа и смена пароля в личном кабинете сервиса GameState-Monitor.",
   robots: { index: true, follow: true },

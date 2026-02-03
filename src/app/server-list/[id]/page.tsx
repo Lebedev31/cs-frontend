@@ -8,7 +8,13 @@ interface Props {
 
 // Динамическая генерация метаданных
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const isCS2 = params.id.toLowerCase() === "CS2";
+  // ИСПРАВЛЕНИЕ: Сравниваем с "cs2" (маленькими буквами)
+  const { id } = await params;
+  const isCS2 = id.toLowerCase() === "cs2";
+
+  // Для отладки (смотри в терминал VS Code, а не в браузер)
+  console.log("Params ID:", params.id);
+  console.log("Is CS2 detected:", isCS2);
 
   const title = isCS2
     ? "Сервера Counter Strike 2 (CS2) — Мониторинг серверов CS2"

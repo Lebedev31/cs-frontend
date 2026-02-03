@@ -4,7 +4,7 @@ import MyServers from "@/Components/ProfileDropDown/MyServers/MyServers";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Мои серверы | GameState-Monitor",
+  title: "Мои сервера",
   description:
     "Управление вашими игровыми серверам в сервисе GameState-Monitor.",
   // По твоему запросу установлены значения true

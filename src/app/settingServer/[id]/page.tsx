@@ -6,7 +6,7 @@ export default function SettingServerPage() {
 }
 
 export const metadata: Metadata = {
-  title: "Настройки сервера | GameState-Monitor",
+  title: "Настройки сервера",
   description:
     "Панель управления игровым сервером. Изменяйте описание, обновляйте данные и настраивайте отображение вашего сервера в мониторинге.",
   // По твоему запросу установлены значения true

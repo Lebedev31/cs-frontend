@@ -3,7 +3,7 @@ import Main from "@/Components/Main/Main";
 
 // SEO для главной страницы
 export const metadata: Metadata = {
-  title: "Мониторинг серверов CS 1.6, CS:GO и CS2 - Рейтинг и статистика",
+  title: "GameState-Monitor — Игровые сервера",
   description:
     "Актуальный мониторинг игровых серверов Counter-Strike 1.6, CS:GO и CS2. Рейтинг серверов по популярности, онлайн игроков, карты и режимы. Найдите лучший сервер для игры!",
   keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "игровые серверы",
   ],
   openGraph: {
-    title: "gamestate-monitor.ru - Мониторинг серверов Counter-Strike",
+    title: "GameState-Monitor - Мониторинг серверов Counter-Strike",
     description:
       "Найдите лучшие серверы CS 1.6, CS:GO и CS2. Рейтинг, статистика, онлайн игроков",
     url: "/",

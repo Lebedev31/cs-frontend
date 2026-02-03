@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import WrapperAddServer from "@/Components/AddServer/WrapperAddServer";
 
 export const metadata: Metadata = {
-  title: "Добавить сервер | GameState-Monitor",
+  title: "Добавить сервер",
   description:
     "Добавьте свой сервер CS 1.6, CS:GO или CS2 в наш рейтинг бесплатно. Увеличьте количество игроков и популярность вашего сервера.",
   keywords: [

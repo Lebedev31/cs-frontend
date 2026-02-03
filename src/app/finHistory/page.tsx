@@ -4,7 +4,7 @@ import FinHistory from "@/Components/ProfileDropDown/FinHistory/FinHistory";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "История финансовых операций | GameState-Monitor",
+  title: "История финансовых операций",
   description:
     "Просмотр истории транзакций, пополнений и платежей в сервисе GameState-Monitor.",
   // Везде поставлено true по твоему запросу

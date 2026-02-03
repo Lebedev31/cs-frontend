@@ -13,7 +13,7 @@ export const safePoints = (server: GameServer) => {
   const points =
     server.service.balls?.listService?.reduce(
       (acc, item) => acc + item.quantity,
-      0
+      0,
     ) || 0;
   return server.rating + points;
 };
@@ -28,11 +28,21 @@ export default function ServerBlockItem({
   const router = useRouter();
   const pathName = usePathname();
 
-  const handlerServerPage = (ip: string, port: string) => {
+  const handlerServerPage = (name: string, ip: string, port: string) => {
+    // 1. Очищаем имя от спецсимволов, оставляем буквы, цифры и пробелы
+    // 2. Заменяем пробелы на тире
+    const safeName = name
+      .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+
+    // Формируем URL: Название-IP:Port
+    const urlSlug = `${safeName}-${ip}:${port}`;
+
     if (pathName === "/myServers" && onClose) {
       onClose(true);
     } else {
-      router.push(`/serverPage/${ip}:${port}`);
+      router.push(`/serverPage/${urlSlug}`);
     }
   };
 
@@ -49,7 +59,10 @@ export default function ServerBlockItem({
             ? "1px solid rgba(v.$neon-primary, 0.1"
             : `2px solid ${server.service.color.colorName}`,
       }}
-      onClick={() => handlerServerPage(server.ip, String(server.port))}
+      // Передаем также имя сервера для формирования URL
+      onClick={() =>
+        handlerServerPage(server.name, server.ip, String(server.port))
+      }
     >
       {/* ОБЩАЯ ОБЕРТКА КОНТЕНТА (Слева от картинки) */}
       <div className={styles.contentWrapper}>
