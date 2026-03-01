@@ -124,6 +124,7 @@
   height: 65px;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
 
   &::before {
     content: "";
@@ -168,13 +169,16 @@
   background-color: white;
 }
 
+/* Текст внутри кнопок соцсетей — скрываем на малых экранах */
+.buttonLabel {
+  font-size: 16px;
+}
+
 .error {
   @include m.error;
 }
 
-/* media queries removed as requested */
-
-/* Adaptation for screens <= 1000px */
+/* ── ≤1000px ── */
 @media (max-width: 1000px) {
   .loginForm {
     padding: 24px 40px;
@@ -194,7 +198,7 @@
   .buttonNumber {
     width: 32px;
     height: 32px;
-    font-size: 13px;
+    margin-right: 12px;
   }
 
   .forgotPassword {
@@ -209,5 +213,199 @@
   .disclaimer {
     font-size: 13px;
     padding-top: 16px;
+  }
+}
+
+/* ── ≤768px ── */
+@media (max-width: 768px) {
+  .loginForm {
+    padding: 20px 24px;
+    max-width: 100%;
+  }
+
+  .form {
+    gap: 16px;
+  }
+
+  .socialButton {
+    height: 52px;
+    font-size: 15px;
+    padding: 12px 14px;
+    justify-content: center;
+  }
+
+  .buttonNumber {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .divider {
+    margin: 24px 0;
+  }
+
+  .buttonLabel {
+    font-size: 12px;
+  }
+
+  .disclaimer {
+    font-size: 12px;
+    margin-top: 24px;
+    padding-top: 14px;
+  }
+
+  .createAccount {
+    font-size: 15px;
+  }
+}
+
+/* ── ≤600px — «Забыли пароль?» по центру, разделитель скрыть ── */
+@media (max-width: 600px) {
+  .loginForm {
+    padding: 16px 16px;
+  }
+
+  .forgotPassword {
+    text-align: center;
+    font-size: 14px;
+    margin-top: -8px;
+  }
+
+  /* Убираем горизонтальную линию-разделитель */
+  .divider {
+    background: transparent;
+    box-shadow: none;
+    margin: 16px 0;
+    height: auto;
+
+    &::after {
+      position: static;
+      transform: none;
+      display: block;
+      text-align: center;
+      padding: 0;
+      background: transparent;
+    }
+  }
+
+  .socialButton {
+    height: 50px;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .buttonLabel {
+    display: none;
+  }
+
+  .buttonNumber {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+
+    img {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
+
+  .disclaimer {
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .createAccount {
+    font-size: 14px;
+  }
+}
+
+/* ── ≤480px — скрываем текст в кнопках соцсетей, кнопки по иконке ── */
+@media (max-width: 480px) {
+  .loginForm {
+    padding: 14px 12px;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  /* Текст в кнопках соцсетей скрываем */
+  .buttonLabel {
+    display: none;
+  }
+
+  .socialButton {
+    width: 50%;
+    justify-content: center;
+    height: 48px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .buttonNumber {
+    margin-right: 0;
+    width: 32px;
+    height: 32px;
+
+    img {
+      width: 26px !important;
+      height: 26px !important;
+    }
+  }
+
+  .socialLogin {
+    gap: 12px;
+  }
+
+  .disclaimer {
+    font-size: 11px;
+  }
+}
+
+/* ── ≤360px — самые маленькие экраны ── */
+@media (max-width: 360px) {
+  .loginForm {
+    padding: 12px 8px;
+  }
+
+  .form {
+    gap: 12px;
+  }
+
+  .socialButton {
+    height: 44px;
+    padding: 8px;
+  }
+
+  .buttonNumber {
+    width: 28px;
+    height: 28px;
+
+    img {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+
+  .socialLogin {
+    gap: 8px;
+  }
+
+  .forgotPassword {
+    font-size: 13px;
+  }
+
+  .createAccount {
+    font-size: 13px;
+  }
+
+  .disclaimer {
+    font-size: 10px;
+    padding-top: 12px;
+    margin-top: 20px;
+  }
+
+  .divider {
+    margin: 12px 0;
   }
 }

@@ -14,18 +14,16 @@ import { AsideEndpointsUnion, GameServer } from "@/types/type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image"; // <--- 1. Импортируем Image
+import Image from "next/image";
 
 type MenuItem = {
   key: string;
   label: string;
-  icon?: string; // <--- 2. Добавляем опциональное поле для пути к картинке
+  icon?: string;
   type: "api" | "link";
   href: string;
 };
 
-// 3. Указываем пути к картинкам.
-// Убедись, что файлы лежат в папке public (например public/csgo-icon.png)
 const menuItems: MenuItem[] = [
   {
     key: "CS:GO",
@@ -37,19 +35,19 @@ const menuItems: MenuItem[] = [
   {
     key: "CS2",
     label: "CS2",
-    icon: "/cs2_ico.jpg", // <-- Твоя картинка для CS2
+    icon: "/cs2_ico.jpg",
     type: "api",
     href: "/server-list/cs2",
   },
   {
     key: "addServer",
-    label: "➕ Добавить сервер", // Убрал эмодзи из текста, так как теперь есть иконки
+    label: "➕ Добавить сервер",
     type: "link",
     href: "/addServer",
   },
   {
     key: "premium",
-    label: "🛒 Раскрутка сервера", // Тут оставил как было
+    label: "🛒 Раскрутка сервера",
     type: "link",
     href: "/premium",
   },
@@ -61,10 +59,14 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default function AsideMenu() {
+type Props = {
+  onLinkClick?: () => void;
+};
+
+export default function AsideMenu({ onLinkClick }: Props) {
   const dispatch: AppDispatch = useDispatch();
   const selectedServer = useSelector(
-    (state: RootState) => state.main.selectedServer
+    (state: RootState) => state.main.selectedServer,
   );
   const pathname = usePathname();
   const [isInitialized, setIsInitialized] = useState(false);
@@ -72,7 +74,7 @@ export default function AsideMenu() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedType = localStorage.getItem(
-        "typeGame"
+        "typeGame",
       ) as AsideEndpointsUnion | null;
 
       if (savedType && (savedType === "CS:GO" || savedType === "CS2")) {
@@ -89,7 +91,7 @@ export default function AsideMenu() {
     {
       pollingInterval: 50000,
       skipPollingIfUnfocused: true,
-    }
+    },
   );
 
   const globalFilter = (servers: GameServer[]) => {
@@ -122,9 +124,9 @@ export default function AsideMenu() {
     const gameKey = key as AsideEndpointsUnion;
     dispatch(setSelectedServer(gameKey));
     localStorage.setItem("typeGame", gameKey);
+    onLinkClick?.();
   };
 
-  // Хелпер для рендера содержимого (иконка + текст)
   const renderContent = (item: MenuItem, isActive: boolean) => (
     <>
       <div className={styles.contentWrapper}>
@@ -141,9 +143,8 @@ export default function AsideMenu() {
         )}
         <span>{item.label}</span>
       </div>
-
       {item.type === "api" && isLoading && isActive && (
-        <span className={styles.loader}> ⚡</span>
+        <span className={styles.loader}>⚡</span>
       )}
     </>
   );
@@ -158,7 +159,11 @@ export default function AsideMenu() {
             selectedServer === item.key;
 
           return (
-            <Link key={item.key} href={item.href}>
+            <Link
+              key={item.key}
+              href={item.href}
+              style={{ textDecoration: "none" }}
+            >
               <div
                 className={`${styles.link} ${isActive ? styles.active : ""} ${
                   isLoading && isActive ? styles.loading : ""
@@ -178,8 +183,8 @@ export default function AsideMenu() {
             key={item.key}
             href={item.href}
             className={`${styles.link} ${isLinkActive ? styles.active : ""}`}
+            onClick={onLinkClick}
           >
-            {/* Для простых ссылок тоже используем обертку, чтобы выровнять, если там будет иконка */}
             {renderContent(item, isLinkActive)}
           </Link>
         );

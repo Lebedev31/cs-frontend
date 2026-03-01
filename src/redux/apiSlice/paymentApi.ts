@@ -79,6 +79,10 @@ export const paymentApi = createApi({
     getFinHistory: builder.query<MessageServer<FinHistory[]>, void>({
       query: () => "/fin-history",
     }),
+
+    getPrice: builder.query<MessageServer<number[]>, { service: string }>({
+      query: ({ service }) => `price/${service}`,
+    }),
   }),
 });
 export const {
@@ -90,4 +94,5 @@ export const {
   useUpdateServiceColorMutation,
   useUpdateServiceBallsMutation,
   useGetFinHistoryQuery,
+  useGetPriceQuery,
 } = paymentApi;

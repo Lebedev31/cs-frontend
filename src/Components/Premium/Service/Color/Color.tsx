@@ -11,16 +11,20 @@ import {
   HexColorLiteral,
 } from "@/types/service.type";
 import { handleSubmit } from "@/lib/common";
-import { useUpdateServiceColorMutation } from "@/redux/apiSlice/paymentApi";
+import {
+  useUpdateServiceColorMutation,
+  useGetPriceQuery,
+} from "@/redux/apiSlice/paymentApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 export default function Color() {
   const [color, setColor] = useState<HexColorLiteral | "none">("none");
   const [purchaseService] = useUpdateServiceColorMutation();
   const [selectedPlan, setSelectedPlan] = useState<PlanUnionLiteral | null>(
-    null
+    null,
   );
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
+  const { data } = useGetPriceQuery({ service: "color" });
 
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
@@ -42,7 +46,7 @@ export default function Color() {
       serverRef: React.RefObject<HTMLSelectElement | null>;
       emailRef: React.RefObject<HTMLInputElement | null>;
       offerRef: React.RefObject<HTMLInputElement | null>;
-    }
+    },
   ) => {
     if (!selectedPlan) {
       setValidationErrors((prev) => ({
@@ -102,7 +106,7 @@ export default function Color() {
       formData,
       (data) => {
         toast.success(
-          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
         setSelectedPlan(null);
         setSelectedPrice(0);
@@ -110,7 +114,7 @@ export default function Color() {
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
-      }
+      },
     );
   };
 
@@ -124,7 +128,7 @@ export default function Color() {
       <>
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
-          price={[50, 190, 1080, 2040]}
+          price={data && data.data ? data.data : [0, 0, 0, 0]}
           discount={["", "(Скидка 5%)", "(Скидка 10%)", "(Скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}

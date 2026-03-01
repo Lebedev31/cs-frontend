@@ -9,17 +9,20 @@ import {
   VipValidationType,
 } from "@/types/service.type";
 import { handleSubmit } from "@/lib/common";
-import { useUpdateServiceVipMutation } from "@/redux/apiSlice/paymentApi";
+import {
+  useUpdateServiceVipMutation,
+  useGetPriceQuery,
+} from "@/redux/apiSlice/paymentApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Vip() {
   const [purchaseService] = useUpdateServiceVipMutation();
   const [selectedPlan, setSelectedPlan] = useState<PlanUnionLiteral | null>(
-    null
+    null,
   );
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
-
+  const { data } = useGetPriceQuery({ service: "vip" });
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
     errorEmail: "",
@@ -39,7 +42,7 @@ export default function Vip() {
       serverRef: React.RefObject<HTMLSelectElement | null>;
       emailRef: React.RefObject<HTMLInputElement | null>;
       offerRef: React.RefObject<HTMLInputElement | null>;
-    }
+    },
   ) => {
     if (!selectedPlan) {
       setValidationErrors((prev) => ({
@@ -91,14 +94,14 @@ export default function Vip() {
       formData,
       (data) => {
         toast.success(
-          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
         setSelectedPlan(null);
         setSelectedPrice(0);
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
-      }
+      },
     );
   };
 
@@ -112,7 +115,7 @@ export default function Vip() {
       <>
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TermBlock
-          price={[85, 320, 1835, 3470]}
+          price={data && data.data ? data.data : [0, 0, 0, 0]}
           discount={["", "(скидка 5%)", "(скидка 10%)", "(скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}

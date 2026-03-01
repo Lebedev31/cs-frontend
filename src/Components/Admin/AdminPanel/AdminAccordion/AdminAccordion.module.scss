@@ -1,0 +1,76 @@
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
+
+.container {
+  @include m.wrapper();
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(v.$neon-primary, 0.3);
+  margin-bottom: 25px;
+  transition: v.$transition-glow;
+
+  &:hover {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 15px rgba(v.$neon-primary, 0.1);
+  }
+}
+
+.header {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: v.$new-panel;
+  user-select: none;
+
+  &:hover {
+    background: rgba(v.$neon-primary, 0.05);
+  }
+
+  &_open {
+    border-bottom: 1px solid rgba(v.$neon-primary, 0.2);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__icon {
+    font-size: 22px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: v.$text-primary;
+  }
+
+  &__arrow {
+    color: v.$neon-primary;
+    text-shadow: v.$glow-primary;
+    transition: transform 0.3s ease;
+  }
+}
+
+.content {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &_visible {
+    max-height: 2000px; // Большой запас для таблиц
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.inner {
+  padding: 30px 40px;
+}

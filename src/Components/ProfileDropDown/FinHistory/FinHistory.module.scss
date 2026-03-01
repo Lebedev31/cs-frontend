@@ -1,5 +1,6 @@
 @use "../../../styles/variable.scss" as v;
 @use "../../../styles/mixins.scss" as m;
+
 .page {
   @include m.page();
   color: v.$text-primary;
@@ -18,21 +19,19 @@
   padding: 40px;
 }
 
-/* Заголовок */
 .title {
   @include m.title();
   margin-top: 0;
 }
 
-/* Обёртка таблицы */
 .tableWrapper {
   border: 2px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
-  overflow: hidden;
+  overflow-x: auto;
   background: rgba(5, 5, 8, 0.6);
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Таблица — ровная, терминальная */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -40,7 +39,6 @@
   color: v.$text-primary;
 }
 
-/* Заголовок таблицы */
 .table thead {
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 2px solid rgba(255, 255, 255, 0.06);
@@ -53,13 +51,13 @@
   color: v.$text-primary;
   letter-spacing: 0.4px;
   border-right: 1px solid rgba(255, 255, 255, 0.03);
+  white-space: nowrap;
 }
 
 .table thead th:last-child {
   border-right: none;
 }
 
-/* Колонки: ширины как на макете */
 .colDate {
   width: 25%;
 }
@@ -75,7 +73,6 @@
   text-align: center;
 }
 
-/* Тело таблицы */
 .table tbody tr {
   transition: v.$transition-fast;
   border-bottom: 1px solid rgba(255, 255, 255, 0.02);
@@ -87,7 +84,6 @@
   box-shadow: 0 0 20px rgba(0, 247, 255, 0.03);
 }
 
-/* Ячейки */
 .table td {
   padding: 18px 20px;
   vertical-align: middle;
@@ -99,7 +95,6 @@
   border-right: none;
 }
 
-/* Сумма: плюс/минус визуал */
 .amount {
   padding: 6px 10px;
   border-radius: 6px;
@@ -118,7 +113,6 @@
   text-shadow: v.$glow-danger;
 }
 
-/* Статус */
 .status {
   display: inline-block;
   padding: 6px 12px;
@@ -127,7 +121,7 @@
   font-size: 11px;
   letter-spacing: 0.6px;
   text-transform: uppercase;
-  color: v.$text-header;
+  white-space: nowrap;
 }
 
 .statusSuccess {
@@ -151,73 +145,152 @@
   border: 1px solid rgba(255, 0, 60, 0.12);
 }
 
-/* Мелкие стили для адаптива */
+// ─── Адаптивность ────────────────────────────────────────────────
+
 @media (max-width: 900px) {
-  .colDesc {
-    width: 46%;
+  .wrapper {
+    padding: 24px;
+    width: 96%;
   }
-  .colDate {
-    width: 22%;
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 28px;
   }
-  .colAmount {
-    width: 18%;
-  }
+
   .table thead th,
   .table td {
     padding: 12px 10px;
     font-size: 14px;
   }
+}
+
+@media (max-width: 650px) {
   .wrapper {
-    padding: 24px;
+    padding: 16px;
+    width: 100%;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
+
   .title {
-    font-size: 28px;
-    margin-bottom: 28px;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .table thead th,
+  .table td {
+    font-size: 13px;
+    padding: 10px 8px;
   }
 }
 
+// Карточки вместо таблицы
 @media (max-width: 520px) {
   .table thead {
     display: none;
   }
+
   .table,
-  .table tbody,
-  .table tr,
-  .table td {
+  .table tbody {
     display: block;
     width: 100%;
   }
-  .table tr {
-    margin-bottom: 12px;
-    border-bottom: none;
+
+  .table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "date   amount"
+      "desc   status";
+    gap: 10px 12px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.02);
     padding: 12px;
+    height: auto;
+    box-sizing: border-box;
   }
+
   .table td {
-    padding: 8px 10px;
-    border-right: none;
+    padding: 0;
+    border: none;
+    font-size: 12px;
+    vertical-align: top;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
-  .cellDate::before {
-    content: "Дата: ";
+
+  .table td::before {
+    font-size: 10px;
     font-weight: 700;
-    margin-right: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.3);
   }
-  .cellDesc::before {
-    content: "Описание: ";
-    font-weight: 700;
-    display: block;
-    margin-top: 6px;
+
+  .cellDate {
+    grid-area: date;
+    &::before {
+      content: "Дата";
+    }
   }
-  .cellAmount::before {
-    content: "Сумма: ";
-    font-weight: 700;
-    display: block;
-    margin-top: 6px;
+
+  .cellAmount {
+    grid-area: amount;
+    align-items: flex-end;
+    &::before {
+      content: "Сумма";
+    }
   }
-  .cellStatus::before {
-    content: "Статус: ";
-    font-weight: 700;
-    display: block;
-    margin-top: 6px;
+
+  .cellDesc {
+    grid-area: desc;
+    font-size: 12px;
+    &::before {
+      content: "Описание";
+    }
+  }
+
+  .cellStatus {
+    grid-area: status;
+    align-items: flex-end;
+    &::before {
+      content: "Статус";
+    }
+  }
+
+  .status {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .amount {
+    font-size: 13px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .table tbody tr {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .table td {
+    font-size: 11px;
+  }
+
+  .status {
+    font-size: 9px;
+    padding: 3px 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .amount {
+    font-size: 12px;
   }
 }

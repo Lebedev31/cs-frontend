@@ -1,14 +1,14 @@
 @use "./variable.scss" as v;
 
 @mixin ipPort() {
-  font-size: 13px;
-  width: 140px;
+  font-size: clamp(11px, 1.5vw, 13px);
+  width: clamp(100px, 15vw, 140px);
   color: v.$glitch-purple;
   text-align: center;
 }
 
 @mixin name() {
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   color: v.$text-primary;
   font-weight: 600;
   line-height: 1.2;
@@ -26,12 +26,17 @@
 
 @mixin error() {
   color: v.$neon-danger;
-  font-size: 12px;
+  font-size: clamp(10px, 1.5vw, 12px);
   text-align: center;
   text-transform: uppercase;
 }
 
-@mixin button($h: 70px, $fs: 20px, $pad: 20px) {
+// Задаем плавающие значения по умолчанию
+@mixin button(
+  $h: clamp(50px, 6vw, 70px),
+  $fs: clamp(15px, 2vw, 20px),
+  $pad: clamp(12px, 2vw, 20px)
+) {
   padding: $pad;
   background: v.$gradient-button-glow;
   color: v.$bg-dark;
@@ -46,6 +51,7 @@
   height: $h;
   position: relative;
   overflow: hidden;
+
   &::before {
     content: "";
     position: absolute;
@@ -63,7 +69,9 @@
   }
 
   &:hover {
-    box-shadow: v.$glow-primary, 0 0 30px rgba(v.$neon-primary, 0.5);
+    box-shadow:
+      v.$glow-primary,
+      0 0 30px rgba(v.$neon-primary, 0.5);
     transform: translateY(-3px);
 
     &::before {
@@ -73,15 +81,15 @@
 }
 
 @mixin input() {
-  padding: 20px 24px;
+  padding: clamp(12px, 2vw, 20px) clamp(16px, 3vw, 24px);
   background: v.$new-input-background;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: clamp(14px, 2vw, 18px);
   color: v.$text-primary;
   outline: none;
   transition: v.$transition-glow;
-  height: 60px;
+  height: clamp(50px, 6vw, 60px);
 
   &:focus {
     border-color: v.$neon-primary;
@@ -91,27 +99,26 @@
 
   &::placeholder {
     color: rgba(v.$text-primary, 0.6);
-    font-size: 16px;
+    font-size: clamp(12px, 1.8vw, 16px);
   }
 }
 
 @mixin title() {
-  font-size: 35px;
+  font-size: clamp(24px, 4vw, 35px);
   font-weight: 700;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: clamp(30px, 5vw, 50px);
   color: v.$text-primary;
   text-shadow: v.$glow-primary;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.2vw, 2px);
 }
 
 @mixin page() {
-  //background: v.$gradient-cyber-terminal;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: clamp(10px, 3vw, 20px);
   min-height: 100vh;
 }
 
@@ -121,16 +128,15 @@
   background-color: v.$new-panel;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: v.$border-radius-neon;
-  padding: 40px;
-  // box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), v.$glow-primary;
-  margin: 20px auto;
+  padding: clamp(20px, 4vw, 40px);
+  margin: clamp(10px, 2vw, 20px) auto;
 }
 
 @mixin select() {
   background: v.$new-input-background;
   border: 2px solid v.$neon-accent;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: clamp(14px, 2vw, 18px);
   color: v.$text-primary;
   outline: none;
   transition: v.$transition-glow;
@@ -140,8 +146,9 @@
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300f7ff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 24px center;
-  height: 70px;
+  // Положение стрелочки тоже адаптируем
+  background-position: right clamp(12px, 3vw, 24px) center;
+  height: clamp(50px, 7vw, 70px);
 
   option {
     background: v.$new-common;
@@ -159,13 +166,15 @@
   $color2: v.$cs-yellow
 ) {
   width: 100%;
-  padding: 18px;
+  padding: clamp(12px, 2vw, 18px);
   background: linear-gradient(45deg, $color, $color2) !important;
   color: v.$bg-dark;
   @include button();
 
   &:hover {
-    box-shadow: 0 0 20px rgba($color, 0.7), 0 0 40px rgba($color, 0.5);
+    box-shadow:
+      0 0 20px rgba($color, 0.7),
+      0 0 40px rgba($color, 0.5);
     transform: translateY(-2px);
 
     &::before {
@@ -191,31 +200,39 @@
   justify-content: center;
   z-index: v.$z-modal;
   animation: fadeIn 0.5s ease-in-out;
+  padding: clamp(
+    10px,
+    3vw,
+    20px
+  ); // Чтобы модалка не прилипала к краям на мобильных
 }
 
 @mixin modal($color: v.$neon-warning, $color2: v.$cs-yellow) {
+  width: 100%; // Гарантирует, что на мобилках займет доступное место
   max-width: 700px;
   background: v.$new-panel;
   border: 2px solid $color;
   border-radius: 12px;
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px);
   position: relative;
-  box-shadow: 0 0 20px rgba($color, 0.4), 0 0 40px rgba($color, 0.2),
+  box-shadow:
+    0 0 20px rgba($color, 0.4),
+    0 0 40px rgba($color, 0.2),
     0 0 60px rgba($color, 0.1);
   animation: modalAppear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @mixin closeButton($color: v.$neon-warning) {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 35px;
-  height: 35px;
+  top: clamp(10px, 2vw, 15px);
+  right: clamp(10px, 2vw, 15px);
+  width: clamp(28px, 4vw, 35px);
+  height: clamp(28px, 4vw, 35px);
   background: transparent;
   border: 2px solid $color;
   border-radius: 50%;
   color: $color;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -231,24 +248,25 @@
 }
 
 @mixin titleModal($text-shadow-color: v.$neon-warning) {
-  font-size: 32px;
+  font-size: clamp(20px, 4vw, 32px);
   font-weight: 700;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: clamp(15px, 3vw, 25px);
   color: v.$text-primary;
-  text-shadow: 0 0 10px rgba($text-shadow-color, 0.6),
+  text-shadow:
+    0 0 10px rgba($text-shadow-color, 0.6),
     0 0 20px rgba(v.$neon-warning, 0.4);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.2vw, 2px);
 }
 
-@mixin descriptionModal($fz: 14px) {
+@mixin descriptionModal($fz: clamp(12px, 1.8vw, 14px)) {
   font-size: $fz;
   line-height: 1.6;
   color: rgba(v.$text-primary, 0.85);
   text-align: center;
-  margin-bottom: 35px;
-  padding: 0 10px;
+  margin-bottom: clamp(20px, 4vw, 35px);
+  padding: 0 clamp(0px, 2vw, 10px);
 }
 
 @mixin animationModal() {
@@ -260,7 +278,6 @@
       opacity: 1;
     }
   }
-
   @keyframes modalAppear {
     from {
       opacity: 0;
@@ -271,7 +288,6 @@
       transform: scale(1) translateY(0);
     }
   }
-
   @keyframes borderGlow {
     0%,
     100% {

@@ -138,13 +138,16 @@ export default function ServerPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        serverId={`${server.ip}:${server.port}`} // Передаем чистый ID в модалку
+        serverId={`${server.ip}:${server.port}`}
       />
 
       <div className={styles.wrapper}>
         <h1 className={styles.title}>{server.name}</h1>
+
         <div className={styles.server_info}>
+          {/* ── ЛЕВАЯ КОЛОНКА (десктоп) ── */}
           <div className={styles.left_column}>
+            {/* 1. Карта */}
             <div className={styles.map_card}>
               <div className={styles.map_image}>
                 <Image
@@ -157,6 +160,8 @@ export default function ServerPage() {
               </div>
               <div className={styles.map_title}>{server.map}</div>
             </div>
+
+            {/* 2. Прогресс */}
             <div className={styles.progress_card}>
               <div className={styles.progress_text}>
                 <span className={styles.players_label}>
@@ -171,10 +176,12 @@ export default function ServerPage() {
                 <div
                   className={styles.progress_fill}
                   style={{ width: `${percentage}%` }}
-                ></div>
+                />
               </div>
             </div>
-            <div className={styles.tags_card}>
+
+            {/* 5. Опции — на мобиле уйдёт вниз через order */}
+            <div className={`${styles.tags_card} ${styles.order_tags}`}>
               <div className={styles.tags_title}>Опции:</div>
               <div className={styles.tags_list}>
                 {server.tags && server.tags.length > 0 ? (
@@ -189,7 +196,8 @@ export default function ServerPage() {
               </div>
             </div>
 
-            <div className={styles.rating_card}>
+            {/* 6. Рейтинг — на мобиле уйдёт вниз через order */}
+            <div className={`${styles.rating_card} ${styles.order_rating}`}>
               <div className={styles.rating_value}>{balls}</div>
               <div className={styles.rating_img} style={{ cursor: "pointer" }}>
                 <div className={styles.img_block}>
@@ -203,8 +211,10 @@ export default function ServerPage() {
                 </div>
               </div>
             </div>
+
+            {/* 8. VIP — в самом конце */}
             {server.service?.vip?.status ? (
-              <div className={styles.vip_crown}>
+              <div className={`${styles.vip_crown} ${styles.order_vip}`}>
                 <Image
                   fill
                   src={"/vip.png"}
@@ -214,8 +224,11 @@ export default function ServerPage() {
               </div>
             ) : null}
           </div>
+
+          {/* ── ПРАВАЯ ОБЁРТКА (десктоп) ── */}
           <div className={styles.right_wrapper}>
             <div className={styles.center_right_wrapper}>
+              {/* 3. Общая информация */}
               <div className={styles.center_column}>
                 <div className={styles.server_header}>
                   <div className={styles.server_info_grid}>
@@ -227,10 +240,8 @@ export default function ServerPage() {
                       <span className={styles.info_label}>Адрес:</span>
                       <div className={styles.address_value}>
                         <span
-                          className={`fi fi-${server.country.toLowerCase()} ${
-                            styles.countryFlag
-                          }`}
-                        ></span>
+                          className={`fi fi-${server.country.toLowerCase()} ${styles.countryFlag}`}
+                        />
                         {`${server.ip}:${server.port}`}
                         <CoppyButton
                           ip={server.ip}
@@ -247,9 +258,7 @@ export default function ServerPage() {
                     <div className={styles.info_item}>
                       <span className={styles.info_label}>Статус сервера:</span>
                       <span
-                        className={`${styles.info_value} ${
-                          server.isOnline ? styles.online : styles.offline
-                        }`}
+                        className={`${styles.info_value} ${server.isOnline ? styles.online : styles.offline}`}
                       >
                         {server.isOnline ? "Включен" : "Выключен"}
                       </span>
@@ -296,14 +305,11 @@ export default function ServerPage() {
                       <span className={styles.info_label}>Мод:</span>
                       <span className={styles.info_value}>{server.mode}</span>
                     </div>
-
                     <div className={styles.info_item}>
                       <span className={styles.info_label}>Пинг:</span>
                       <span className={styles.info_value}>
                         <span
-                          className={`${styles.ping_in_line} ${getPingColor(
-                            server.ping,
-                          )}`}
+                          className={`${styles.ping_in_line} ${getPingColor(server.ping)}`}
                         >
                           {server.ping} ms
                         </span>
@@ -322,6 +328,8 @@ export default function ServerPage() {
                   </div>
                 </div>
               </div>
+
+              {/* 4. Список игроков */}
               <div className={styles.right_column}>
                 <div className={styles.players_card}>
                   <div className={styles.players_title}>Список игроков</div>
@@ -361,18 +369,20 @@ export default function ServerPage() {
                 </div>
               </div>
             </div>
+
+            {/* 7. Описание */}
             <div className={styles.description_card}>
               <div className={styles.description_title}>Описание</div>
               <p
-                className={`${styles.description_text} ${
-                  !server.description ? styles.description_missing : ""
-                }`}
+                className={`${styles.description_text} ${!server.description ? styles.description_missing : ""}`}
               >
                 {server.description || "Описания нет"}
               </p>
             </div>
           </div>
         </div>
+
+        {/* 9. Комментарии */}
         <CommentsBlock serverId={server.serverId} />
       </div>
     </div>

@@ -29,14 +29,11 @@ export default function ServerBlockItem({
   const pathName = usePathname();
 
   const handlerServerPage = (name: string, ip: string, port: string) => {
-    // 1. Очищаем имя от спецсимволов, оставляем буквы, цифры и пробелы
-    // 2. Заменяем пробелы на тире
     const safeName = name
       .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
       .trim()
       .replace(/\s+/g, "-");
 
-    // Формируем URL: Название-IP:Port
     const urlSlug = `${safeName}-${ip}:${port}`;
 
     if (pathName === "/myServers" && onClose) {
@@ -46,27 +43,29 @@ export default function ServerBlockItem({
     }
   };
 
+  const mapImg = getMapImagePath(server.map || "", server.game);
+
   return (
     <div
       className={styles.serverBlockItem}
-      style={{
-        backgroundColor:
-          server.service.color.colorName === "none"
-            ? "#22262c"
-            : server.service.color.colorName,
-        border:
-          server.service.color.colorName === "none"
-            ? "1px solid rgba(v.$neon-primary, 0.1"
-            : `2px solid ${server.service.color.colorName}`,
-      }}
-      // Передаем также имя сервера для формирования URL
+      style={
+        {
+          backgroundColor:
+            server.service.color.colorName === "none"
+              ? "#22262c"
+              : server.service.color.colorName,
+          border:
+            server.service.color.colorName === "none"
+              ? "1px solid rgba(255, 255, 255, 0.1)" // Упростил для примера, верните переменную если нужно
+              : `2px solid ${server.service.color.colorName}`,
+          "--bg-map": `url(${mapImg})`, // ПЕРЕДАЕМ КАРТИНКУ В CSS
+        } as React.CSSProperties
+      }
       onClick={() =>
         handlerServerPage(server.name, server.ip, String(server.port))
       }
     >
-      {/* ОБЩАЯ ОБЕРТКА КОНТЕНТА (Слева от картинки) */}
       <div className={styles.contentWrapper}>
-        {/* ЛЕВАЯ ЧАСТЬ: ИНФО (Растягивается) */}
         <div className={styles.serverInfo}>
           <div className={styles.nameRow}>
             {server.service.vip.status && (
@@ -74,7 +73,7 @@ export default function ServerBlockItem({
                 <Image
                   fill
                   src={"/vip.png"}
-                  alt={server.map || "map"}
+                  alt="vip"
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -99,24 +98,19 @@ export default function ServerBlockItem({
           </div>
         </div>
 
-        {/* ПРАВАЯ ЧАСТЬ: КНОПКИ + МЕТА (Фиксированная ширина) */}
         <div className={styles.rightMetaGroup}>
-          {/* 1. Кнопка Copy (слева) */}
           <div className={styles.copyBtn} onClick={(e) => e.stopPropagation()}>
             <CoppyButton ip={server.ip} port={String(server.port)} />
           </div>
 
-          {/* 2. Кнопка Play */}
           <div className={styles.playBtn}>
             <Play width="16" height="16" ip={server.ip} port={server.port} />
           </div>
 
-          {/* 3. Карта (с троеточием) */}
           <div className={styles.mapInfo} title={server.map}>
             {server.map}
           </div>
 
-          {/* 4. Игроки */}
           <div className={styles.playersWrapper}>
             <PlayersInfo
               players={server.players}
@@ -126,11 +120,10 @@ export default function ServerBlockItem({
         </div>
       </div>
 
-      {/* КАРТИНКА (Справа) */}
       <div className={styles.imageContainer}>
         <Image
           fill
-          src={`${getMapImagePath(server.map || "", server.game)}`}
+          src={mapImg}
           alt={server.map || "map"}
           style={{ objectFit: "cover" }}
         />

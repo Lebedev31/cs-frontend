@@ -1,35 +1,27 @@
-/*.updateBlock {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  .updateBlock_union {
-    width: 58%;
-  }
-
-  .premium {
-    width: 40%;
-    .advertising {
-      width: 100%;
-      height: 400px;
-    }
-  }
-}*/
-
 .updateBlock {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 
   .updateBlock_union {
     width: 58%;
+
+    @media (max-width: 1280px) {
+      width: 100%;
+    }
   }
 
   .premium {
     width: 40%;
     position: relative;
 
-    // Обертка для баннера (сохраняет место в потоке)
+    // На ≤ 1280px правая колонка (список топ серверов) скрывается
+    // вместо неё над списком серверов появляется слайдер
+    @media (max-width: 1280px) {
+      display: none;
+    }
+
     .bannerWrapper {
       width: 100%;
       position: relative;
@@ -38,15 +30,23 @@
     .advertising {
       width: 100%;
       height: 400px;
-      transition: none; // Убираем transition чтобы не было скачков
+      transition: none;
 
-      // Липкое состояние
       &.stickyBanner {
         position: fixed;
         top: 5px;
         z-index: 100;
-        // Ширина задается через inline style в компоненте
       }
     }
+  }
+}
+
+// Слайдер над списком серверов — только на ≤ 1280px
+.topSliderMobile {
+  display: none;
+  margin-bottom: 20px;
+
+  @media (max-width: 1280px) {
+    display: block;
   }
 }

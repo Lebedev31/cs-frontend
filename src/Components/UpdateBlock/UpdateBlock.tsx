@@ -1,46 +1,10 @@
-/*"use client";
-import styles from "./UpdateBlock.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import AllServers from "./AllServers/AllServers";
-import PremiumServerBlockItem from "./PremiumServerBlockItem/PremiumServerBlockItem";
-// 1. Импортируем скелетон
-import MainPageSkeleton from "./MainServerSkeleton/MainServerSceleton";
-import AddBanner from "../AddBanner/AddBanner";
-
-export default function UpdateBlock() {
-  const serversArr = useSelector((state: RootState) => state.main.servers);
-  const isLoading = useSelector(
-    (state: RootState) => state.main.isLoadingServers
-  );
-  if (isLoading) {
-    return <MainPageSkeleton />;
-  }
-
-  return (
-    <div className={styles.updateBlock}>
-      <div className={styles.updateBlock_union}>
-        <AllServers data={serversArr} />
-      </div>
-      <div className={styles.premium}>
-        <PremiumServerBlockItem />
-        <div className={styles.advertising}>
-          <AddBanner
-            size="responsive"
-            customHtml="<div>Моя реклама</div>"
-            style={{ minHeight: "300px" }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}*/
 "use client";
 import styles from "./UpdateBlock.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import AllServers from "./AllServers/AllServers";
 import PremiumServerBlockItem from "./PremiumServerBlockItem/PremiumServerBlockItem";
+import TopServerSlider from "./TopServerSlider/TopServerSlider";
 import MainPageSkeleton from "./MainServerSkeleton/MainServerSceleton";
 import AddBanner from "../AddBanner/AddBanner";
 import { useEffect, useRef, useState } from "react";
@@ -48,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
 export default function UpdateBlock() {
   const serversArr = useSelector((state: RootState) => state.main.servers);
   const isLoading = useSelector(
-    (state: RootState) => state.main.isLoadingServers
+    (state: RootState) => state.main.isLoadingServers,
   );
 
   const premiumRef = useRef<HTMLDivElement>(null);
@@ -60,24 +24,19 @@ export default function UpdateBlock() {
     const handleScroll = () => {
       if (!premiumRef.current || !bannerRef.current) return;
 
-      const premiumBlock = premiumRef.current;
-      const premiumRect = premiumBlock.getBoundingClientRect();
-      const premiumBottom = premiumRect.bottom;
+      const premiumRect = premiumRef.current.getBoundingClientRect();
 
-      // Сохраняем ширину баннера для fixed позиционирования
       if (!isSticky) {
         setBannerWidth(bannerRef.current.offsetWidth);
       }
 
-      // Баннер становится sticky когда премиум блок прокручен
-      if (premiumBottom <= 0) {
+      if (premiumRect.bottom <= 0) {
         setIsSticky(true);
       } else {
         setIsSticky(false);
       }
     };
 
-    // Сохраняем начальную ширину
     if (bannerRef.current) {
       setBannerWidth(bannerRef.current.offsetWidth);
     }
@@ -99,14 +58,27 @@ export default function UpdateBlock() {
   return (
     <div className={styles.updateBlock}>
       <div className={styles.updateBlock_union}>
+        {/*
+          Слайдер — виден ТОЛЬКО на ≤ 1280px (через CSS display: none/block).
+          На десктопе скрыт — там топ отображается в правой колонке как список.
+        */}
+        <div className={styles.topSliderMobile}>
+          <TopServerSlider />
+        </div>
+
         <AllServers data={serversArr} />
       </div>
+
+      {/*
+        Правая колонка — видна ТОЛЬКО на > 1280px.
+        Содержит полный список топ серверов + баннер.
+        На ≤ 1280px скрывается через CSS.
+      */}
       <div className={styles.premium}>
         <div ref={premiumRef}>
           <PremiumServerBlockItem />
         </div>
 
-        {/* Placeholder для сохранения места когда баннер становится fixed */}
         <div
           className={styles.bannerWrapper}
           style={{ height: isSticky ? "400px" : "auto" }}

@@ -4,7 +4,7 @@
   width: 100%;
   display: flex;
   border-radius: v.$border-radius-neon;
-  min-height: 180px; // Изменено с height на min-height для адаптивности
+  min-height: 180px;
   background: v.$new-panel;
   border: 1px solid rgba(v.$neon-primary, 0.3);
   padding: 10px 20px 10px 20px;
@@ -13,6 +13,20 @@
   box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   margin-bottom: 25px;
   gap: 40px;
+  box-sizing: border-box;
+
+  // 850px — скрываем картинку, убираем gap
+  @media (max-width: 850px) {
+    gap: 0;
+    min-height: auto;
+    padding: 12px 16px;
+  }
+
+  // 600px — компактный режим
+  @media (max-width: 600px) {
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
 
   .filterServerBlock_logo {
     width: 250px;
@@ -30,6 +44,11 @@
       border-radius: v.$border-radius-neon;
       object-fit: cover;
     }
+
+    // 850px — прячем картинку
+    @media (max-width: 850px) {
+      display: none;
+    }
   }
 
   .filterServerBlock_filtration {
@@ -38,6 +57,10 @@
     flex-direction: column;
     gap: 0.5rem;
 
+    @media (max-width: 850px) {
+      width: 100%;
+    }
+
     h2 {
       text-align: center;
       text-transform: uppercase;
@@ -45,41 +68,26 @@
       color: v.$neon-warning;
       letter-spacing: 1px;
       margin: 0;
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+      }
+
+      @media (max-width: 400px) {
+        font-size: 0.9rem;
+      }
     }
 
-    // Контейнер для тегов
+    // Контейнер для тегов — скрыт на 600px, уходит в дропдаун
     .tagsContainer {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 0.3rem;
-    }
 
-    // Стили для кнопок-тегов
-    .tagButton {
-      padding: 0.4rem 1rem;
-      background: v.$new-input-background;
-      border: 1px solid rgba(v.$neon-primary, 0.4);
-      border-radius: v.$border-radius-neon;
-      color: v.$text-primary;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-
-      &:hover {
-        border-color: v.$neon-primary;
-        box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
-        transform: translateY(-1px);
-      }
-
-      &.tagActive {
-        background: rgba(v.$neon-primary, 0.2);
-        border-color: v.$neon-primary;
-        box-shadow: 0 0 12px rgba(v.$neon-primary, 0.5);
-        color: v.$neon-primary;
-        font-weight: 600;
+      @media (max-width: 600px) {
+        display: none;
       }
     }
 
@@ -89,10 +97,20 @@
       align-items: center;
       margin-top: 0.5rem;
       flex: 1;
+
+      // 600px — скрываем второй блок (карта + режим), уходят в дропдаун
+      @media (max-width: 600px) {
+        gap: 0;
+        margin-top: 0.3rem;
+
+        // Скрываем второй блок (карта + режим)
+        .filterServerBlock_block:last-child {
+          display: none;
+        }
+      }
     }
   }
 
-  // Блоки фильтров
   .filterServerBlock_block {
     flex: 1;
     display: flex;
@@ -100,7 +118,6 @@
     gap: 0.5rem;
   }
 
-  // Общие стили для инпутов и селектов
   .input,
   .select {
     width: 100%;
@@ -111,6 +128,123 @@
     color: v.$text-primary;
     font-size: 0.9rem;
     transition: v.$transition-fast;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: rgba(v.$text-primary, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: v.$neon-primary;
+      box-shadow: 0 0 8px rgba(v.$neon-primary, 0.5);
+    }
+
+    @media (max-width: 400px) {
+      font-size: 0.8rem;
+      padding: 0.35rem;
+    }
+  }
+
+  .inputGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+
+    input {
+      flex: 1;
+      min-width: 80px;
+    }
+
+    // 600px — инпуты мин/макс уходят в дропдаун
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M7.41%208.59L12%2013.17l4.59-4.58L18%2010l-6%206-6-6z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    background-size: 12px;
+    padding-right: 1.5rem;
+  }
+}
+
+// ============================
+// ДРОПДАУН "ВСЕ ФИЛЬТРЫ" < 600px
+// ============================
+
+.dropdownWrapper {
+  display: none;
+  margin-top: 8px;
+  box-sizing: border-box;
+
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
+
+.dropdownToggle {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: v.$new-input-background;
+  border: 1px solid rgba(v.$neon-primary, 0.4);
+  border-radius: v.$border-radius-neon;
+  color: v.$text-primary;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
+  }
+
+  &.open {
+    border-color: v.$neon-primary;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .toggleIcon {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.dropdownContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 12px;
+  background: v.$new-input-background;
+  border: 1px solid v.$neon-primary;
+  border-top: none;
+  border-bottom-left-radius: v.$border-radius-neon;
+  border-bottom-right-radius: v.$border-radius-neon;
+  box-sizing: border-box;
+
+  // Инпуты внутри дропдауна
+  .input,
+  .select {
+    width: 100%;
+    padding: 0.4rem;
+    background: v.$new-panel;
+    border: 1px solid rgba(v.$neon-primary, 0.4);
+    border-radius: 6px;
+    color: v.$text-primary;
+    font-size: 0.85rem;
+    box-sizing: border-box;
 
     &::placeholder {
       color: rgba(v.$text-primary, 0.5);
@@ -123,19 +257,6 @@
     }
   }
 
-  // Группа инпутов (мин/макс)
-  .inputGroup {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.3rem;
-
-    input {
-      flex: 1;
-      min-width: 80px;
-    }
-  }
-
-  // Селект
   .select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M7.41%208.59L12%2013.17l4.59-4.58L18%2010l-6%206-6-6z%22%2F%3E%3C%2Fsvg%3E");
@@ -143,5 +264,81 @@
     background-position: right 0.8rem center;
     background-size: 12px;
     padding-right: 1.5rem;
+  }
+
+  .inputGroup {
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+      flex: 1;
+    }
+  }
+
+  .dropdownTagsContainer {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .tagButton {
+    padding: 0.35rem 0.8rem;
+    background: v.$new-panel;
+    border: 1px solid rgba(v.$neon-primary, 0.4);
+    border-radius: v.$border-radius-neon;
+    color: v.$text-primary;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: v.$neon-primary;
+      box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
+    }
+
+    &.tagActive {
+      background: rgba(v.$neon-primary, 0.2);
+      border-color: v.$neon-primary;
+      box-shadow: 0 0 12px rgba(v.$neon-primary, 0.5);
+      color: v.$neon-primary;
+      font-weight: 600;
+    }
+  }
+
+  .dropdownLabel {
+    font-size: 0.75rem;
+    color: rgba(v.$text-primary, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+}
+
+// Теги на десктопе (вне дропдауна)
+.tagButton {
+  padding: 0.4rem 1rem;
+  background: v.$new-input-background;
+  border: 1px solid rgba(v.$neon-primary, 0.4);
+  border-radius: v.$border-radius-neon;
+  color: v.$text-primary;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 8px rgba(v.$neon-primary, 0.3);
+    transform: translateY(-1px);
+  }
+
+  &.tagActive {
+    background: rgba(v.$neon-primary, 0.2);
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 12px rgba(v.$neon-primary, 0.5);
+    color: v.$neon-primary;
+    font-weight: 600;
   }
 }

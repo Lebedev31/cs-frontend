@@ -3,17 +3,25 @@
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px; // Небольшой отступ между кнопками, если нужно
+  gap: 10px;
+
   a {
     text-decoration: none;
   }
 }
 
+// Когда AsideMenu рендерится внутри мобильной панели — вертикально
+:global(.mobilePanelInner) .nav {
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: 4px;
+}
+
 .link {
-  display: flex; // <-- Меняем block на flex для выравнивания лоадера и контента
+  display: flex;
   align-items: center;
-  justify-content: space-between; // Текст слева, лоадер справа
+  justify-content: space-between;
   padding: 0.8rem 1.2rem;
   color: v.$text-primary;
   text-decoration: none;
@@ -22,6 +30,7 @@
   transition: v.$transition-fast;
   position: relative;
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     color: v.$neon-primary;
@@ -38,7 +47,6 @@
 
   &.loading {
     color: v.$neon-warning !important;
-    position: relative;
     pointer-events: none;
 
     &::after {
@@ -59,29 +67,27 @@
   }
 }
 
-.link {
+.link:focus-visible {
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
+  border-radius: 8px;
   outline: none;
 }
 
-.link:focus-visible {
-  /* аккуратный фокус, одинаковый на всех системах */
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.18);
-  border-radius: 8px;
-}
-
-// Обертка для иконки и текста внутри ссылки
 .contentWrapper {
   display: flex;
   align-items: center;
-  gap: 8px; // Расстояние между картинкой и буквами
+  gap: 8px;
 }
 
-// Стили самой картинки
 .menuIcon {
   object-fit: contain;
-  // Размеры задаются в пропсах Image (width/height),
-  // но CSS гарантирует, что они не растянутся
   display: block;
+}
+
+.loader {
+  animation: bounce 0.8s infinite alternate;
+  font-size: 0.9em;
+  margin-left: 6px;
 }
 
 @keyframes loadingPulse {
@@ -94,12 +100,6 @@
   100% {
     opacity: 0.5;
   }
-}
-
-.loader {
-  animation: bounce 0.8s infinite alternate;
-  font-size: 0.9em;
-  margin-left: 6px;
 }
 
 @keyframes bounce {

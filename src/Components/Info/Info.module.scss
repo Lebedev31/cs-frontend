@@ -42,7 +42,7 @@
   }
 
   h4 {
-    color: #ffffff; /* заголовки h4 должны быть белыми */
+    color: #ffffff;
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 8px;
@@ -51,7 +51,9 @@
   a {
     color: v.$neon-primary;
     text-decoration: underline;
-    transition: color 0.15s ease, text-shadow 0.15s ease;
+    transition:
+      color 0.15s ease,
+      text-shadow 0.15s ease;
 
     &:hover {
       color: v.$neon-warning;
@@ -76,5 +78,80 @@
   p {
     font-size: 14px;
     color: rgba(v.$text-primary, 0.5);
+  }
+}
+
+// ─── Адаптивность ────────────────────────────────────────────────
+
+@media (max-width: 768px) {
+  .content {
+    gap: 20px;
+  }
+
+  .section {
+    padding: 18px;
+
+    h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    h4 {
+      font-size: 15px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    gap: 14px;
+  }
+
+  .section {
+    padding: 14px;
+
+    h3 {
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    h4 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+  }
+
+  .updated {
+    margin-top: 24px;
+    padding-top: 16px;
+
+    p {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .section {
+    padding: 12px;
+
+    h3 {
+      font-size: 14px;
+    }
+    h4 {
+      font-size: 13px;
+    }
+    p {
+      font-size: 12px;
+    }
   }
 }

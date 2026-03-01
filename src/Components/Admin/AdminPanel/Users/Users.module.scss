@@ -1,0 +1,101 @@
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 15px;
+    text-align: left;
+    color: v.$neon-primary;
+    border-bottom: 1px solid rgba(v.$neon-primary, 0.2);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 15px;
+    color: v.$text-primary;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+// В коде ты используешь styles.row_blocked
+.row_blocked {
+  background: rgba(v.$neon-danger, 0.1) !important;
+
+  td {
+    color: rgba(v.$text-primary, 0.5);
+  }
+}
+
+.nickname {
+  font-weight: 600;
+}
+
+.email {
+  color: rgba(v.$text-primary, 0.6);
+}
+
+.balanceInput {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(v.$neon-primary, 0.3);
+  color: white;
+  padding: 8px;
+  border-radius: 4px;
+  width: 120px;
+  outline: none;
+
+  &:focus {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 5px rgba(v.$neon-primary, 0.3);
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+// Базовый класс для кнопок
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+
+  // В коде: styles.btn_block
+  &_block {
+    border: 1px solid v.$neon-primary;
+    color: v.$neon-primary;
+
+    &:hover {
+      background: v.$neon-primary;
+      color: v.$bg-dark;
+      box-shadow: v.$glow-primary;
+    }
+  }
+
+  // В коде: styles.btn_delete
+  &_delete {
+    border: 1px solid v.$neon-danger;
+    color: v.$neon-danger;
+
+    &:hover {
+      background: v.$neon-danger;
+      color: white;
+      box-shadow: v.$glow-danger;
+    }
+  }
+}

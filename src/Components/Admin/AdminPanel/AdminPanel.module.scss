@@ -1,0 +1,7 @@
+@use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
+
+.admin_panel {
+  min-height: 100vh;
+  background: white;
+}

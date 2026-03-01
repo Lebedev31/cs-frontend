@@ -10,36 +10,90 @@
   cursor: pointer;
   box-shadow: inset 0 -1px 0 rgba(v.$neon-primary, 0.2);
   width: 100%;
+  position: relative; // Важно для позиционирования псевдоэлементов
   overflow: hidden;
   height: 80px;
   background-color: v.$new-panel;
-  transition: 0.3s all;
+
   &:hover {
     box-shadow: 0 0 10px rgba(v.$neon-primary, 0.4);
+  }
+
+  // --- ФОНОВАЯ КАРТИНКА (как в прошлом компоненте) ---
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--bg-map);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(v.$new-common, 0.95) 0%,
+      rgba(v.$new-common, 0.85) 100%
+    );
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  @media (max-width: 700px) {
+    &::before,
+    &::after {
+      opacity: 1; // Показываем фон на 700px
+    }
+  }
+
+  @media (max-width: 850px) {
+    height: auto;
+    min-height: 80px;
   }
 
   .contentWrapper {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 15px;
     gap: 15px;
     min-width: 0;
+    z-index: 5; // Поверх фона
+
+    @media (max-width: 1380px) {
+      padding: 5px 10px;
+    }
+
+    @media (max-width: 850px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 15px;
+    }
   }
 
-  // ЛЕВАЯ КОЛОНКА (Имя + IP)
   .serverInfo {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 4px;
-    padding-top: 5px;
-    padding-bottom: 5px;
     flex: 1;
     min-width: 0;
 
+    @media (max-width: 850px) {
+      width: 100%;
+    }
+
     .nameRow {
       display: flex;
+      align-items: center;
       gap: 8px;
       width: 100%;
 
@@ -47,21 +101,6 @@
         width: 17px;
         height: 17px;
         position: relative;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
-      }
-
-      .statusBadge {
-        background: linear-gradient(135deg, v.$neon-accent, v.$neon-warning);
-        color: v.$glitch-purple;
-        padding: 2px 6px;
-        font-size: 11px;
-        font-weight: 800;
-        border-radius: 3px;
-        text-transform: uppercase;
         flex-shrink: 0;
       }
 
@@ -72,7 +111,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-        margin-bottom: 10px;
       }
     }
 
@@ -81,11 +119,12 @@
       align-items: center;
       gap: 10px;
       font-size: 12px;
+      flex-wrap: wrap;
 
       .points {
         color: v.$neon-warning;
         white-space: nowrap;
-        width: 120px; // Фиксированная ширина для баллов
+        width: 125px;
         flex-shrink: 0;
       }
 
@@ -93,69 +132,78 @@
         font-size: 16px;
         line-height: 1;
         flex-shrink: 0;
-        width: 20px; // Фиксированная ширина для флага
+        width: 20px;
       }
 
       .address {
         @include m.ipPort;
         font-size: 13px;
         white-space: nowrap;
-        width: 150px; // Фиксированная ширина для IP адреса
+        width: 150px;
         flex-shrink: 0;
       }
     }
   }
 
-  // ПРАВАЯ КОЛОНКА (Кнопки + Мета-данные)
   .rightMetaGroup {
     display: grid;
-    // Кнопка копировать | Кнопка Play | Карта | Игроки
-    grid-template-columns: 40px 40px 1fr 60px;
+    grid-template-columns: 40px 40px 1fr 65px;
     align-items: center;
     gap: 15px;
-    width: 320px; // Увеличили ширину для двух кнопок
+    width: 320px;
     flex-shrink: 0;
+
+    @media (max-width: 850px) {
+      width: 100%;
+      gap: 10px;
+    }
+
+    @media (max-width: 450px) {
+      grid-template-columns: 35px 35px 1fr 55px;
+      gap: 5px;
+    }
   }
 
-  // Блок кнопки копирования
-  .copyBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  // Блок кнопки Play
+  .copyBtn,
   .playBtn {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
   }
 
-  // Блок Игроки
   .playersWrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
-  // Блок Карта
   .mapInfo {
     font-size: 12px;
     color: v.$neon-warning;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
+    text-align: left;
     padding-right: 5px;
   }
 }
 
-// КАРТИНКА (самая правая часть)
 .imageContainer {
   position: relative;
   width: 130px;
   min-width: 130px;
   border-left: 1px solid rgba(v.$neon-primary, 0.1);
   background: black;
+  z-index: 5;
+
+  // СКРЫВАЕМ КАРТИНКУ СПРАВА НА 700px
+  @media (max-width: 700px) {
+    display: none;
+  }
+
+  @media (max-width: 850px) {
+    width: 160px; // Чуть увеличил для планшетного вида, если она еще видна
+  }
 
   img {
     transition: transform 0.4s ease;

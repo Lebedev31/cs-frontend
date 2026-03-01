@@ -8,25 +8,26 @@
 .container {
   width: 100%;
   max-width: 900px;
-  padding: 60px 80px;
+  // Плавно меняет паддинги от 20px (на мобилках) до 80px (на десктопе)
+  padding: clamp(30px, 5vw, 60px) clamp(20px, 5vw, 80px);
 }
 
 .title {
   @include m.title();
-  margin-bottom: 60px;
+  margin-bottom: clamp(30px, 5vw, 60px);
 }
 
 .wrapper {
   background: v.$new-panel;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
-  padding: 60px 60px;
+  padding: clamp(20px, 5vw, 60px);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: clamp(15px, 3vw, 30px);
 }
 
 .inputWrapper {
@@ -39,7 +40,7 @@
 .input {
   @include m.input();
   width: 100%;
-  height: 70px;
+  // height теперь управляется внутри миксина (через clamp)
   color: v.$text-primary;
 }
 
@@ -52,7 +53,7 @@
 .customSelectTrigger {
   @include m.select();
   text-align: left;
-  padding-left: 20px;
+  padding-left: clamp(15px, 3vw, 20px);
   cursor: pointer;
   user-select: none;
   display: flex;
@@ -67,18 +68,21 @@
 
 .customOptions {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + clamp(5px, 1vw, 10px));
   left: 0;
   right: 0;
   background: v.$new-panel;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
-  max-height: 300px;
+  max-height: clamp(
+    200px,
+    40vh,
+    300px
+  ); // Ограничиваем высоту для маленьких экранов
   overflow-y: auto;
   z-index: 1000;
   box-shadow: 0 10px 40px rgba(v.$neon-primary, 0.3);
 
-  // Единый красивый скролл для всех селектов
   scrollbar-width: thin;
   scrollbar-color: v.$neon-accent v.$new-background;
 
@@ -110,14 +114,14 @@
 }
 
 .customOption {
-  padding: 15px 20px;
+  padding: clamp(12px, 2vw, 15px) clamp(15px, 3vw, 20px);
   cursor: pointer;
   transition: all 0.3s ease;
   color: v.$text-primary;
-  font-size: 18px;
+  font-size: clamp(14px, 2vw, 18px);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(8px, 1.5vw, 12px);
   border-bottom: 1px solid rgba(v.$neon-accent, 0.2);
 
   &:last-child {
@@ -126,7 +130,7 @@
 
   &:hover {
     background: rgba(v.$neon-primary, 0.1);
-    padding-left: 25px;
+    padding-left: clamp(20px, 4vw, 25px);
   }
 
   &.selected {
@@ -151,14 +155,14 @@
 }
 
 .checkbox {
-  width: 24px;
-  height: 24px;
+  width: clamp(20px, 3vw, 24px);
+  height: clamp(20px, 3vw, 24px);
   border: 2px solid v.$neon-accent;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: clamp(14px, 2vw, 16px);
   font-weight: bold;
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -167,7 +171,7 @@
 .selectedTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: clamp(6px, 1.5vw, 10px);
   margin-top: 10px;
 }
 
@@ -175,7 +179,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2vw, 16px);
   background: linear-gradient(
     135deg,
     v.$neon-primary 0%,
@@ -184,7 +188,7 @@
   border: 1px solid v.$neon-accent;
   border-radius: 20px;
   color: v.$text-primary;
-  font-size: 14px;
+  font-size: clamp(12px, 1.5vw, 14px);
   font-weight: 500;
   box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
   transition: all 0.3s ease;
@@ -201,7 +205,7 @@
 }
 
 .tagClose {
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   font-weight: bold;
   line-height: 1;
   transition: transform 0.2s ease;
@@ -210,12 +214,11 @@
 .textarea {
   @include m.input();
   width: 100%;
-  min-height: 200px;
+  min-height: clamp(150px, 25vw, 200px);
   resize: none;
-  padding-top: 30px;
+  padding-top: clamp(20px, 4vw, 30px);
   line-height: 1.6;
 
-  // Красивый скролл для textarea
   scrollbar-width: thin;
   scrollbar-color: v.$neon-accent v.$new-background;
 
@@ -251,78 +254,7 @@
 }
 
 .button {
-  @include m.button(70px, 24px, 20px);
+  @include m.button(clamp(60px, 8vw, 70px), clamp(15px, 2.5vw, 24px), 20px);
   width: 100%;
-  margin-top: 20px;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 40px 30px;
-  }
-
-  .title {
-    font-size: 28px;
-    margin-bottom: 40px;
-  }
-
-  .form {
-    gap: 20px;
-  }
-
-  .customOptions {
-    max-height: 250px;
-  }
-
-  .button {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 30px 20px;
-  }
-
-  .title {
-    font-size: 24px;
-    margin-bottom: 30px;
-  }
-
-  .input,
-  .customSelectTrigger {
-    font-size: 16px;
-    padding: 15px 20px;
-    height: 50px;
-  }
-
-  .customOption {
-    font-size: 16px;
-    padding: 12px 15px;
-  }
-
-  .checkbox {
-    width: 20px;
-    height: 20px;
-    font-size: 14px;
-  }
-
-  .tag {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-
-  .textarea {
-    min-height: 150px;
-    padding-top: 20px;
-  }
-
-  .button {
-    font-size: 18px;
-    height: 60px;
-  }
-
-  .customOptions {
-    max-height: 200px;
-  }
+  margin-top: clamp(10px, 3vw, 20px);
 }

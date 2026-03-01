@@ -1,0 +1,55 @@
+@use "../../../../styles/variable.scss" as v;
+
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  max-width: 360px;
+}
+
+.icon {
+  position: absolute;
+  left: 12px;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(v.$neon-primary, 0.3);
+  border-radius: 6px;
+  padding: 9px 36px 9px 36px;
+  color: v.$text-primary;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: rgba(v.$text-primary, 0.35);
+  }
+
+  &:focus {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 8px rgba(v.$neon-primary, 0.15);
+  }
+}
+
+.clear {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: rgba(v.$text-primary, 0.5);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+
+  &:hover {
+    color: v.$neon-danger;
+  }
+}

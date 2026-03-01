@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-const ipPortSchema = z
+export const ipPortSchema = z
   .string()
   .regex(
     /^(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/,
-    "Формат должен быть IP:Port (например, 192.168.1.1:27015)"
+    "Формат должен быть IP:Port (например, 192.168.1.1:27015)",
   )
   .refine((val) => {
     const [ip, port] = val.split(":");

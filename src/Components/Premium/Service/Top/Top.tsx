@@ -13,23 +13,26 @@ import { handleSubmit } from "@/lib/common";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import TopBlock from "../Elements/TopBlock/TopBlock";
-import { useUpdateServiceTopMutation } from "@/redux/apiSlice/paymentApi";
+import {
+  useUpdateServiceTopMutation,
+  useGetPriceQuery,
+} from "@/redux/apiSlice/paymentApi";
 
 export default function Top() {
   const [purchaseService] = useUpdateServiceTopMutation();
   const [selectedPlan, setSelectedPlan] = useState<PlanUnionLiteral | null>(
-    null
+    null,
   );
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
   const [topLimit, setTopLimit] = useState<number>(0);
-
+  const { data } = useGetPriceQuery({ service: "top" });
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
     errorEmail: "",
     errorOffer: "",
     errorPlan: "",
   });
-
+  console.log();
   const handlePlanSelect = (plan: PlanUnionLiteral, price: number) => {
     setSelectedPlan(plan);
     setSelectedPrice(price);
@@ -42,7 +45,7 @@ export default function Top() {
       serverRef: React.RefObject<HTMLSelectElement | null>;
       emailRef: React.RefObject<HTMLInputElement | null>;
       offerRef: React.RefObject<HTMLInputElement | null>;
-    }
+    },
   ) => {
     if (!selectedPlan) {
       setValidationErrors((prev) => ({
@@ -99,14 +102,14 @@ export default function Top() {
       formData,
       (data) => {
         toast.success(
-          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
         setSelectedPlan(null);
         setSelectedPrice(0);
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
-      }
+      },
     );
   };
 
@@ -121,7 +124,7 @@ export default function Top() {
         <h3 className={styles.title_service}>Срок услуги</h3>
         <TopBlock selectTopLimit={setTopLimit} topLimit={topLimit} />
         <TermBlock
-          price={[130, 495, 2810, 5305]}
+          price={data && data.data ? data.data : [0, 0, 0, 0]}
           discount={["", "(скидка 5%)", "(скидка 10%)", "(скидка 15%)"]}
           selectedPlan={selectedPlan || undefined}
           onSelectPlan={handlePlanSelect}

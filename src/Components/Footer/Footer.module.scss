@@ -2,9 +2,8 @@
 @use "../../styles/mixins.scss" as m;
 
 .footer {
-  // background: v.$gradient-cyber-terminal;
   background-color: v.$new-panel;
-  padding: 20px 20px;
+  padding: 24px 20px 16px;
   border-top: 2px solid v.$glitch-purple;
   margin-top: 10px;
 }
@@ -15,6 +14,10 @@
   text-align: left;
   margin-top: 5px;
   margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .container {
@@ -27,6 +30,7 @@
 
 .logo {
   width: 120px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +49,7 @@
   box-shadow: v.$glow-secondary;
   background-color: white;
   border-radius: 100%;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);
@@ -57,6 +62,8 @@
   align-items: center;
   width: 80%;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .link {
@@ -76,46 +83,127 @@
   p {
     color: v.$glitch-purple;
     font-size: 16px;
-    //  margin-top: 10px;
     text-align: center;
+    margin-top: 16px;
   }
 }
 
+/* ── Планшет широкий (1024px и ниже) ── */
 @media (max-width: 1024px) {
   .container {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 24px;
     text-align: center;
+  }
+
+  .logo {
+    width: auto;
+  }
+
+  .logoCircle {
+    margin-right: 0;
   }
 
   .nav {
     justify-content: center;
     width: 100%;
+    gap: 16px 24px;
+  }
+
+  .link {
+    font-size: 16px;
   }
 }
 
-@media (max-width: 640px) {
+/* ── Планшет узкий / большой телефон (768px и ниже) ── */
+@media (max-width: 768px) {
   .footer {
-    padding: 30px 15px;
+    padding: 20px 16px 14px;
+  }
+
+  .description {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .nav {
+    gap: 12px 20px;
+  }
+
+  .link {
+    font-size: 15px;
+  }
+
+  .tagline p {
+    font-size: 14px;
+  }
+}
+
+/* ── Телефон (480px и ниже) ── */
+@media (max-width: 480px) {
+  .footer {
+    padding: 18px 12px 12px;
+  }
+
+  .description {
+    font-size: 12px;
+    line-height: 1.55;
+    margin-bottom: 14px;
   }
 
   .logoCircle {
     width: 60px;
     height: 60px;
-    font-size: 24px;
+
+    img {
+      width: 52px !important;
+      height: 52px !important;
+    }
   }
 
   .nav {
     flex-direction: column;
-    gap: 15px;
-  }
-
-  .description p,
-  .tagline p {
-    font-size: 14px;
+    align-items: center;
+    gap: 10px;
   }
 
   .link {
     font-size: 14px;
+  }
+
+  .tagline p {
+    font-size: 13px;
+    margin-top: 12px;
+  }
+}
+
+/* ── Очень маленький телефон (360px и ниже) ── */
+@media (max-width: 360px) {
+  .footer {
+    padding: 14px 10px 10px;
+  }
+
+  .description {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .logoCircle {
+    width: 52px;
+    height: 52px;
+
+    img {
+      width: 44px !important;
+      height: 44px !important;
+    }
+  }
+
+  .link {
+    font-size: 13px;
+  }
+
+  .tagline p {
+    font-size: 12px;
   }
 }

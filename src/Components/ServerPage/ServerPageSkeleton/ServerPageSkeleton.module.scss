@@ -1,6 +1,7 @@
 @use "../../../styles/variable.scss" as v;
+@use "../../../styles/mixins.scss" as m;
 
-// --- Анимация сканера (Cyberpunk Scan) ---
+/* ====================== ДОБАВЛЕНО ДЛЯ СКЕЛЕТОНА ====================== */
 @keyframes cyber-scan {
   0% {
     background-position: 200% 0;
@@ -10,7 +11,6 @@
   }
 }
 
-// Миксин для блоков скелетона
 @mixin skeleton-box {
   background: linear-gradient(
     90deg,
@@ -19,20 +19,40 @@
     v.$new-background 100%
   );
   background-size: 200% 100%;
-  animation: cyber-scan 2s infinite linear;
-  border-radius: v.$border-radius-neon;
+  animation: cyber-scan 1.5s infinite linear;
+  border-radius: 4px;
 }
 
-// --- Layout ---
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  background-color: v.$new-panel;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
-  width: 1300px;
-  margin: 0 auto;
+.skel_text {
+  @include skeleton-box;
+  height: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.skel_title {
+  @include skeleton-box;
+  height: 24px;
+  width: 50%;
+}
+.skel_img {
+  @include skeleton-box;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.skel_circle {
+  @include skeleton-box;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+/* ====================================================================== */
+
+/* ДАЛЕЕ ТОЧНАЯ КОПИЯ ТВОЕГО КОДА */
+
+.server_page {
+  position: relative;
+  margin: 20px auto;
 }
 
 .server_info {
@@ -43,7 +63,6 @@
   margin-bottom: 25px;
 }
 
-// --- Левая колонка (30%) ---
 .left_column {
   width: 30%;
   display: flex;
@@ -51,24 +70,75 @@
   gap: 10px;
 }
 
-// Карта
-.map_card {
-  background: v.$new-common;
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
+.right_wrapper {
+  width: 70%;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.map_image_skeleton {
-  @include skeleton-box;
+/* ====================== GRID ДЛЯ ДЕСКТОПА И ПЛАНШЕТА ====================== */
+.center_right_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* РОВНО 50/50 + одинаковая высота */
+  gap: 15px;
   width: 100%;
-  height: 180px;
-  border: 1px solid rgba(v.$glitch-purple, 0.3);
+  align-items: stretch;
+  min-height: 0;
 }
 
-// Прогресс
+.center_column,
+.right_column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+/* ========================================================================== */
+
+.title {
+  @include m.title();
+}
+
+.wrapper {
+  display: flex;
+  width: 1300px;
+  flex-direction: column;
+  background-color: v.$new-panel;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+}
+
+.map_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+}
+
+.map_title {
+  font-size: 12px;
+  color: v.$neon-primary;
+  text-align: center;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.map_image {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, v.$text-header, #1a1a3a);
+  border-radius: v.$border-radius-neon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  border: 1px solid v.$glitch-purple;
+  position: relative;
+}
+
 .progress_card {
   background: v.$new-common;
   border-radius: v.$border-radius-neon;
@@ -78,30 +148,56 @@
   gap: 10px;
 }
 
-.progress_bar_skeleton {
-  @include skeleton-box;
-  width: 100%;
-  height: 10px;
+.progress_text {
+  font-size: 16px;
+  color: v.$text-primary;
+  text-align: center;
 }
 
-// Теги
-.tags_card {
+.players_count {
+  color: v.$neon-warning;
+  font-weight: 800;
+  font-size: 18px;
+  margin: 0 6px;
+}
+
+.players_label {
+  color: v.$neon-primary;
+  font-weight: 700;
+}
+
+.progress_bar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05); /* Изменено для скелетона */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress_fill {
+  background: #007bff;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.description_card {
   background: v.$new-common;
   border-radius: v.$border-radius-neon;
-  padding: 10px;
+  padding: 20px;
+  min-height: 400px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
-.tag_skeleton {
-  @include skeleton-box;
-  height: 24px;
-  width: 70px;
-  border-radius: 4px;
+.description_title {
+  font-size: 14px;
+  color: v.$neon-primary;
+  text-align: center;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
 }
 
-// Рейтинг
 .rating_card {
   background: v.$new-common;
   border-radius: v.$border-radius-neon;
@@ -112,85 +208,488 @@
   gap: 10px;
 }
 
-.rating_circle {
-  @include skeleton-box;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+.rating_value {
+  font-size: 24px;
+  color: v.$neon-success;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(v.$neon-success, 0.6);
+  border: 2px solid v.$neon-success;
+  border-radius: 50px;
+  padding: 5px 20px;
 }
 
-// --- Правая обёртка (70%) ---
-.right_wrapper {
-  width: 70%;
+.rating_img {
+  display: flex;
+  justify-content: center;
+
+  .img_block {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+
+    img {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.vip_crown {
+  padding: 10px;
+  width: 200px;
+  height: 140px;
+  position: relative;
+  margin: 0 auto;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.server_header,
+.players_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 20px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  min-height: 0;
+  overflow: hidden;
 }
 
-// Центральная и правая колонки в одном ряду
-.center_right_wrapper {
+.server_header {
+  padding-top: 2px;
+  position: relative;
+}
+
+.players_card {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: v.$neon-accent v.$new-background;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: v.$new-background;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: v.$neon-accent;
+    border-radius: 10px;
+  }
+}
+
+.players_title {
+  font-size: 18px;
+  color: v.$neon-primary;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.table_container {
+  flex: 1;
+  overflow: hidden;
   display: flex;
-  gap: 15px;
-  width: 100%;
+  flex-direction: column;
 }
 
-// Центральная колонка (52%)
-.center_column {
-  width: 52%;
+.players_table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  flex: 1;
+  display: table;
+
+  thead {
+    border-bottom: 2px solid v.$glitch-purple;
+    th {
+      color: v.$neon-warning;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 5px;
+      text-align: center;
+    }
+  }
+
+  tbody {
+    display: table-row-group;
+    tr {
+      border-bottom: 1px solid rgba(v.$cs-blue-team, 0.2);
+      transition: v.$transition-fast;
+      &:hover {
+        background: rgba(v.$neon-primary, 0.05);
+      }
+      td {
+        color: v.$text-primary;
+        font-size: 14px;
+        padding: 12px 5px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.server_info_grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.info_item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.info_label {
+  font-size: 16px;
+  color: v.$neon-accent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.info_value {
+  font-size: 14px;
+  color: v.$text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &.online {
+    color: v.$neon-success;
+  }
+  &.offline {
+    color: v.$neon-danger;
+  }
+}
+
+.info_website {
+  font-size: 12px;
+  color: v.$text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 230px;
+}
+
+.address_value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: v.$glitch-purple;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.countryFlag {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.owner_nick {
+  font-size: 14px;
+  color: v.$text-primary;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 20px;
+}
+
+.owner_link {
+  color: v.$neon-primary;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: v.$transition-fast;
+  &:hover {
+    color: v.$neon-warning;
+    text-shadow: v.$glow-warning;
+  }
+}
+
+.description_text {
+  color: v.$neon-success;
+  text-align: center;
+  font-size: 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.description_missing {
+  font-size: 36px;
+  font-weight: 700;
+  color: v.$neon-success;
+  text-align: center;
+}
+
+.tags_card {
+  background: v.$new-common;
+  border-radius: v.$border-radius-neon;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.header_card {
-  background: v.$new-common;
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
-  min-height: 360px;
+.tags_title {
+  font-size: 14px;
+  color: v.$neon-primary;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-align: center;
 }
 
-.info_grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.text_line {
-  @include skeleton-box;
-  height: 20px;
-  margin-bottom: 8px;
-}
-
-// Правая колонка - список игроков (48%)
-.right_column {
-  width: 48%;
-}
-
-.players_card {
-  background: v.$new-common;
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
-  min-height: 360px;
-}
-
-.table_rows {
+.tags_list {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
 }
 
-.table_row_skeleton {
-  @include skeleton-box;
-  width: 100%;
-  height: 25px;
-  opacity: 0.6;
+.tag_item {
+  background: rgba(v.$neon-primary, 0.15);
+  border: 1px solid rgba(v.$neon-primary, 0.4);
+  border-radius: 15px;
+  padding: 3px 7px;
+  font-size: 10px;
+  color: v.$text-primary;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-transform: lowercase;
+
+  &:hover {
+    background: rgba(v.$neon-primary, 0.25);
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 10px rgba(v.$neon-primary, 0.3);
+    transform: translateY(-2px);
+  }
 }
 
-// Блок описания (под центральной и правой колонками)
-.description_card {
-  background: v.$new-common;
-  border-radius: v.$border-radius-neon;
-  padding: 20px;
-  width: 100%;
-  min-height: 240px;
+.no_tags {
+  color: v.$neon-accent;
+  font-size: 14px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.ping_in_line {
+  font-size: 14px;
+}
+.pingGood {
+  color: v.$neon-success;
+}
+.pingMedium {
+  color: v.$neon-warning;
+}
+.pingBad {
+  color: v.$neon-danger;
+}
+
+// ─── АДАПТИВНОСТЬ (точно как было до 650px) ─────────────────────────────
+
+@media (max-width: 1300px) {
+  .wrapper {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 1000px) and (min-width: 651px) {
+  .server_info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .left_column,
+  .right_wrapper {
+    width: 100%;
+    display: contents;
+  }
+
+  .map_card {
+    order: 1;
+  }
+  .progress_card {
+    order: 2;
+  }
+  .center_right_wrapper {
+    order: 3;
+  }
+  .order_tags {
+    order: 5;
+  }
+  .order_rating {
+    order: 6;
+  }
+  .description_card {
+    order: 7;
+    min-height: 120px;
+  }
+  .order_vip {
+    order: 8;
+  }
+
+  /* на планшете Grid остаётся — блоки всё равно равны */
+  .center_right_wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .server_header,
+  .players_card {
+    flex: 1 1 0;
+  }
+  .map_image {
+    height: 150px;
+  }
+}
+
+@media (max-width: 650px) {
+  .server_info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .left_column,
+  .right_wrapper {
+    width: 100%;
+    display: contents;
+  }
+
+  .map_card {
+    order: 1;
+  }
+  .progress_card {
+    order: 2;
+  }
+  .center_right_wrapper {
+    order: 3;
+  }
+  .order_tags {
+    order: 5;
+  }
+  .order_rating {
+    order: 6;
+  }
+  .description_card {
+    order: 7;
+  }
+  .order_vip {
+    order: 8;
+  }
+
+  /* ВОЗВРАЩАЕМ ОРИГИНАЛЬНУЮ СТРУКТУРУ НА МОБИЛЬНЫХ */
+  .center_right_wrapper {
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .center_column {
+    width: 100% !important;
+    order: 1;
+  }
+
+  .right_column {
+    width: 100% !important;
+    order: 2;
+  }
+
+  .server_header {
+    flex: none;
+  }
+
+  .players_card {
+    flex: none;
+    height: auto;
+    max-height: 250px;
+  }
+
+  .description_card {
+    min-height: 100px;
+  }
+
+  .description_missing {
+    font-size: 22px;
+  }
+
+  .info_label,
+  .info_value,
+  .address_value {
+    font-size: 12px;
+  }
+
+  .info_website {
+    max-width: 140px;
+    font-size: 11px;
+  }
+
+  .players_title {
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .progress_text {
+    font-size: 13px;
+  }
+
+  .players_count {
+    font-size: 14px;
+  }
+
+  .rating_value {
+    font-size: 20px;
+  }
+
+  .vip_crown {
+    width: 120px;
+    height: 80px;
+  }
+
+  .wrapper {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .info_label,
+  .info_value,
+  .address_value {
+    font-size: 11px;
+  }
+  .title {
+    font-size: 14px;
+  }
 }

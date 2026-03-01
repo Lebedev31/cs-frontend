@@ -1,0 +1,79 @@
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
+
+.statistic {
+  width: 100%;
+
+  .wrapper {
+    @include m.wrapper();
+    border: 1px solid v.$neon-primary; // Твой запрос на синий бордер
+    box-shadow: 0 0 15px rgba(v.$neon-primary, 0.1);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(v.$new-input-background, 0.15);
+  border: 1px solid rgba(v.$neon-primary, 0.2);
+  border-radius: v.$border-radius-neon;
+  transition: v.$transition-glow;
+
+  &:hover {
+    border-color: v.$neon-primary;
+    box-shadow: v.$glow-primary;
+    background: rgba(v.$neon-primary, 0.05);
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: v.$neon-primary;
+    // Эффект свечения иконки
+    filter: drop-shadow(0 0 8px rgba(v.$neon-primary, 0.6));
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__label {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(v.$text-primary, 0.5);
+    margin: 0;
+  }
+
+  &__value {
+    font-size: 26px;
+    font-weight: 800;
+    color: v.$text-primary;
+    margin: 0;
+    text-shadow: 0 0 12px rgba(v.$neon-primary, 0.4);
+  }
+}

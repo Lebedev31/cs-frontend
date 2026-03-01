@@ -23,7 +23,7 @@ type ServiceProps = {
       serverRef: React.RefObject<HTMLSelectElement | null>;
       emailRef: React.RefObject<HTMLInputElement | null>;
       offerRef: React.RefObject<HTMLInputElement | null>;
-    }
+    },
   ) => void;
 };
 
@@ -62,9 +62,7 @@ export default function Service({
             className={styles.select}
             onChange={handleChange}
           >
-            <option value="">
-              Выберете сервер (раскрыть список серверов пользователя)
-            </option>
+            <option value="">Выберете сервер</option>
             {data && data.data
               ? data.data.map((item) => {
                   return (

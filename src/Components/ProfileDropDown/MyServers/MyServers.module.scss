@@ -13,7 +13,7 @@
 .button_block {
   display: flex;
   height: 70px;
-  justify-content: end;
+  justify-content: center; // по центру
   width: 100%;
   margin-bottom: 30px;
 }
@@ -21,6 +21,10 @@
 .addServer {
   @include m.button(60px 18px 15px);
   width: 350px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 }
 
 .servers_block {
@@ -29,6 +33,10 @@
   padding: 30px;
   background-color: v.$new-common;
   border: 2px solid v.$neon-primary;
+
+  @media (max-width: 600px) {
+    padding: 16px;
+  }
 }
 
 .tabs {
@@ -37,10 +45,20 @@
   margin-bottom: 30px;
   position: relative;
   z-index: 1;
+  flex-wrap: wrap; // на маленьких экранах переносим
+
+  @media (max-width: 999px) {
+    gap: 10px;
+  }
+
+  @media (max-width: 600px) {
+    gap: 8px;
+  }
 }
 
 .tab {
   flex: 1;
+  min-width: calc(50% - 8px); // на мобиле — 2 в ряд
   padding: 16px 24px;
   background: v.$new-common;
   border: 2px solid rgba(v.$neon-accent, 0.3);
@@ -54,6 +72,26 @@
   transition: v.$transition-glow;
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 999px) {
+    font-size: 14px;
+    padding: 14px 16px;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+    padding: 12px 8px;
+    letter-spacing: 0;
+    min-width: calc(
+      50% - 4px
+    ); // 2 колонки: "Все сервера" + "CS:GO", потом "CS2" + "Премиум"
+  }
+
+  @media (max-width: 360px) {
+    font-size: 11px;
+    padding: 10px 6px;
+  }
 
   &:hover {
     border-color: v.$neon-accent;
@@ -103,4 +141,9 @@
   font-size: 22px;
   color: v.$neon-primary;
   margin: 50px auto;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    font-size: 16px;
+  }
 }

@@ -2,9 +2,11 @@
 @use "../../../styles/variable.scss" as v;
 
 .commentsBlock {
-  width: 700px;
+  width: 100%; // <- было 700px — это и ломало на 1165px
+  max-width: 700px; // ограничение сохраняем
   margin: 0 auto;
   min-height: 600px;
+
   h2 {
     @include m.title();
     font-size: 28px;
@@ -24,17 +26,14 @@
   border-radius: 4px;
   padding: 40px 50px 30px 50px;
   height: 700px;
-
-  /* Важное: делаем flex-колонку, чтобы внутренние элементы можно было правильно распределить */
   display: flex;
   flex-direction: column;
-
-  /* Включаем box-sizing — тогда height:400px включает padding и всё считается корректно */
   box-sizing: border-box;
 }
 
 .sendComment {
   height: 150px;
+  flex-shrink: 0;
 }
 
 .avatarAndTextArea {
@@ -48,9 +47,11 @@
 .avatar {
   width: 70px;
   height: 67px;
+  flex-shrink: 0;
   border: 2px solid v.$neon-warning;
   box-shadow: 0 0 8px rgba(v.$neon-warning, 0.5);
   background: v.$bg-darker;
+
   img {
     width: 100%;
     height: 100%;
@@ -66,15 +67,16 @@
   outline: none;
   border-radius: 1px;
   border: 2px solid rgb(179, 168, 168);
-  padding: 5px 10px 5px 10px;
+  padding: 5px 10px;
   color: white;
   font-weight: 400;
   background-color: #444f5a;
+  box-sizing: border-box;
 }
 
 .buttonBlock {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 10px;
 }
 
@@ -92,15 +94,14 @@
 
 .commentsBlockItems {
   flex: 1 1 auto;
-  min-height: 0; /* критично для корректного скролла в flex-контейнерах */
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 5px;
   margin-top: 30px;
-
-  /* скроллбар */
   scrollbar-width: thin;
   scrollbar-color: rgb(141, 126, 126) transparent;
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -128,8 +129,52 @@
   justify-content: center;
   margin-top: 30px;
   margin-bottom: 10px;
+
   .commentButton {
     width: 300px;
     height: 35px;
+  }
+}
+
+// ─── Адаптивность ────────────────────────────────────────────────
+
+@media (max-width: 650px) {
+  .commentsBlock {
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .comments {
+    padding: 20px 16px;
+    height: 600px;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+  }
+
+  .login {
+    font-size: 13px;
+  }
+  .noComments {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .comments {
+    padding: 14px 10px;
+    height: 520px;
+  }
+
+  .commentButton {
+    width: 150px;
+    font-size: 11px;
+  }
+
+  .buttonPagination .commentButton {
+    width: 100%;
   }
 }

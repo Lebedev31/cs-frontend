@@ -23,6 +23,7 @@
   display: flex;
   justify-content: center;
 }
+
 /* Блок с формой и аватаркой (две колонки) */
 .setting_block {
   width: 100%;
@@ -40,14 +41,15 @@
   gap: 18px;
   width: 60%;
   max-width: 600px;
+  align-items: center; // <- добавить сюда, всегда по центру
 }
 
-/* общий стиль для инпутов — используем твой миксин */
 .setting_input {
   @include m.input();
+  width: 100%; // <- инпуты всегда на всю ширину формы
+  box-sizing: border-box;
 }
 
-/* Кнопка сохранить */
 .setting_button {
   @include m.button(60px, 18px, 18px);
   width: fit-content;
@@ -55,6 +57,7 @@
   padding-right: 18px;
   font-size: 18px;
   margin-top: 6px;
+  // убираем margin: auto — центрирует родитель через align-items
 }
 
 /* Правая колонка — аватар */
@@ -82,12 +85,15 @@
     rgba(255, 255, 255, 0.02),
     rgba(0, 0, 0, 0.12)
   );
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), v.$glow-primary;
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.6),
+    v.$glow-primary;
   border-radius: 8px;
 
   .avatar_img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -137,7 +143,7 @@
   max-width: 760px;
 }
 
-/* Кнопка изменить пароль — более тонкая, использует миксин button */
+/* Кнопка изменить пароль */
 .change_password_button {
   @include m.button(56px, 18px, 18px);
   width: fit-content;
@@ -148,32 +154,42 @@
   width: 300px;
 }
 
-/* Адаптив */
+.error {
+  @include m.error();
+}
 
-/* Сужаем экран: делаем колонки вертикальными */
-@media (max-width: 980px) {
+// ─── Адаптивность ────────────────────────────────────────────────
+
+@media (max-width: 1000px) {
   .setting_block {
     flex-direction: column;
-    gap: 20px;
-    align-items: stretch;
+    gap: 0;
+    align-items: center;
   }
 
   .setting_form {
-    width: 100%;
+    width: 100%; // на всю ширину
+    max-width: 100%;
   }
 
   .avatar_block {
     width: 100%;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 20px;
+    flex-direction: column;
     align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(v.$neon-primary, 0.15);
   }
 
   .avatar_preview {
-    width: 120px;
-    height: 100px;
-    font-size: 40px;
+    width: 200px;
+    height: 140px;
+    font-size: 48px;
+  }
+
+  .avatar_change {
+    font-size: 16px;
   }
 
   .password_form {
@@ -181,10 +197,21 @@
   }
 }
 
-/* На маленьких экранах — всё стопкой */
+@media (max-width: 768px) {
+  .setting_container {
+    padding: 30px 30px;
+  }
+
+  .avatar_preview {
+    width: 160px;
+    height: 120px;
+    font-size: 40px;
+  }
+}
+
 @media (max-width: 520px) {
   .setting_container {
-    padding: 20px;
+    padding: 20px 16px;
   }
 
   .title {
@@ -196,23 +223,21 @@
     gap: 12px;
   }
 
-  .setting_input {
-    font-size: 18px;
-    height: 52px;
+  // Шрифт кнопки уменьшаем чтобы текст не переносился
+  .setting_button {
+    font-size: 14px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .avatar_preview {
-    width: 90px;
-    height: 72px;
-    span {
-      font-size: 16px !important;
-    }
+    width: 120px;
+    height: 90px;
+    font-size: 28px;
+  }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  .avatar_change {
+    font-size: 15px;
   }
 
   .password_title {
@@ -222,8 +247,30 @@
   .password_form {
     width: 100%;
   }
+
+  // Кнопка изменить пароль — уменьшаем чтобы не вылезала
+  .change_password_button {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 }
 
-.error {
-  @include m.error();
+@media (max-width: 400px) {
+  .setting_container {
+    padding: 16px 10px;
+  }
+
+  .setting_button {
+    font-size: 13px;
+    height: 50px;
+  }
+
+  .change_password_button {
+    font-size: 13px;
+    height: 50px;
+  }
 }

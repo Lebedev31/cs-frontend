@@ -1,0 +1,91 @@
+@use "../../../../../styles/variable.scss" as v;
+
+.container {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(v.$neon-primary, 0.1);
+  margin: 10px 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+
+.login {
+  color: v.$text-primary;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.date {
+  font-size: 11px;
+  color: rgba(v.$text-primary, 0.4);
+}
+
+.text {
+  flex-grow: 1;
+  font-size: 14px;
+  color: rgba(v.$text-primary, 0.8);
+  margin: 0;
+}
+
+.delBtn {
+  background: transparent;
+  border: 1px solid v.$neon-danger;
+  color: v.$neon-danger;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: v.$neon-danger;
+    color: white;
+    box-shadow: v.$glow-danger;
+  }
+}
+
+.empty {
+  color: rgba(v.$text-primary, 0.3);
+  font-style: italic;
+  font-size: 13px;
+}
+
+// Добавь это в конец AdminComment.module.scss
+.paginationWrapper {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 10px;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: v.$neon-primary;
+  opacity: 0.8;
+}

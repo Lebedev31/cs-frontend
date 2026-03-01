@@ -18,8 +18,10 @@ export default function TopBlock({ selectTopLimit, topLimit }: TopBlockProps) {
     serverIpPort ? { serverId: serverIpPort } : { serverId: "" },
     {
       skip: serverIpPort ? false : true,
-    }
+    },
   );
+
+  console.log(data);
   useEffect(() => {
     if (data && data.data) {
       selectTopLimit(data.data.limit);

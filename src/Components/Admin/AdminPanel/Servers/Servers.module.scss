@@ -1,0 +1,106 @@
+@use "../../../../styles/mixins.scss" as m;
+@use "../../../../styles/variable.scss" as v;
+
+.addBtn {
+  @include m.button(45px, 14px, 0 25px);
+  margin-bottom: 25px;
+  background: v.$neon-primary;
+  color: v.$bg-dark;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: v.$transition-glow;
+
+  &:hover {
+    box-shadow: v.$glow-primary;
+    transform: translateY(-1px);
+  }
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 12px;
+    color: v.$neon-primary;
+    text-transform: uppercase;
+    font-size: 11px;
+    border-bottom: 2px solid rgba(v.$neon-primary, 0.1);
+  }
+
+  td {
+    padding: 15px 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 14px;
+    color: v.$text-primary;
+  }
+}
+
+.name {
+  font-weight: 600;
+  color: v.$text-primary;
+}
+
+.ip {
+  color: v.$neon-primary;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+}
+
+// Исправлено: btnDanger (было btn_danger)
+.btnDanger {
+  padding: 6px 12px;
+  border: 1px solid v.$neon-danger;
+  color: v.$neon-danger;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: v.$neon-danger;
+    color: v.$text-primary;
+    box-shadow: v.$glow-danger;
+  }
+}
+
+// Исправлено: commentBtn (было commentCountBtn или commentBtn в коде)
+.commentBtn {
+  background: rgba(v.$neon-primary, 0.1);
+  border: 1px solid rgba(v.$neon-primary, 0.3);
+  color: v.$neon-primary;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: v.$neon-primary;
+    color: v.$bg-dark;
+  }
+}
+
+// Исправлено: rowActive (было row_active)
+.rowActive {
+  background: rgba(v.$neon-primary, 0.05);
+  td {
+    border-bottom: 1px solid transparent;
+  }
+}
+
+.commentCell {
+  background: rgba(0, 0, 0, 0.15);
+  padding: 20px;
+}

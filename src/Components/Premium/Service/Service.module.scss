@@ -4,10 +4,30 @@
 .service {
   min-height: 100vh;
   padding: 50px;
+
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px 12px;
+  }
+
+  @media (max-width: 360px) {
+    padding: 16px 8px;
+  }
 }
 
 .title {
   @include m.title();
+
+  @media (max-width: 600px) {
+    font-size: 22px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 }
 
 .wrapper {
@@ -15,6 +35,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 600px) {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  @media (max-width: 360px) {
+    gap: 10px;
+    padding: 12px;
+  }
 }
 
 .error {
@@ -35,6 +65,14 @@
   @include m.title();
   font-size: 26px;
   margin-bottom: 10px;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
+  }
 }
 
 .offer_block {
@@ -45,13 +83,16 @@
   height: 40px;
   margin-top: 10px;
   margin-bottom: 10px;
+
   input {
     cursor: pointer;
   }
+
   span {
     color: white;
     font-size: 18px;
   }
+
   a {
     text-decoration: none;
   }
@@ -59,11 +100,53 @@
   .color_offer {
     color: v.$cs-blue-team;
   }
+
+  @media (max-width: 600px) {
+    width: 100%;
+    gap: 12px;
+    height: 32px;
+
+    span {
+      font-size: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    gap: 10px;
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    gap: 8px;
+
+    span {
+      font-size: 13px;
+    }
+  }
 }
 
 .offer {
   width: 40px;
   height: 40px;
+  flex-shrink: 0;
+
+  @media (max-width: 600px) {
+    width: 28px;
+    height: 28px;
+  }
+
+  @media (max-width: 480px) {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media (max-width: 360px) {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 .service_button {
@@ -95,5 +178,34 @@
     color: v.$neon-warning;
     font-weight: bold;
     text-shadow: v.$glow-warning;
+  }
+
+  @media (max-width: 600px) {
+    margin-top: 16px;
+    padding: 12px;
+    gap: 12px;
+
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+    gap: 10px;
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    padding: 8px;
+
+    p {
+      font-size: 12px;
+      line-height: 1.4;
+    }
   }
 }

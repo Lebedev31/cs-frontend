@@ -13,7 +13,6 @@ import {
 } from "@/lib/common";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Home from "@/Components/Home/Home";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import { setLogin } from "@/redux/slice/auth.slice";
@@ -136,7 +135,6 @@ export default function Login({ setToggle }: RegistrationProps) {
       <div className={styles.loginForm}>
         <h1 className={styles.title}>Вход в аккаунт</h1>
         <div className={styles.wrapper}>
-          <Home />
           <form className={styles.form} onSubmit={onSubmit}>
             <input
               type="text"
@@ -188,14 +186,14 @@ export default function Login({ setToggle }: RegistrationProps) {
               <span className={styles.buttonNumber}>
                 <Image width={35} height={35} src="/steam.png" alt="steam" />
               </span>
-              Войти с помощью Steam
+              <span className={styles.buttonLabel}>Войти с помощью Steam</span>
             </button>
 
             <button className={styles.socialButton} onClick={authVk}>
               <span className={styles.buttonNumber}>
                 <Image width={35} height={35} src="/vk.png" alt="vk" />
               </span>
-              Войти с помощью ВК
+              <span className={styles.buttonLabel}>Войти с помощью ВК</span>
             </button>
           </div>
 
