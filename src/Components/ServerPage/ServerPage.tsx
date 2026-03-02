@@ -20,7 +20,7 @@ import Play from "../UpdateBlock/Elements/Play/Play";
 import SocialMediaBlock from "./SocialMediaBlock/SocialMediaBlock";
 
 export default function ServerPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const serverList = useSelector((state: RootState) => state.main.servers);
   const [server, setServer] = useState<GameServer | null>(null);
   const [trigger, { isFetching }] = useLazyGetServerByIdQuery();
@@ -38,9 +38,9 @@ export default function ServerPage() {
   };
 
   useEffect(() => {
-    if (!id) return;
+    if (!slug) return;
 
-    const newId = id as string;
+    const newId = slug as string;
     const decodedId = decodeURIComponent(newId);
 
     // --- ЛОГИКА ПАРСИНГА URL ---
@@ -79,7 +79,7 @@ export default function ServerPage() {
       // Отправляем запрос только по чистому ID (ip:port)
       getByServer(cleanServerId);
     }
-  }, [id, serverList]);
+  }, [slug, serverList]);
 
   async function getByServer(serverId: string) {
     try {
