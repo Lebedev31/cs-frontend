@@ -39,7 +39,7 @@ export default function ServerBlockItem({
     if (pathName === "/myServers" && onClose) {
       onClose(true);
     } else {
-      router.push(`/serverPage/${urlSlug}`);
+      router.push(`/server/${urlSlug}`);
     }
   };
 

@@ -12,6 +12,7 @@ import { ratingApi } from "./apiSlice/ratingApi";
 import { contactsApi } from "./apiSlice/contactsApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { adminApi } from "./apiSlice/adminApi";
+import { bannerApi } from "./apiSlice/bannerApi";
 
 // Читаем токен из localStorage, если код выполняется на клиенте
 const token =
@@ -36,6 +37,7 @@ export const store = configureStore({
     [ratingApi.reducerPath]: ratingApi.reducer,
     [contactsApi.reducerPath]: contactsApi.reducer,
     [adminApi.reducerPath]: adminApi.reducer,
+    [bannerApi.reducerPath]: bannerApi.reducer,
     main: mainSlice.reducer,
     auth: authReducer,
   },
@@ -52,6 +54,7 @@ export const store = configureStore({
       ratingApi.middleware,
       contactsApi.middleware,
       adminApi.middleware,
+      bannerApi.middleware,
     ),
 });
 

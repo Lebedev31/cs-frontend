@@ -1,134 +1,103 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./AdBanner.module.scss";
+import {
+  useGetActiveBannerQuery,
+  useTrackImpressionMutation,
+  useTrackClickMutation,
+} from "@/redux/apiSlice/bannerApi";
+import { apiImg } from "@/redux/api.url";
 
-type AdFormat = "auto" | "horizontal" | "vertical" | "rectangle";
-type AdSize = "small" | "medium" | "large" | "responsive";
-type AdProvider = "google" | "yandex" | "custom";
+const POLL_INTERVAL_MS = 60_000; // 60 секунд
 
-interface AdBannerProps {
-  // Основные параметры
-  provider?: AdProvider; // Какая рекламная сеть
-  slot?: string; // ID блока (для Google)
-  blockId?: string; // ID блока (для Яндекс)
+export default function AdBanner() {
+  const { data, isLoading } = useGetActiveBannerQuery(undefined, {
+    pollingInterval: POLL_INTERVAL_MS,
+  });
 
-  // Настройки отображения
-  format?: AdFormat; // Формат баннера
-  size?: AdSize; // Размер
-  responsive?: boolean; // Адаптивность
+  const [trackImpression] = useTrackImpressionMutation();
+  const [trackClick] = useTrackClickMutation();
 
-  // Кастомная реклама (HTML)
-  customHtml?: string; // Свой HTML код
+  // Храним id последнего баннера, по которому уже отправили impression
+  const lastTrackedId = useRef<string | null>(null);
 
-  // Стили и классы
-  className?: string; // Дополнительный класс
-  style?: React.CSSProperties; // Inline стили
+  // Управляем анимацией fade при смене баннера
+  const [visible, setVisible] = useState(true);
+  const prevBannerId = useRef<string | null>(null);
 
-  // Дополнительно
-  placeholder?: boolean; // Показывать плейсхолдер при загрузке
-  onAdLoad?: () => void; // Колбэк при загрузке
-  onAdError?: (error: Error) => void; // Колбэк при ошибке
-}
+  const banner = data?.data ?? null;
 
-export default function AddBanner({
-  provider = "google",
-  slot = "",
-  blockId = "",
-  format = "auto",
-  size = "responsive",
-  responsive = true,
-  customHtml,
-  className = "",
-  style = {},
-  placeholder = true,
-  onAdLoad,
-  onAdError,
-}: AdBannerProps) {
-  const adRef = useRef<HTMLDivElement>(null);
-  const hasRendered = useRef(false);
-
-  // Определяем CSS класс размера
-  const sizeClass = styles[`ad-${size}`] || "";
-  const formatClass = styles[`ad-${format}`] || "";
-
+  // Анимация fade-out → смена → fade-in при смене баннера
   useEffect(() => {
-    // Защита от повторного рендера
-    if (hasRendered.current) return;
+    if (!banner) return;
 
-    try {
-      if (provider === "google" && slot) {
-        // Google AdSense
-        (window as any).adsbygoogle = (window as any).adsbygoogle || [];
-        (window as any).adsbygoogle.push({});
-        hasRendered.current = true;
-        onAdLoad?.();
-      } else if (provider === "yandex" && blockId) {
-        // Яндекс.Директ
-        (window as any).yaContextCb = (window as any).yaContextCb || [];
-        (window as any).yaContextCb.push(() => {
-          (window as any).Ya.Context.AdvManager.render({
-            blockId: blockId,
-            renderTo: `yandex-ad-${blockId}`,
-          });
-        });
-        hasRendered.current = true;
-        onAdLoad?.();
-      } else if (provider === "custom" && customHtml && adRef.current) {
-        // Кастомная реклама
-        adRef.current.innerHTML = customHtml;
-        hasRendered.current = true;
-        onAdLoad?.();
-      }
-    } catch (error) {
-      console.error("Ошибка загрузки рекламы:", error);
-      onAdError?.(error as Error);
+    if (prevBannerId.current && prevBannerId.current !== banner._id) {
+      // Баннер сменился — сначала гасим
+      setVisible(false);
+      const timer = setTimeout(() => {
+        setVisible(true);
+        prevBannerId.current = banner._id;
+      }, 400); // длительность fade-out
+      return () => clearTimeout(timer);
     }
-  }, [provider, slot, blockId, customHtml, onAdLoad, onAdError]);
 
-  // Google AdSense
-  if (provider === "google") {
+    prevBannerId.current = banner._id;
+  }, [banner?._id]);
+
+  // Трекинг показа — только когда баннер сменился (новый id)
+  useEffect(() => {
+    if (!banner) return;
+    if (lastTrackedId.current === banner._id) return;
+
+    lastTrackedId.current = banner._id;
+    trackImpression({ id: banner._id });
+  }, [banner?._id, trackImpression]);
+
+  const handleClick = () => {
+    if (banner) trackClick({ id: banner._id });
+  };
+
+  if (isLoading) {
     return (
-      <div
-        className={`${styles.adContainer} ${sizeClass} ${formatClass} ${className}`}
-        style={style}
+      <div className={styles.wrapper}>
+        <div className={`${styles.container} ${styles.skeleton}`}>
+          <div className={styles.skeletonInner} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!banner) {
+    return (
+      <div className={styles.wrapper}>
+        <div className={`${styles.container} ${styles.placeholder}`}>
+          <span className={styles.placeholderText}>Реклама</span>
+          <span className={styles.placeholderSub}>
+            Место для вашего баннера
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.wrapper}>
+      <a
+        href={banner.linkUrl}
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        className={`${styles.container} ${visible ? styles.fadeIn : styles.fadeOut}`}
+        onClick={handleClick}
+        aria-label="Рекламный баннер"
       >
-        {placeholder && <div className={styles.adPlaceholder}>Реклама</div>}
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_AD_CLIENT || ""}
-          data-ad-slot={slot}
-          data-ad-format={format}
-          data-full-width-responsive={responsive.toString()}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${apiImg}${banner.imageUrl}`}
+          alt="Реклама"
+          className={styles.bannerImg}
         />
-      </div>
-    );
-  }
-
-  // Яндекс.Директ
-  if (provider === "yandex") {
-    return (
-      <div
-        className={`${styles.adContainer} ${sizeClass} ${formatClass} ${className}`}
-        style={style}
-      >
-        {placeholder && <div className={styles.adPlaceholder}>Реклама</div>}
-        <div id={`yandex-ad-${blockId}`} />
-      </div>
-    );
-  }
-
-  // Кастомная реклама (любой HTML)
-  if (provider === "custom") {
-    return (
-      <div
-        ref={adRef}
-        className={`${styles.adContainer} ${sizeClass} ${formatClass} ${className}`}
-        style={style}
-      />
-    );
-  }
-
-  return null;
+        <div className={styles.adLabel}>Реклама</div>
+      </a>
+    </div>
+  );
 }

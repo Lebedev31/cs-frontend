@@ -203,56 +203,7 @@ export const adminApi = createApi({
 
     addService: build.mutation<MessageServer<void>, AdminAddServicePayload>({
       query: (body) => ({ method: "PATCH", body, url: "/add-service" }),
-      // Оптимистичное обновление услуги на сервере
-      onQueryStarted: async (
-        { serverId, services, plan, color, balls },
-        { dispatch, queryFulfilled },
-      ) => {
-        const planDaysMap: Record<PlanUnionLiteral, number> = {
-          oneWeek: 7,
-          month: 30,
-          sixMonth: 180,
-          year: 365,
-        };
-        const endDate = new Date();
-        endDate.setDate(endDate.getDate() + planDaysMap[plan]);
-        const termIso = endDate.toISOString();
-
-        const patch = dispatch(
-          adminApi.util.updateQueryData("getServers", undefined, (draft) => {
-            if (!draft.data) return;
-            const server = (draft.data as AdminServer[]).find(
-              (s) => s._id === serverId,
-            );
-            if (!server) return;
-
-            // Use explicit branches (no indexed assignment) so TypeScript can infer property types
-            if (services === "vip") {
-              server.service.vip = { status: true, term: termIso };
-            } else if (services === "top") {
-              server.service.top = { status: true, term: termIso };
-            } else if (services === "color" && color) {
-              server.service.color = {
-                status: true,
-                term: termIso,
-                colorName: color,
-              };
-            } else if (services === "balls" && balls) {
-              server.service.balls.status = true;
-              server.service.balls.listService.push({
-                _id: `temp_${Date.now()}`,
-                term: termIso,
-                quantity: balls,
-              });
-            }
-          }),
-        );
-        try {
-          await queryFulfilled;
-        } catch {
-          patch.undo();
-        }
-      },
+      invalidatesTags: ["Servers"], // убрали весь onQueryStarted, добавили это
     }),
 
     deleteService: build.mutation<

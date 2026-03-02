@@ -17,7 +17,6 @@
     position: relative;
 
     // На ≤ 1280px правая колонка (список топ серверов) скрывается
-    // вместо неё над списком серверов появляется слайдер
     @media (max-width: 1280px) {
       display: none;
     }
@@ -45,6 +44,17 @@
 .topSliderMobile {
   display: none;
   margin-bottom: 20px;
+
+  @media (max-width: 1280px) {
+    display: block;
+  }
+}
+
+// Баннер под пагинацией — показывается ТОЛЬКО на ≤ 1280px
+// На > 1280px баннер уже стоит в правой колонке (.premium)
+.bannerMobile {
+  display: none;
+  margin-top: 20px;
 
   @media (max-width: 1280px) {
     display: block;

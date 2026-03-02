@@ -3,6 +3,7 @@ import StatisticServers from "./StatisticServers/StatisticServer";
 import Users from "./Users/Users";
 import Servers from "./Servers/Servers";
 import Infos from "./Infos/Infos";
+import Banners from "./Banner/Banner";
 
 export default function AdminPanel() {
   return (
@@ -11,6 +12,7 @@ export default function AdminPanel() {
       <Users />
       <Servers />
       <Infos />
+      <Banners />
     </div>
   );
 }

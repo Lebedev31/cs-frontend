@@ -1,0 +1,345 @@
+@use "../../../../styles/variable.scss" as v;
+
+// ─── Лэйаут: форма слева, список справа ──────────────────────────────────────
+.layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.left {
+  flex: 0 0 380px;
+}
+
+.right {
+  flex: 1;
+  min-width: 0;
+}
+
+// ─── Форма создания баннера ───────────────────────────────────────────────────
+.form {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(v.$neon-primary, 0.15);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formTitle {
+  margin: 0;
+  font-size: 13px;
+  color: v.$neon-primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(v.$neon-primary, 0.15);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.formLabel {
+  font-size: 11px;
+  color: rgba(v.$text-primary, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.formInput {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(v.$neon-primary, 0.25);
+  border-radius: 5px;
+  padding: 10px 12px;
+  color: v.$text-primary;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  // Стиль для date-input
+  color-scheme: dark;
+
+  &:focus {
+    border-color: v.$neon-primary;
+    box-shadow: 0 0 8px rgba(v.$neon-primary, 0.15);
+  }
+}
+
+// ─── Дропзона ────────────────────────────────────────────────────────────────
+.dropzone {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  border: 2px dashed rgba(v.$neon-primary, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  overflow: hidden;
+
+  &:hover {
+    border-color: rgba(v.$neon-primary, 0.6);
+    background: rgba(v.$neon-primary, 0.03);
+  }
+}
+
+.dropzoneDragging {
+  border-color: v.$neon-primary;
+  background: rgba(v.$neon-primary, 0.06);
+  box-shadow: 0 0 12px rgba(v.$neon-primary, 0.15);
+}
+
+.dropzoneHasImage {
+  border-style: solid;
+  border-color: rgba(v.$neon-primary, 0.4);
+}
+
+.dropzonePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(v.$text-primary, 0.3);
+  font-size: 12px;
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  svg {
+    color: rgba(v.$neon-primary, 0.4);
+  }
+}
+
+.dropzonePreview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadingOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: v.$neon-primary;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+// ─── Кнопка отправки ─────────────────────────────────────────────────────────
+.submitBtn {
+  padding: 12px;
+  background: v.$neon-primary;
+  color: v.$bg-dark;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+
+  &:hover:not(:disabled) {
+    box-shadow: v.$glow-primary;
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// ─── Список баннеров ──────────────────────────────────────────────────────────
+.listTitle {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  color: v.$neon-primary;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.loading,
+.empty {
+  font-size: 13px;
+  color: rgba(v.$text-primary, 0.4);
+  font-style: italic;
+  padding: 10px 0;
+}
+
+// ─── Карточка баннера ─────────────────────────────────────────────────────────
+.card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(v.$neon-primary, 0.12);
+  border-radius: 8px;
+  padding: 14px;
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: rgba(v.$neon-primary, 0.3);
+  }
+}
+
+.cardPreview {
+  width: 140px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(v.$neon-primary, 0.15);
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.cardInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cardDate {
+  font-size: 11px;
+  color: rgba(v.$text-primary, 0.45);
+}
+
+.cardLink {
+  font-size: 12px;
+  color: v.$neon-primary;
+  text-decoration: none;
+  word-break: break-all;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+}
+
+// ─── Статусные бейджи ─────────────────────────────────────────────────────────
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeActive {
+  background: rgba(v.$neon-primary, 0.15);
+  color: v.$neon-primary;
+  border: 1px solid rgba(v.$neon-primary, 0.4);
+}
+
+.badgeExpired {
+  background: rgba(v.$neon-danger, 0.12);
+  color: v.$neon-danger;
+  border: 1px solid rgba(v.$neon-danger, 0.3);
+}
+
+// ─── Статистика ───────────────────────────────────────────────────────────────
+.stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statLabel {
+  font-size: 10px;
+  color: rgba(v.$text-primary, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statValue {
+  font-size: 16px;
+  font-weight: 700;
+  color: v.$text-primary;
+}
+
+.statCtr {
+  color: v.$neon-primary;
+}
+
+// ─── Кнопка удаления ─────────────────────────────────────────────────────────
+.deleteBtn {
+  align-self: flex-start;
+  padding: 5px 14px;
+  border: 1px solid v.$neon-danger;
+  color: v.$neon-danger;
+  background: transparent;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+
+  &:hover:not(:disabled) {
+    background: v.$neon-danger;
+    color: white;
+    box-shadow: v.$glow-danger;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
