@@ -17,14 +17,14 @@ interface Service {
 
 export default function Premium() {
   const [boxShadowColor, setBoxShadowColor] = useState<BoxShadowUnionType | "">(
-    ""
+    "",
   );
   const [open, setOpen] = useState<boolean>(false);
   const [type, setType] = useState<ServiceUnionLiteral | "">("");
 
   const viewServices = (
     color: BoxShadowUnionType,
-    type: ServiceUnionLiteral
+    type: ServiceUnionLiteral,
   ) => {
     setBoxShadowColor(color);
     setOpen(true);
@@ -37,7 +37,7 @@ export default function Premium() {
       title: "VIP",
       description: "Ваш сервер будет поднят на первые места списка серверов",
       colorClass: "gold",
-      link: "/premium/servicePage/",
+      link: "/premium/",
       boxShadowColor: "#ffd700",
     },
     {
@@ -46,7 +46,7 @@ export default function Premium() {
       title: "TOP",
       description: "Ваш сервер будет находится в отдельном списке ТОП серверов",
       colorClass: "blue",
-      link: "/premium/servicePage/",
+      link: "/premium/",
       boxShadowColor: "#4c8aff",
     },
     {
@@ -55,7 +55,7 @@ export default function Premium() {
       title: "ЦВЕТ",
       description: "Ваш сервер будет окрашен в цвет, который вы выберете",
       colorClass: "red",
-      link: "/premium/servicePage/",
+      link: "/premium/",
       boxShadowColor: "#ff4c4c",
     },
     {
@@ -65,7 +65,7 @@ export default function Premium() {
       description:
         "При покупке Баллов, Ваш сервер поднимается выше в общем списке серверов",
       colorClass: "green",
-      link: "/premium/servicePage/",
+      link: "/premium/",
       boxShadowColor: "#39ff14",
     },
   ];
@@ -94,7 +94,12 @@ export default function Premium() {
                 </p>
 
                 <div className={styles.priceSection}>
-                  <Link href={service.link + service.id}>
+                  <Link
+                    href={
+                      service.link +
+                      `${service.id === "balls" ? "points" : service.id}`
+                    }
+                  >
                     <button
                       className={`${styles.servicePayment} ${
                         styles[

@@ -31,6 +31,7 @@ export default function Top() {
     errorEmail: "",
     errorOffer: "",
     errorPlan: "",
+    errorBalance: "",
   });
   console.log();
   const handlePlanSelect = (plan: PlanUnionLiteral, price: number) => {
@@ -94,6 +95,7 @@ export default function Top() {
           errorEmail: errors.email || "",
           errorOffer: errors.offer || "",
           errorPlan: errors.plan || "",
+          errorBalance: errors.balance || "",
         });
       },
       purchaseService,
@@ -110,6 +112,7 @@ export default function Top() {
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
       },
+      (msg) => setValidationErrors((prev) => ({ ...prev, errorBalance: msg })),
     );
   };
 

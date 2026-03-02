@@ -9,7 +9,7 @@ export type ValidationErrors<T> = Partial<Record<keyof T, string>> & {
 export function validateWithZod<T>(
   schema: ZodSchema<T>,
   data: T,
-  setErrors: (errors: ValidationErrors<T>) => void
+  setErrors: (errors: ValidationErrors<T>) => void,
 ): boolean {
   const result = schema.safeParse(data);
 
@@ -48,7 +48,8 @@ export async function handleSubmit<T, Arg, ServerData>(
   formData: T,
   schema: ZodSchema<T>,
   arg: Arg,
-  sucssessCallback?: (data: MessageServer<ServerData>) => void
+  sucssessCallback?: (data: MessageServer<ServerData>) => void,
+  setBalanceError?: (msg: string) => void, // ← новый параметр
 ) {
   e.preventDefault();
 
@@ -58,8 +59,17 @@ export async function handleSubmit<T, Arg, ServerData>(
   try {
     const result = await triger(arg).unwrap();
     sucssessCallback?.(result as MessageServer<ServerData>);
-  } catch (error) {
-    handleToastError(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    const msg: string = error?.data?.message || error?.message || "";
+    if (
+      setBalanceError &&
+      (msg.includes("баланс") || msg.includes("Пополните"))
+    ) {
+      setBalanceError(msg);
+    } else {
+      handleToastError(error);
+    }
   }
 }
 
@@ -110,7 +120,7 @@ const DEFAULT_IMAGES: Record<Game, string> = {
 
 export const getMapImagePath = (
   mapName: string,
-  game: Game = "CS2"
+  game: Game = "CS2",
 ): string => {
   // Убираем префиксы и приводим к нижнему регистру
   const cleanMapName = mapName
@@ -125,7 +135,7 @@ export const getMapImagePath = (
 
   // Ищем базовое название карты (до первого _fps, _2x2, _dusk, _v и т.д.)
   const baseMapName = cleanMapName.split(
-    /_(fps|2x2|dusk|anime|v\d+|br|my|bw\d+|neyter|mp|hdr)/
+    /_(fps|2x2|dusk|anime|v\d+|br|my|bw\d+|neyter|mp|hdr)/,
   )[0];
 
   if (MAP_IMAGES[baseMapName]) {

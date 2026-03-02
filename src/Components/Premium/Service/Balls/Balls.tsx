@@ -22,6 +22,7 @@ export default function Balls() {
     errorOffer: "",
     errorPlan: "",
     errorBalls: "",
+    errorBalance: "",
   });
 
   const onSubmit = (
@@ -30,7 +31,7 @@ export default function Balls() {
       serverRef: React.RefObject<HTMLSelectElement | null>;
       emailRef: React.RefObject<HTMLInputElement | null>;
       offerRef: React.RefObject<HTMLInputElement | null>;
-    }
+    },
   ) => {
     // 1. Проверяем, что все нужные DOM-элементы привязаны к рефам.
     if (
@@ -69,6 +70,7 @@ export default function Balls() {
           errorOffer: errors.offer || "",
           errorPlan: errors.plan || "",
           errorBalls: errors.balls || "0",
+          errorBalance: errors.balance || "",
         });
       },
       purchaseService,
@@ -77,12 +79,13 @@ export default function Balls() {
       formData,
       (data) => {
         toast.success(
-          "Услуга успешно заказана и появится на вашем сервере через 1 минуту"
+          "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
-      }
+      },
+      (msg) => setValidationErrors((prev) => ({ ...prev, errorBalance: msg })),
     );
   };
 

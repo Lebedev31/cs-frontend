@@ -16,6 +16,7 @@ type ServiceProps = {
     errorEmail: string;
     errorOffer: string;
     errorPlan: string;
+    errorBalance?: string; // ← новое поле (опциональное)
   };
   onSubmit: (
     e: React.FormEvent<HTMLFormElement>,
@@ -106,6 +107,16 @@ export default function Service({
 
         {validationErrors.errorPlan && (
           <p className={styles.error}>{validationErrors.errorPlan}</p>
+        )}
+
+        {/* ← НОВОЕ: ошибка баланса */}
+        {validationErrors.errorBalance && (
+          <p className={styles.error}>
+            Если у вас не хватает средств,{" "}
+            <Link href="/payment" className={styles.color_offer}>
+              пополните баланс
+            </Link>
+          </p>
         )}
 
         <button type="submit" className={styles.service_button}>

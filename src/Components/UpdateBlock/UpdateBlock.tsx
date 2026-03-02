@@ -9,6 +9,10 @@ import MainPageSkeleton from "./MainServerSkeleton/MainServerSceleton";
 import AddBanner from "../AddBanner/AddBanner";
 import { useEffect, useRef, useState } from "react";
 
+// ⚠️ Замени на реальную высоту своего header!
+const HEADER_HEIGHT = 60;
+const BANNER_TOP = HEADER_HEIGHT + 10;
+
 export default function UpdateBlock() {
   const serversArr = useSelector((state: RootState) => state.main.servers);
   const isLoading = useSelector(
@@ -17,31 +21,46 @@ export default function UpdateBlock() {
 
   const premiumRef = useRef<HTMLDivElement>(null);
   const bannerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
   const [bannerWidth, setBannerWidth] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!premiumRef.current || !bannerRef.current) return;
+      if (!bannerRef.current || !containerRef.current || !premiumRef.current)
+        return;
 
-      const premiumRect = premiumRef.current.getBoundingClientRect();
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const premiumHeight = premiumRef.current.offsetHeight;
+      const bannerHeight = bannerRef.current.offsetHeight;
 
-      if (!isSticky) {
+      // Natural-позиция верха баннера относительно viewport
+      const bannerNaturalTop = containerRect.top + premiumHeight;
+
+      // Нижний край правой колонки
+      const containerBottom = containerRect.bottom;
+
+      // Баннер достиг header — пора прилипать
+      const shouldStick = bannerNaturalTop <= BANNER_TOP;
+
+      // Нижний край баннера если он sticky
+      const bannerBottomIfSticky = BANNER_TOP + bannerHeight;
+
+      // Баннер достиг конца колонки — снимаем sticky (не наезжает на footer)
+      const reachedEnd = containerBottom <= bannerBottomIfSticky;
+
+      if (!isSticky && bannerRef.current) {
         setBannerWidth(bannerRef.current.offsetWidth);
       }
 
-      if (premiumRect.bottom <= 0) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(shouldStick && !reachedEnd);
     };
 
     if (bannerRef.current) {
       setBannerWidth(bannerRef.current.offsetWidth);
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     handleScroll();
 
@@ -51,50 +70,47 @@ export default function UpdateBlock() {
     };
   }, [isSticky]);
 
-  if (isLoading) {
-    return <MainPageSkeleton />;
-  }
+  if (isLoading) return <MainPageSkeleton />;
 
   return (
     <div className={styles.updateBlock}>
       <div className={styles.updateBlock_union}>
-        {/*
-          Слайдер — виден ТОЛЬКО на ≤ 1280px (через CSS display: none/block).
-          На десктопе скрыт — там топ отображается в правой колонке как список.
-        */}
         <div className={styles.topSliderMobile}>
           <TopServerSlider />
         </div>
-
         <AllServers data={serversArr} />
+
+        {/* Баннер под пагинацией — только на ≤ 1280px */}
+        <div className={styles.bannerMobile}>
+          <AddBanner />
+        </div>
       </div>
 
-      {/*
-        Правая колонка — видна ТОЛЬКО на > 1280px.
-        Содержит полный список топ серверов + баннер.
-        На ≤ 1280px скрывается через CSS.
-      */}
-      <div className={styles.premium}>
+      {/* Правая колонка — только на > 1280px */}
+      <div className={styles.premium} ref={containerRef}>
         <div ref={premiumRef}>
           <PremiumServerBlockItem />
         </div>
 
+        {/* Плейсхолдер держит место когда баннер fixed */}
         <div
           className={styles.bannerWrapper}
-          style={{ height: isSticky ? "400px" : "auto" }}
+          style={{
+            height: isSticky
+              ? `${bannerRef.current?.offsetHeight ?? 0}px`
+              : "auto",
+          }}
         >
           <div
             ref={bannerRef}
-            className={`${styles.advertising} ${
-              isSticky ? styles.stickyBanner : ""
-            }`}
-            style={isSticky ? { width: `${bannerWidth}px` } : {}}
+            className={`${styles.advertising} ${isSticky ? styles.stickyBanner : ""}`}
+            style={
+              isSticky
+                ? { width: `${bannerWidth}px`, top: `${BANNER_TOP}px` }
+                : {}
+            }
           >
-            <AddBanner
-              size="responsive"
-              customHtml="<div>Моя реклама</div>"
-              style={{ minHeight: "300px" }}
-            />
+            <AddBanner />
           </div>
         </div>
       </div>

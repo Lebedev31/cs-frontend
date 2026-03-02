@@ -9,7 +9,7 @@ export const generalSchema = z.object({
     .trim()
     .min(1, { message: "Вы не указали ip и port" })
     .max(1000, { message: "Неправильные данные" }),
-  offer: z.literal(true, { message: "Подвердите оферту" }),
+  offer: z.literal(true, { message: "Подтвердите оферту" }),
   email: z.email({ message: "Укажите email для отправки чека" }),
   plan: z.enum(["oneWeek", "month", "sixMonth", "year"], {
     message: "Укажите план",
@@ -25,6 +25,7 @@ export type VipValidationType = {
   plan: PlanUnionLiteral;
   offer: boolean;
   email: string;
+  balance?: string;
 };
 
 export type VipType = {

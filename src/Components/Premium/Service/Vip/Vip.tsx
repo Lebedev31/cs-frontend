@@ -28,6 +28,7 @@ export default function Vip() {
     errorEmail: "",
     errorOffer: "",
     errorPlan: "",
+    errorBalance: "",
   });
 
   const handlePlanSelect = (plan: PlanUnionLiteral, price: number) => {
@@ -86,6 +87,7 @@ export default function Vip() {
           errorEmail: errors.email || "",
           errorOffer: errors.offer || "",
           errorPlan: errors.plan || "",
+          errorBalance: errors.balance || "",
         });
       },
       purchaseService,
@@ -102,6 +104,7 @@ export default function Vip() {
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;
       },
+      (msg) => setValidationErrors((prev) => ({ ...prev, errorBalance: msg })),
     );
   };
 

@@ -28,13 +28,12 @@
 
     .advertising {
       width: 100%;
-      height: 400px;
       transition: none;
 
       &.stickyBanner {
         position: fixed;
-        top: 5px;
-        z-index: 100;
+        // top задаётся через inline style из JS
+        z-index: 90; // ← МЕНЬШЕ z-index header'а, чтобы не наезжал
       }
     }
   }
