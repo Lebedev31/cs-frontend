@@ -32,6 +32,8 @@
     transition: filter 0.3s ease;
     border-radius: v.$border-radius-neon;
     object-fit: cover;
+    width: 165px !important;
+    height: 60px !important;
   }
 }
 
@@ -41,7 +43,6 @@
   justify-content: center;
 }
 
-// Гамбургер скрыт на десктопе
 .hamburger {
   display: none;
   position: relative;
@@ -162,7 +163,6 @@
   }
 }
 
-// Оверлей
 .overlay {
   position: fixed;
   inset: 0;
@@ -171,7 +171,6 @@
   animation: fadeIn 0.2s ease;
 }
 
-// Мобильная панель — всегда в DOM, скрыта через transform
 .mobilePanel {
   position: fixed;
   top: 0;
@@ -205,64 +204,82 @@
   }
 }
 
-// ─── Мобиль от 1100px ────────────────────────────────────────────
+// ─── Мобиль от 1200px ────────────────────────────────────────────
 @media (max-width: 1200px) {
   .header {
     padding: 10px 16px;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
   }
 
-  // Показываем гамбургер
   .hamburger {
     display: block;
+    grid-column: 1;
   }
 
-  // Скрываем десктопную навигацию
   .desktopNav {
     display: none;
   }
 
-  // Логотип по центру
   .logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    grid-column: 2;
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
-      transform: translateX(-50%) scale(1.03);
+      transform: scale(1.03);
     }
   }
 
   .auth {
+    grid-column: 3;
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: visible;
+
     .loginBtn {
-      width: 110px;
+      white-space: nowrap;
       font-size: 14px;
+      width: 110px;
     }
 
     .profileBtn {
-      padding: 6px 10px;
-      gap: 8px;
+      padding: 6px 8px;
+      gap: 6px;
       height: 44px;
 
       .avatar {
         width: 32px;
         height: 32px;
       }
+
       .loginText {
-        font-size: 14px;
+        display: none;
+      }
+
+      .arrow {
+        display: none;
       }
     }
   }
 }
 
-// Логотип скрываем
 @media (max-width: 600px) {
-  .logo {
-    display: none;
+  .logo img {
+    width: 120px !important;
+    height: 44px !important;
   }
 }
 
-@media (max-width: 480px) {
-  .auth .profileBtn .loginText {
-    display: none;
+@media (max-width: 380px) {
+  .logo img {
+    width: 100px !important;
+    height: 36px !important;
   }
 }

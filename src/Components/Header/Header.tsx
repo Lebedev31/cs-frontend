@@ -84,6 +84,7 @@ export default function Header() {
             <button className={styles.loginBtn}>Войти</button>
           </Link>
         </div>
+        <div className={styles.spacer} />
       </header>
     );
   }
@@ -174,6 +175,7 @@ export default function Header() {
             </Link>
           )}
         </div>
+        <div className={styles.spacer} />
       </header>
 
       {/* Мобильная панель */}
