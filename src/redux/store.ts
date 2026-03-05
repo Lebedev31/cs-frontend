@@ -13,6 +13,7 @@ import { contactsApi } from "./apiSlice/contactsApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { adminApi } from "./apiSlice/adminApi";
 import { bannerApi } from "./apiSlice/bannerApi";
+import { filterSlice } from "./slice/filter.slice";
 
 // Читаем токен из localStorage, если код выполняется на клиенте
 const token =
@@ -40,6 +41,7 @@ export const store = configureStore({
     [bannerApi.reducerPath]: bannerApi.reducer,
     main: mainSlice.reducer,
     auth: authReducer,
+    filter: filterSlice.reducer,
   },
   preloadedState,
   middleware: (getDefaultMiddleware) =>

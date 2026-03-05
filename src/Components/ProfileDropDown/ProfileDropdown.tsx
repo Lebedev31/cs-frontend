@@ -74,19 +74,19 @@ export default function ProfileDropdown({
           Баланс:{" "}
           {data ? (data.data ? data.data + "₽" : 0 + "₽") : "Неизвестно"}
         </span>
-        <Link href="/payment">
+        <Link href="/payment" onClick={onClose}>
           <button className={styles.balanceBtn}>Пополнить баланс</button>
         </Link>
       </div>
 
       <div className={styles.separator}></div>
-      <Link href="/settingAccount">
+      <Link href="/settingAccount" onClick={onClose}>
         <button className={styles.menuItem}>Настройки</button>
       </Link>
-      <Link href="/myServers">
+      <Link href="/myServers" onClick={onClose}>
         <button className={styles.menuItem}>Ваши сервера</button>
       </Link>
-      <Link href="/finHistory">
+      <Link href="/finHistory" onClick={onClose}>
         <button className={styles.menuItem}>История финансовых операций</button>
       </Link>
 

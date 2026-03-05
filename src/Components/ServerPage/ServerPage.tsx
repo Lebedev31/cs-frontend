@@ -40,33 +40,12 @@ export default function ServerPage() {
   useEffect(() => {
     if (!slug) return;
 
-    const newId = slug as string;
-    const decodedId = decodeURIComponent(newId);
+    const decodedId = decodeURIComponent(slug as string);
+    const [targetIp, targetPort] = decodedId.split(":");
 
-    // --- ЛОГИКА ПАРСИНГА URL ---
-    // Мы ожидаем формат "Nazvanie-Servera-IP:PORT" или просто "IP:PORT"
-    // Регулярка ищет IP (4 группы цифр) и Порт в конце строки
-    // Группа 1: IP, Группа 2: Port
-    const match = decodedId.match(
-      /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d+)$/,
-    );
+    if (!targetIp || !targetPort) return;
 
-    let targetIp = "";
-    let targetPort = "";
-
-    if (match) {
-      targetIp = match[1];
-      targetPort = match[2];
-    } else {
-      // Фолбек на старый метод, если регулярка не сработала
-      const splitArr = decodedId.split(":");
-      if (splitArr.length >= 2) {
-        targetIp = splitArr[0];
-        targetPort = splitArr[1];
-      }
-    }
-
-    const cleanServerId = `${targetIp}:${targetPort}`; // Чистый ID для запросов
+    const cleanServerId = `${targetIp}:${targetPort}`;
 
     const foundInRedux = serverList.find(
       (item) => item.ip === targetIp && item.port.toString() === targetPort,
@@ -76,7 +55,6 @@ export default function ServerPage() {
       setServer(foundInRedux);
       setBalls(foundInRedux.rating + setPremiumBalls(foundInRedux));
     } else {
-      // Отправляем запрос только по чистому ID (ip:port)
       getByServer(cleanServerId);
     }
   }, [slug, serverList]);

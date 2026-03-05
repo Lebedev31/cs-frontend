@@ -19,7 +19,10 @@ export default function TopServerSlider() {
   ).filter((server) => server.service.top.status);
 
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    if (servers.length <= 1) return 0;
+    return Math.floor(Math.random() * servers.length);
+  });
   const [animClass, setAnimClass] = useState<string>("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStartX = useRef<number>(0);

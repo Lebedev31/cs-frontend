@@ -28,13 +28,8 @@ export default function ServerBlockItem({
   const router = useRouter();
   const pathName = usePathname();
 
-  const handlerServerPage = (name: string, ip: string, port: string) => {
-    const safeName = name
-      .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
-      .trim()
-      .replace(/\s+/g, "-");
-
-    const urlSlug = `${safeName}-${ip}:${port}`;
+  const handlerServerPage = (ip: string, port: string) => {
+    const urlSlug = `${ip}:${port}`;
 
     if (pathName === "/myServers" && onClose) {
       onClose(true);
@@ -61,9 +56,7 @@ export default function ServerBlockItem({
           "--bg-map": `url(${mapImg})`, // ПЕРЕДАЕМ КАРТИНКУ В CSS
         } as React.CSSProperties
       }
-      onClick={() =>
-        handlerServerPage(server.name, server.ip, String(server.port))
-      }
+      onClick={() => handlerServerPage(server.ip, String(server.port))}
     >
       <div className={styles.contentWrapper}>
         <div className={styles.serverInfo}>
