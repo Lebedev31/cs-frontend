@@ -8,7 +8,29 @@ import {
 } from "@/redux/apiSlice/bannerApi";
 import { apiImg } from "@/redux/api.url";
 
-const POLL_INTERVAL_MS = 60_000; // 60 секунд
+const POLL_INTERVAL_MS = 60_000;
+const IMPRESSION_KEY = "banner_impressed";
+const IMPRESSION_TTL_MS = 30 * 60 * 1000;
+
+function shouldTrackImpression(bannerId: string): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const raw = localStorage.getItem(IMPRESSION_KEY);
+    if (!raw) return true;
+    const { id, ts } = JSON.parse(raw) as { id: string; ts: number };
+    if (id === bannerId && Date.now() - ts < IMPRESSION_TTL_MS) return false;
+    return true;
+  } catch {
+    return true;
+  }
+}
+
+function markImpression(bannerId: string) {
+  localStorage.setItem(
+    IMPRESSION_KEY,
+    JSON.stringify({ id: bannerId, ts: Date.now() }),
+  );
+}
 
 export default function AdBanner() {
   const { data, isLoading } = useGetActiveBannerQuery(undefined, {
@@ -18,40 +40,45 @@ export default function AdBanner() {
   const [trackImpression] = useTrackImpressionMutation();
   const [trackClick] = useTrackClickMutation();
 
-  // Храним id последнего баннера, по которому уже отправили impression
-  const lastTrackedId = useRef<string | null>(null);
-
-  // Управляем анимацией fade при смене баннера
+  // Используем ref чтобы не сбрасывался при ремонтировании
+  const trackedRef = useRef<Set<string>>(new Set());
   const [visible, setVisible] = useState(true);
   const prevBannerId = useRef<string | null>(null);
 
   const banner = data?.data ?? null;
 
-  // Анимация fade-out → смена → fade-in при смене баннера
+  // Анимация при смене баннера
   useEffect(() => {
     if (!banner) return;
-
     if (prevBannerId.current && prevBannerId.current !== banner._id) {
-      // Баннер сменился — сначала гасим
       setVisible(false);
       const timer = setTimeout(() => {
         setVisible(true);
         prevBannerId.current = banner._id;
-      }, 400); // длительность fade-out
+      }, 400);
       return () => clearTimeout(timer);
     }
-
     prevBannerId.current = banner._id;
   }, [banner?._id]);
 
-  // Трекинг показа — только когда баннер сменился (новый id)
+  // Трекинг — строгая защита от повторов
   useEffect(() => {
     if (!banner) return;
-    if (lastTrackedId.current === banner._id) return;
 
-    lastTrackedId.current = banner._id;
+    // Уже трекали в этой сессии компонента
+    if (trackedRef.current.has(banner._id)) return;
+
+    // Проверяем localStorage (между сессиями/вкладками)
+    if (!shouldTrackImpression(banner._id)) {
+      // Добавляем в Set чтобы не проверять localStorage каждый раз
+      trackedRef.current.add(banner._id);
+      return;
+    }
+
+    trackedRef.current.add(banner._id);
+    markImpression(banner._id);
     trackImpression({ id: banner._id });
-  }, [banner?._id, trackImpression]);
+  }, [banner?._id]); // trackImpression намеренно убран из deps — он стабилен но вызывает лишние срабатывания
 
   const handleClick = () => {
     if (banner) trackClick({ id: banner._id });
