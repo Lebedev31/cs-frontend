@@ -83,7 +83,7 @@ export default function TopServerSlider() {
       .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
       .trim()
       .replace(/\s+/g, "-");
-    router.push(`/serverPage/${safeName}-${ip}:${port}`);
+    router.push(`/server/${safeName}-${ip}:${port}`);
   };
 
   if (servers.length === 0) return null;
