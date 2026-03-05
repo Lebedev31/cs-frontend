@@ -27,7 +27,7 @@ export default function PremiumServerBlockItem() {
     // Формируем URL
     const urlSlug = `${safeName}-${ip}:${port}`;
 
-    router.push(`/serverPage/${urlSlug}`);
+    router.push(`/server/${urlSlug}`);
   };
 
   return (
