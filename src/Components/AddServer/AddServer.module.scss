@@ -8,7 +8,6 @@
 .container {
   width: 100%;
   max-width: 900px;
-  // Плавно меняет паддинги от 20px (на мобилках) до 80px (на десктопе)
   padding: clamp(30px, 5vw, 60px) clamp(20px, 5vw, 80px);
 }
 
@@ -40,11 +39,9 @@
 .input {
   @include m.input();
   width: 100%;
-  // height теперь управляется внутри миксина (через clamp)
   color: v.$text-primary;
 }
 
-// Кастомные селекты
 .customSelect {
   position: relative;
   width: 100%;
@@ -67,21 +64,14 @@
 }
 
 .customOptions {
-  position: absolute;
-  top: calc(100% + clamp(5px, 1vw, 10px));
-  left: 0;
-  right: 0;
+  position: static;
   background: v.$new-panel;
   border: 2px solid v.$neon-accent;
   border-radius: v.$border-radius-neon;
-  max-height: clamp(
-    200px,
-    40vh,
-    300px
-  ); // Ограничиваем высоту для маленьких экранов
+  max-height: clamp(200px, 40vh, 300px);
   overflow-y: auto;
-  z-index: 1000;
   box-shadow: 0 10px 40px rgba(v.$neon-primary, 0.3);
+  margin-top: 8px;
 
   scrollbar-width: thin;
   scrollbar-color: v.$neon-accent v.$new-background;
