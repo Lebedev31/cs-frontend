@@ -82,11 +82,7 @@ export default function TopServerSlider() {
   };
 
   const handlerServerPage = (name: string, ip: string, port: string) => {
-    const safeName = name
-      .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
-      .trim()
-      .replace(/\s+/g, "-");
-    router.push(`/server/${safeName}-${ip}:${port}`);
+    router.push(`/server/${ip}:${port}`);
   };
 
   if (servers.length === 0) return null;

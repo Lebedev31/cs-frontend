@@ -38,8 +38,15 @@ export default function TopSettingBlock() {
   }, [data, isLoading]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!emailRef.current || !loginRef.current) return;
+    const newLogin = loginRef.current.value;
+    const newEmail = emailRef.current.value;
 
+    // Если данные не изменились — не отправляем
+    if (newLogin === info.login && newEmail === info.email) {
+      return;
+    }
     const userData: SettingAccountWithoutUrl = {
       email: emailRef.current.value,
       login: loginRef.current.value,
@@ -73,7 +80,7 @@ export default function TopSettingBlock() {
             return newInfo;
           });
         }
-      }
+      },
     );
   };
 

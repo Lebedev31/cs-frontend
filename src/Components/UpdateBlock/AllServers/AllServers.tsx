@@ -19,7 +19,7 @@ export default function AllServers({ data }: AllServersProps) {
   // 2. Получаем текущую страницу из URL. Если параметра нет — по дефолту 1.
   const currentPage = Number(searchParams.get("page")) || 1;
 
-  const serversPerPage = 10;
+  const serversPerPage = 30;
 
   // 3. Вычисляем индексы (логика остается той же)
   const indexOfLastServer = currentPage * serversPerPage;

@@ -72,7 +72,6 @@ export type AsideEndpointsUnion =
   | "contact";
 
 // регистрация
-
 export const UserSchema = z
   .object({
     login: z
@@ -85,8 +84,9 @@ export const UserSchema = z
       .string({ message: "Пароль должен быть строкой" })
       .min(8, "Пароль должен содержать минимум 8 символов")
       .max(30, "Пароль не может быть длиннее 30 символов")
-      .regex(/[a-zA-Z]/, {
-        message: "Пароль должен содержать хотя бы одну латинскую букву (A-z).",
+      .regex(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]+$/, {
+        message:
+          "Пароль может содержать только латинские буквы, цифры и спецсимволы",
       })
       .regex(/[0-9]/, {
         message: "Пароль должен содержать хотя бы одну цифру (0-9).",
@@ -175,7 +175,7 @@ export const PaymentSchema = z.object({
     .max(1000000, { message: "Максимальная сумма 1000000 рублей" })
     .refine(
       (val) => Number.isFinite(val) && Math.round(val * 100) / 100 === val,
-      { message: "Максимум 2 знака после запятой" }
+      { message: "Максимум 2 знака после запятой" },
     ),
 });
 

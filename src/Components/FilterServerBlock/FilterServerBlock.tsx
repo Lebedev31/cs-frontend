@@ -15,6 +15,7 @@ import {
   setTags,
 } from "@/redux/slice/filter.slice";
 import { mods } from "@/lib/mode";
+import { useRouter, usePathname } from "next/navigation";
 
 const AVAILABLE_TAGS = [
   { label: "Скины" },
@@ -25,7 +26,6 @@ const AVAILABLE_TAGS = [
   { label: "FPS Boost" },
 ];
 
-// Поиск по подстроке без учёта регистра
 const includesCI = (source: string, query: string) =>
   source.toLowerCase().includes(query.toLowerCase());
 
@@ -37,6 +37,14 @@ export default function FilterServerBlock() {
   const filters = useSelector((state: RootState) => state.filter);
   const dispatch: AppDispatch = useDispatch();
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const resetPage = () => {
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   const applyFilters = (
     name = filters.serverName,
@@ -80,18 +88,21 @@ export default function FilterServerBlock() {
     const value = e.target.value;
     dispatch(setServerName(value));
     applyFilters(value);
+    resetPage();
   };
 
   const changeMinPlayers = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     dispatch(setMinPlayers(value));
     applyFilters(filters.serverName, value);
+    resetPage();
   };
 
   const changeMaxPlayers = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     dispatch(setMaxPlayers(value));
     applyFilters(filters.serverName, filters.minPlayers, value);
+    resetPage();
   };
 
   const changeMapFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +114,7 @@ export default function FilterServerBlock() {
       filters.maxPlayers,
       value,
     );
+    resetPage();
   };
 
   const changeModeFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -115,6 +127,7 @@ export default function FilterServerBlock() {
       filters.map,
       value,
     );
+    resetPage();
   };
 
   const toggleTag = (tagLabel: string) => {
@@ -131,6 +144,7 @@ export default function FilterServerBlock() {
       filters.mode,
       newTags,
     );
+    resetPage();
   };
 
   const activeFiltersCount =

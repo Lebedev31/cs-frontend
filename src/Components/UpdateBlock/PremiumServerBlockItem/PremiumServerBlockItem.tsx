@@ -19,13 +19,9 @@ export default function PremiumServerBlockItem() {
 
   const handlerServerPage = (name: string, ip: string, port: string) => {
     // 1. Очищаем имя (буквы, цифры, пробелы, тире, подчеркивания)
-    const safeName = name
-      .replace(/[^a-zA-Z0-9а-яА-ЯёЁ\s-_]/g, "")
-      .trim()
-      .replace(/\s+/g, "-");
 
     // Формируем URL
-    const urlSlug = `${safeName}-${ip}:${port}`;
+    const urlSlug = `${ip}:${port}`;
 
     router.push(`/server/${urlSlug}`);
   };
