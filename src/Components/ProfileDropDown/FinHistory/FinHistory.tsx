@@ -19,19 +19,23 @@ export default function FinHistory() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Получаем текущую страницу из URL параметров
   const currentPage = Number(searchParams.get("page")) || 1;
   const serversPerPage = 15;
 
-  // Вычисляем индексы для обрезки массива
+  const sortedData = data?.data
+    ? [...data.data].sort(
+        (a, b) =>
+          new Date(b.date || "").getTime() - new Date(a.date || "").getTime(),
+      )
+    : [];
+
   const indexOfLastServer = currentPage * serversPerPage;
   const indexOfFirstServer = indexOfLastServer - serversPerPage;
-  const currentServers =
-    data && data.data
-      ? data.data.slice(indexOfFirstServer, indexOfLastServer)
-      : [];
+  const currentServers = sortedData.slice(
+    indexOfFirstServer,
+    indexOfLastServer,
+  );
 
-  // Функция для смены страницы через URL параметры
   const paginate = (pageNumber: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", pageNumber.toString());
@@ -58,13 +62,11 @@ export default function FinHistory() {
               {currentServers.map((row, index) => (
                 <tr key={index} className={styles.row}>
                   <td className={styles.cellDate}>
-                    {
-                      <span>
-                        {getFormatData(row.date || "").formattedDate +
-                          " " +
-                          getFormatData(row.date || "").formattedTime}
-                      </span>
-                    }
+                    <span>
+                      {getFormatData(row.date || "").formattedDate +
+                        " " +
+                        getFormatData(row.date || "").formattedTime}
+                    </span>
                   </td>
                   <td className={styles.cellDesc}>
                     {row.description !== "Пополнение баланса"
@@ -109,7 +111,7 @@ export default function FinHistory() {
         </div>
         <Pagination
           serversPerPage={serversPerPage}
-          totalServers={data && data.data ? data?.data.length : 0}
+          totalServers={sortedData.length}
           paginate={paginate}
           currentPage={currentPage}
         />

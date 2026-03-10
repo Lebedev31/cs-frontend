@@ -19,7 +19,7 @@ export default function Modal({ isOpen, onClose, serverId }: ModalProps) {
         </button>
         <h2 className={styles.title}>Выберите действие</h2>
         <div className={styles.button_block}>
-          <Link href={`/serverPage/${serverId}`}>
+          <Link href={`/server/${serverId}`}>
             <button className={styles.confirmButton}>
               Перейти на страницу сервера
             </button>

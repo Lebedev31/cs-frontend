@@ -14,7 +14,6 @@ export default function MyServers() {
   const [onClose, setOnClose] = useState<boolean>(false);
   const [serverId, setServerId] = useState<string>("");
   const { data, isLoading } = useGetMyServersQuery();
-
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -58,7 +57,7 @@ export default function MyServers() {
   const indexOfFirstServer = indexOfLastServer - serversPerPage;
   const currentServers = filteredServers.slice(
     indexOfFirstServer,
-    indexOfLastServer
+    indexOfLastServer,
   );
 
   // Функция для смены таба
