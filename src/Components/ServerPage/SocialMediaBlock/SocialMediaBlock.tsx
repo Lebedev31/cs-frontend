@@ -12,34 +12,30 @@ export default function SocialMediaBlock({
   discord,
   telegram,
 }: SocialMediaProps) {
-  const socialArr = [vk, discord, telegram];
-  const imgArr = ["/newVk3.png", "/newDiscord.png", "/newTelegram.png"];
-  const existEmptyString = socialArr.some((item) => item === "");
+  const socialArr = [
+    { url: vk, img: "/newVk3.png" },
+    { url: discord, img: "/newDiscord.png" },
+    { url: telegram, img: "/newTelegram.png" },
+  ];
+
+  const hasAnySocial = socialArr.some((item) => item.url !== "");
+
   return (
     <div className={styles.social}>
       <div className={styles.img_block}>
-        {!existEmptyString ? (
-          socialArr.map((item, index) => {
-            if (item === "") {
-              return null;
-            } else {
-              return (
-                <a
-                  className={styles.socialButton}
-                  href={item}
-                  target="_blank"
-                  key={index}
-                >
-                  <Image
-                    width={30}
-                    height={30}
-                    alt="иконка"
-                    src={`${imgArr[index]}`}
-                  />
-                </a>
-              );
-            }
-          })
+        {hasAnySocial ? (
+          socialArr.map((item, index) =>
+            item.url !== "" ? (
+              <a // ← вот он
+                className={styles.socialButton}
+                href={item.url}
+                target="_blank"
+                key={index}
+              >
+                <Image width={30} height={30} alt="иконка" src={item.img} />
+              </a>
+            ) : null,
+          )
         ) : (
           <p>Социальные сети не указаны</p>
         )}

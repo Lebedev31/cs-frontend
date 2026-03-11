@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 export default function WrapperSettingServer() {
   const { id } = useParams();
   const newId = id as string;
+  console.log(id);
   const decodeId = decodeURIComponent(newId);
   const [updateServer] = useUpadateServerMutation();
 
