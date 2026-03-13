@@ -17,7 +17,7 @@ import {
   useUpdateServiceTopMutation,
   useGetPriceQuery,
 } from "@/redux/apiSlice/paymentApi";
-
+import { useRefreshServer } from "@/Hooks/useRefreshServer";
 export default function Top() {
   const [purchaseService] = useUpdateServiceTopMutation();
   const [selectedPlan, setSelectedPlan] = useState<PlanUnionLiteral | null>(
@@ -26,6 +26,7 @@ export default function Top() {
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
   const [topLimit, setTopLimit] = useState<number>(0);
   const { data } = useGetPriceQuery({ service: "top" });
+  const refreshServer = useRefreshServer();
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
     errorEmail: "",
@@ -106,6 +107,7 @@ export default function Top() {
         toast.success(
           "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
+        refreshServer(refs.serverRef.current!.value);
         setSelectedPlan(null);
         setSelectedPrice(0);
         if (refs.serverRef.current) refs.serverRef.current.value = "";

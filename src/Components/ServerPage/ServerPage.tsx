@@ -18,6 +18,7 @@ import ServerPageSkeleton from "./ServerPageSkeleton/ServerPageSkeleton";
 import { safePoints } from "../UpdateBlock/ServerBlockItem/ServerBlockItem";
 import Play from "../UpdateBlock/Elements/Play/Play";
 import SocialMediaBlock from "./SocialMediaBlock/SocialMediaBlock";
+import { useRefreshServer } from "@/Hooks/useRefreshServer";
 
 export default function ServerPage() {
   const { slug } = useParams();
@@ -27,7 +28,7 @@ export default function ServerPage() {
   const [increaseRating] = useIncreaseRatingMutation();
   const [balls, setBalls] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+  const refreshServer = useRefreshServer();
   const setPremiumBalls = (server: GameServer) => {
     return (
       server.service.balls?.listService?.reduce(
@@ -81,11 +82,10 @@ export default function ServerPage() {
         serverId: server.serverId,
       }).unwrap();
       if (result.data && result.data.rating !== undefined) {
-        console.log(result.data.rating);
         setBalls(setPremiumBalls(server) + result.data.rating);
+        refreshServer(`${server.ip}:${server.port}`); // ← добавить
       }
     } catch (error) {
-      console.log(error);
       toast.error("Авторизируйтесь, чтобы повысить рейтинг сервера");
     }
   };

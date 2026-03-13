@@ -89,7 +89,7 @@ export default function AsideMenu({ onLinkClick }: Props) {
   const { data, isLoading } = useGetDataQuery(
     { endpoint: selectedServer as AsideEndpointsUnion },
     {
-      pollingInterval: 50000,
+      pollingInterval: 5 * 60 * 1000,
       skipPollingIfUnfocused: true,
     },
   );

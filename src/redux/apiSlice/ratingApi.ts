@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { apiUrl } from "../api.url";
 import { MessageServer } from "@/types/type";
+import { csServerApi } from "./csServerApi";
 
 export const ratingApi = createApi({
   reducerPath: "ratingApi",
@@ -19,6 +20,11 @@ export const ratingApi = createApi({
         body,
         url: "",
       }),
+
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(csServerApi.util.invalidateTags(["Server"]));
+      },
     }),
   }),
 });

@@ -15,7 +15,7 @@ import {
 } from "@/redux/apiSlice/paymentApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
+import { useRefreshServer } from "@/Hooks/useRefreshServer";
 export default function Vip() {
   const [purchaseService] = useUpdateServiceVipMutation();
   const [selectedPlan, setSelectedPlan] = useState<PlanUnionLiteral | null>(
@@ -23,6 +23,7 @@ export default function Vip() {
   );
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
   const { data } = useGetPriceQuery({ service: "vip" });
+  const refreshServer = useRefreshServer();
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
     errorEmail: "",
@@ -98,6 +99,7 @@ export default function Vip() {
         toast.success(
           "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
+        refreshServer(refs.serverRef.current!.value);
         setSelectedPlan(null);
         setSelectedPrice(0);
         if (refs.serverRef.current) refs.serverRef.current.value = "";

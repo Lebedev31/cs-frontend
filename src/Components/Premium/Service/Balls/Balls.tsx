@@ -6,11 +6,12 @@ import { handleSubmit } from "@/lib/common";
 import { useUpdateServiceBallsMutation } from "@/redux/apiSlice/paymentApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRefreshServer } from "@/Hooks/useRefreshServer";
 
 export default function Balls() {
   const [purchaseService] = useUpdateServiceBallsMutation();
   const [balls, setBalls] = useState<string>("0");
-
+  const refreshServer = useRefreshServer();
   const handleBallsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setBalls(value);
@@ -81,6 +82,7 @@ export default function Balls() {
         toast.success(
           "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
+        refreshServer(refs.serverRef.current!.value);
         if (refs.serverRef.current) refs.serverRef.current.value = "";
         if (refs.emailRef.current) refs.emailRef.current.value = "";
         if (refs.offerRef.current) refs.offerRef.current.checked = false;

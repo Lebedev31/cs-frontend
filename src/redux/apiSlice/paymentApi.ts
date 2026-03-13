@@ -7,6 +7,7 @@ import {
 } from "@/types/type";
 import { ColorType, VipType, BallsType } from "@/types/service.type";
 import { apiUrl } from "../api.url";
+import { csServerApi } from "./csServerApi";
 export const paymentApi = createApi({
   reducerPath: "paymentApi",
   baseQuery: fetchBaseQuery({
@@ -40,6 +41,10 @@ export const paymentApi = createApi({
         body,
       }),
       invalidatesTags: ["balance"],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(csServerApi.util.invalidateTags(["Server"]));
+      },
     }),
 
     getLimitTopService: builder.query<
@@ -56,6 +61,10 @@ export const paymentApi = createApi({
         body,
       }),
       invalidatesTags: ["balance"],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(csServerApi.util.invalidateTags(["Server"]));
+      },
     }),
 
     updateServiceColor: builder.mutation<MessageServer<void>, ColorType>({
@@ -65,6 +74,10 @@ export const paymentApi = createApi({
         body,
       }),
       invalidatesTags: ["balance"],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(csServerApi.util.invalidateTags(["Server"]));
+      },
     }),
 
     updateServiceBalls: builder.mutation<MessageServer<void>, BallsType>({
@@ -74,6 +87,10 @@ export const paymentApi = createApi({
         body,
       }),
       invalidatesTags: ["balance"],
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+        await queryFulfilled;
+        dispatch(csServerApi.util.invalidateTags(["Server"]));
+      },
     }),
 
     getFinHistory: builder.query<MessageServer<FinHistory[]>, void>({

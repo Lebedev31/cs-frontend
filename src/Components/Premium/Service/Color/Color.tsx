@@ -17,6 +17,7 @@ import {
 } from "@/redux/apiSlice/paymentApi";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRefreshServer } from "@/Hooks/useRefreshServer";
 export default function Color() {
   const [color, setColor] = useState<HexColorLiteral | "none">("none");
   const [purchaseService] = useUpdateServiceColorMutation();
@@ -25,7 +26,7 @@ export default function Color() {
   );
   const [selectedPrice, setSelectedPrice] = useState<number>(0);
   const { data } = useGetPriceQuery({ service: "color" });
-
+  const refreshServer = useRefreshServer();
   const [validationErrors, setValidationErrors] = useState({
     errorServerIpPort: "",
     errorEmail: "",
@@ -110,6 +111,7 @@ export default function Color() {
         toast.success(
           "Услуга успешно заказана и появится на вашем сервере через 1 минуту",
         );
+        refreshServer(refs.serverRef.current!.value);
         setSelectedPlan(null);
         setSelectedPrice(0);
         setColor("none");
