@@ -1,8 +1,6 @@
 "use client";
 import styles from "./ServerPage.module.scss";
 import { useParams } from "next/navigation";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import "flag-icons/css/flag-icons.min.css";
 import CoppyButton from "../UpdateBlock/Elements/CopyButton/CoppyButton";
 import CommentsBlock from "./CommentsBlock/CommentsBlock";
@@ -22,13 +20,13 @@ import { useRefreshServer } from "@/Hooks/useRefreshServer";
 
 export default function ServerPage() {
   const { slug } = useParams();
-  const serverList = useSelector((state: RootState) => state.main.servers);
-  const [server, setServer] = useState<GameServer | null>(null);
   const [trigger, { isFetching }] = useLazyGetServerByIdQuery();
   const [increaseRating] = useIncreaseRatingMutation();
+  const [server, setServer] = useState<GameServer | null>(null);
   const [balls, setBalls] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const refreshServer = useRefreshServer();
+
   const setPremiumBalls = (server: GameServer) => {
     return (
       server.service.balls?.listService?.reduce(
@@ -40,25 +38,9 @@ export default function ServerPage() {
 
   useEffect(() => {
     if (!slug) return;
-
     const decodedId = decodeURIComponent(slug as string);
-    const [targetIp, targetPort] = decodedId.split(":");
-
-    if (!targetIp || !targetPort) return;
-
-    const cleanServerId = `${targetIp}:${targetPort}`;
-
-    const foundInRedux = serverList.find(
-      (item) => item.ip === targetIp && item.port.toString() === targetPort,
-    );
-
-    if (foundInRedux) {
-      setServer(foundInRedux);
-      setBalls(foundInRedux.rating + setPremiumBalls(foundInRedux));
-    } else {
-      getByServer(cleanServerId);
-    }
-  }, [slug, serverList]);
+    getByServer(decodedId);
+  }, [slug]); // только slug — никакой зависимости от Redux
 
   async function getByServer(serverId: string) {
     try {
@@ -83,7 +65,7 @@ export default function ServerPage() {
       }).unwrap();
       if (result.data && result.data.rating !== undefined) {
         setBalls(setPremiumBalls(server) + result.data.rating);
-        refreshServer(`${server.ip}:${server.port}`); // ← добавить
+        refreshServer(`${server.ip}:${server.port}`);
       }
     } catch (error) {
       toast.error("Авторизируйтесь, чтобы повысить рейтинг сервера");
@@ -93,14 +75,13 @@ export default function ServerPage() {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  // Функция для определения цвета пинга
   const getPingColor = (ping: number) => {
     if (ping < 50) return styles.pingGood;
     if (ping < 100) return styles.pingMedium;
     return styles.pingBad;
   };
 
-  if (!server || isFetching) {
+  if (isFetching || !server) {
     return (
       <div className={styles.server_page}>
         <ServerPageSkeleton />
@@ -158,7 +139,7 @@ export default function ServerPage() {
               </div>
             </div>
 
-            {/* 5. Опции — на мобиле уйдёт вниз через order */}
+            {/* 5. Опции */}
             <div className={`${styles.tags_card} ${styles.order_tags}`}>
               <div className={styles.tags_title}>Опции:</div>
               <div className={styles.tags_list}>
@@ -174,7 +155,7 @@ export default function ServerPage() {
               </div>
             </div>
 
-            {/* 6. Рейтинг — на мобиле уйдёт вниз через order */}
+            {/* 6. Рейтинг */}
             <div className={`${styles.rating_card} ${styles.order_rating}`}>
               <div className={styles.rating_value}>{balls}</div>
               <div className={styles.rating_img} style={{ cursor: "pointer" }}>
@@ -190,7 +171,7 @@ export default function ServerPage() {
               </div>
             </div>
 
-            {/* 8. VIP — в самом конце */}
+            {/* 8. VIP */}
             {server.service?.vip?.status ? (
               <div className={`${styles.vip_crown} ${styles.order_vip}`}>
                 <Image
@@ -252,7 +233,7 @@ export default function ServerPage() {
                       <span className={styles.owner_nick}>
                         {server.ownerLogin || (
                           <span className={styles.info_value}>
-                            Владелец отсутсвует
+                            Владелец отсутствует
                           </span>
                         )}
                       </span>

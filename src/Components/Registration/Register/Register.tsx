@@ -97,7 +97,7 @@ export default function Registration({ setToggle }: RegistrationProps) {
 
       if (res.statusCode === 201) {
         toast.success(
-          "Ссылка для подтверждения отправлена на вашу почту. Подтвердите аккаунт"
+          "Ссылка для подтверждения отправлена на вашу почту. Подтвердите аккаунт",
         );
 
         // Очищаем форму
@@ -182,14 +182,7 @@ export default function Registration({ setToggle }: RegistrationProps) {
                 {isVerifying ? "Проверка..." : "Зарегистрироваться"}
               </button>
 
-              <a
-                href="#"
-                className={styles.createAccount}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setToggle(false);
-                }}
-              >
+              <a href="/login" className={styles.createAccount}>
                 Уже есть аккаунт? Войти
               </a>
             </form>

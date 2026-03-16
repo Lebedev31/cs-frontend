@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : "Сервера Counter Strike Global Offensive (CS GO) — Мониторинг серверов CS GO";
 
   const description = isCS2
-    ? "Лучший мониторинг серверов CS2. Найдите подходящий сервер Counter Strike 2 по фильтрам, модам и локации."
-    : "Список серверов CS:GO для игры онлайн. Рейтинг, статистика и удобный поиск серверов Counter Strike Global Offensive.";
+    ? "Сервера CS2 с разными режимами. Моды, карты, онлайн серверов КС2 в реальном времени"
+    : "Сервера CS GO с разными режимами. Моды, карты, онлайн серверов КС ГО в реальном времени";
 
   return {
     title,

@@ -169,12 +169,7 @@ export default function Login({ setToggle }: RegistrationProps) {
             <button type="submit" className={styles.loginButton}>
               Войти
             </button>
-
-            <a
-              href="#"
-              className={styles.createAccount}
-              onClick={() => setToggle(true)}
-            >
+            <a href="/registration" className={styles.createAccount}>
               Создать аккаунт
             </a>
           </form>
