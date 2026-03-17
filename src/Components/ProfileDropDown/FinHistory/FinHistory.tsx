@@ -13,6 +13,13 @@ function formatAmount(amount: number) {
   return `${sign}${abs} ₽`;
 }
 
+const serviceNames: Record<string, string> = {
+  balls: "Баллы",
+  top: "Топ-сервер",
+  vip: "Вип-сервер",
+  color: "Цвет",
+};
+
 export default function FinHistory() {
   const { data } = useGetFinHistoryQuery();
   const searchParams = useSearchParams();
@@ -70,7 +77,7 @@ export default function FinHistory() {
                   </td>
                   <td className={styles.cellDesc}>
                     {row.description !== "Пополнение баланса"
-                      ? `Покупка услуги ${row.description}`
+                      ? `Покупка услуги ${serviceNames[row.description] ?? row.description}`
                       : row.description}
                   </td>
                   <td className={styles.cellAmount}>
